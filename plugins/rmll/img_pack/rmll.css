@@ -44,19 +44,19 @@ h2.rmll {
 
 .rmll-erreur {
   border : 2px dashed red;
-  margin : 0px 30px;
+  margin : 10px 30px;
   padding : 10px;
 }
 
 .rmll-infos {
   border : 2px dashed green;
-  margin : 0px 30px;
+  margin : 10px 30px;
   padding : 10px;
 }
 
 .rmll-attention {
   border : 2px dashed orange;
-  margin : 0px 30px;
+  margin : 10px 30px;
   padding : 10px;
 }
 

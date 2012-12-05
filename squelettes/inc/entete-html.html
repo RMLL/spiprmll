@@ -1,11 +1,15 @@
-#CACHE{86400}
+#CACHE{7200}
 <meta http-equiv="Content-Type" content="text/html; charset=#CHARSET" />
 <meta name="generator" content="SPIP[ (#SPIP_VERSION)]" />
-<link rel="shortcut icon" type="image/png" href="[(#CHEMIN{favicon.png})]" />
+<link rel="shortcut icon" type="image/png" href="[(#CHEMIN{images/favicon.png})]" />
 <link rel="alternate" type="application/rss+xml" title="<:syndiquer_site:>" href="#URL_PAGE{backend}" />
-<link rel="stylesheet" href="[(#CHEMIN{css/default.css})]" type="text/css" />
-<!--[if IE 6]>
-    <link rel="stylesheet" href="[(#CHEMIN{css/ie6.css})]" type="text/css" />
-<![endif]-->
+<meta name="viewport" content="width=device-width" />[(#REM) Pour les mobiles ]
 
+<!--[if IE]><![endif]-->[(#REM) PHV commentaire conditionnel vide pour cause de bug IE8 ]
+<link rel="stylesheet" href="[(#CHEMIN{css/style.css})]?v=12" type="text/css" />
+<link rel="stylesheet" href="[(#CHEMIN{css/spip.css})]" type="text/css" />
+<!--[if IE 7]><link rel="stylesheet" href="[(#CHEMIN{css/ie7.css})]" type="text/css" /><![endif]-->
+<!--[if IE 6]><link rel="stylesheet" href="[(#CHEMIN{css/ie6.css})]" type="text/css" /><![endif]-->
+
+[(#REM) PHV ***TODO déplacer appel à JS dans inc/pied avant /body (pour raisons de perf) ]
 #INSERT_HEAD

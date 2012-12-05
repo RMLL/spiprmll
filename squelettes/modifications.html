@@ -1,0 +1,26 @@
+#CACHE{7200}
+
+<INCLURE{fond=inc/debut-page}{lang}{titrepage=<:accueil:>}>
+	
+	<div id="page" class="deuxcolonnes">
+		
+		<INCLURE{fond=inc/entete}{id_rubrique}{lang}>
+		
+		<div id="location">
+			&gt; <a href="#URL_SITE_SPIP/" title=""><:accueil:></a>
+			&gt; <a href="#URL_PAGE{modifications}" title="<:last_changes:>"><:last_changes:></a>
+		</div>
+		
+		<div id="barredroite">
+			<INCLURE{fond=inc/extra-modifs-multi}{id_rubrique}{lang}>
+			<INCLURE{fond=inc/extra-infos}{lang}>
+		</div>
+		
+		<div id="content">
+			<INCLURE{fond=inc/modifications}{id_rubrique}{lang}>
+		</div>
+
+		<INCLURE{fond=inc/pied}>
+	</div>
+
+<INCLURE{fond=inc/fin-page}{lang}>

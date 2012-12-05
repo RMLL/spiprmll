@@ -1,11 +1,6 @@
-<div class="formulaire_spip formulaire_recherche" id="formulaire_recherche">
-    <form action="[(#ENV{action})]" method="get">
-        <div>
-            [(#ENV{action}|form_hidden)]
-            [<input type="hidden" name="lang" value="(#ENV{lang})" />]
-            <label for="recherche"><:info_rechercher_02:></label>
-            <input type="text" class="text" size="10" name="recherche" id="recherche"[ value="(#ENV{recherche})"] accesskey="4" onclick="javascript:this.select();" />
-            <input type="image" src="[(#CHEMIN{images/pictos/loupe.png})]" value="ok" />
-        </div>
-    </form>
-</div>
+#CACHE{7200}
+<form id="search" action="#URL_PAGE{recherche}" method="get">
+		<input name="page" value="recherche" type="hidden" />
+		<input class="text" type="text" name="recherche" title="<:recherche:>" value="<:recherche:>" onfocus="this.select();" /><!-- no whitespace
+		--><input class="img" type="image" src="[(#CHEMIN{images/btn_recherche.png})]" value="ok" />
+</form>

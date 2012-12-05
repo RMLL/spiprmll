@@ -1,0 +1,18 @@
+#CACHE{0}
+
+#SET{rmll_titre,(#EVAL{_T('rmll:programme')})}
+
+<INCLURE{fond=inc/debut-page}{lang}{titrepage=#GET{rmll_titre}}>
+
+    <div id="prog">
+		<h1><a href="#URL_SITE_SPIP"><:rmll:programme:> &mdash; #NOM_SITE_SPIP</a></h1>
+
+        <?php
+            require_once("plugins/rmll/inc/phv_conferences_roomday.php");
+            $s = new RmllSchedule();
+            $s->display();
+        ?>
+
+    </div>
+
+<INCLURE{fond=inc/fin-page}{lang}>

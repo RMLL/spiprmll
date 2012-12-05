@@ -1,0 +1,14 @@
+#CACHE{7200}
+<B_articles_recents>
+	<div class="modifs">
+		<h2><:last_changes:></h2>
+		<ul>
+		[(#REM) On affiche les dernières modifications des articles quelques soit la langue]
+		<BOUCLE_articles_recents(ARTICLES) {par date_modif} {lang!=#ENV{lang}} {inverse} {0,7}>
+			<li>
+				<a href="#URL_ARTICLE" title="">[(#TITRE|supprimer_numero)]</a>
+			</li>
+		</BOUCLE_articles_recents>
+		</ul>
+	</div>
+</B_articles_recents>

@@ -1,4 +1,4 @@
-#CACHE{0}
+#CACHE{600}
 #SET{filename, #ARRAY{theme,#ENV{t},keyword,#ENV{k}}|get_dl_filename}
 [(#HTTP_HEADER{Content-Disposition: inline[; filename=(#GET{filename}).ics]})]
 [(#HTTP_HEADER{Content-type: text/calendar[; charset=(#CHARSET)]})]<?php

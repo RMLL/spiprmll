@@ -1,77 +1,59 @@
 #CACHE{7200}
 
 <BOUCLE_mot(MOTS) {id_mot}>
-    [<div class="description">
-        (#TEXTE|image_reduire{450,0})
-        <div class="clear"></div>
-    </div>]
+	[<h2>(#TITRE)</h2>]
 
-    <div class="rmll-ical-wrap">
-        <img src="[(#CHEMIN{images/schedule.png})]" alt="" />
-        <a href="spip.php?page=rmll_progall&amp;lang=#ENV{lang}&amp;k=#ID_MOT"><:rmll:afficher_programme:></a>
-        (<a target="_blank" href="spip.php?page=rmll_progall&amp;lang=#ENV{lang}&amp;k=#ID_MOT"><:rmll:nouvelle_fenetre:></a>)
-    </div>
+	[<div class="description">
+		(#TEXTE|image_reduire{450,0})
+		<div class="clear"></div>
+	</div>]
 
-    <div class="rmll-ical-wrap">
-        <img src="[(#CHEMIN{images/schedule.png})]" alt="" />
-        <a href="spip.php?page=rmll_progacc&amp;lang=#ENV{lang}&amp;k=#ID_MOT"><:rmll:afficher_programme_acc:></a>
-        (<a target="_blank" href="spip.php?page=rmll_progacc&amp;lang=#ENV{lang}&amp;k=#ID_MOT"><:rmll:nouvelle_fenetre:></a>)
-    </div>
+	<div class="rmll-ical-wrap">
+		<img src="[(#CHEMIN{images/schedule.png})]" alt="" />
+		<a href="spip.php?page=rmll_progall&amp;lang=#ENV{lang}&amp;k=#ID_MOT"><:rmll:afficher_programme:></a>
+		(<a target="_blank" href="spip.php?page=rmll_progall&amp;lang=#ENV{lang}&amp;k=#ID_MOT"><:rmll:nouvelle_fenetre:></a>)
+	</div>
 
-    <div class="rmll-ical-wrap">
-        <img src="[(#CHEMIN{images/ical.png})]" alt="" />
-        <a href="spip.php?page=rmll_progical&amp;lang=#ENV{lang}&amp;k=#ID_MOT">
-            <:rmll:planning_ical:>
-        </a>
-    </div>
+	<div class="rmll-ical-wrap">
+		<img src="[(#CHEMIN{images/schedule.png})]" alt="" />
+		<a href="spip.php?page=rmll_progacc&amp;lang=#ENV{lang}&amp;k=#ID_MOT"><:rmll:afficher_programme_acc:></a>
+		(<a target="_blank" href="spip.php?page=rmll_progacc&amp;lang=#ENV{lang}&amp;k=#ID_MOT"><:rmll:nouvelle_fenetre:></a>)
+	</div>
+
+	<div class="rmll-ical-wrap">
+		<img src="[(#CHEMIN{images/ical.png})]" alt="" />
+		<a href="spip.php?page=rmll_progical&amp;lang=#ENV{lang}&amp;k=#ID_MOT">
+			<:rmll:planning_ical:>
+		</a>
+	</div>
+
+	#RMLL_GET_SESSIONS{rmll_sessions}
+	<B_rubriques>
+		<BOUCLE_rubriques(RUBRIQUES){id_rubrique IN #GET{rmll_sessions}}>
+			<B_articles>
+				<h3 class="rubrique">
+					<a href="#URL_RUBRIQUE">
+						[(#TITRE|supprimer_numero)]
+					</a>
+				</h3>
+				<div class="news-focus">
+					<BOUCLE_articles(ARTICLES){id_rubrique}{id_mot}{par num titre, titre}>
+						<div class="item">
+							<h4>
+								<a href="#URL_ARTICLE">[(#TITRE|supprimer_numero)]</a>
+							</h4>
+
+							<INCLURE{fond=rmll/article-header}{id_article}{lang}>
+							<INCLURE{fond=rmll/filsrouges}{id_article}{lang}>
+
+							[<div class="description">
+								(#INTRODUCTION)
+							</div>]
+						</div>
+					</BOUCLE_articles>
+				</div>
+			</B_articles>
+		</BOUCLE_rubriques>
+	</B_rubriques>
 
 </BOUCLE_mot>
-
-#RMLL_GET_SESSIONS{rmll_sessions}
-<B_rubriques>
-    <BOUCLE_rubriques(RUBRIQUES){id_rubrique IN #GET{rmll_sessions}}{!lang_select}>
-        #RMLL_GET_SESSIONS_SUBS{rmll_sessions_subs, #ID_RUBRIQUE}
-
-        <B_articles>
-            <h2>[(#TITRE|supprimer_numero)]</h2>
-            <div class="news-focus">
-                <BOUCLE_articles(ARTICLES){id_rubrique IN #GET{rmll_sessions_subs}}{id_mot}{par num titre, titre}{inverse}{lang=fr}>
-                    <B_traductions>
-                        [(#REM) On affiche toutes les versions de l'article en question]
-                        <BOUCLE_traductions(ARTICLES){lang}{traduction}>
-                            [(#REM) On affiche toutes les versions de l'article en question]
-                            <BOUCLE_artdansnotrelangue(ARTICLES){id_article}{lang}{unique}>
-                                <div class="item">
-                                    <h3>
-                                        <a href="#URL_ARTICLE">[(#TITRE|supprimer_numero)]</a>
-                                    </h3>
-
-                                    <INCLURE{fond=inc/article-programme}{id_article}{id_trad}{lang}>
-                                    <INCLURE{fond=inc/article-filsrouges}{id_article}{id_trad}{lang}>
-
-                                    [<div class="description">
-                                        (#INTRODUCTION)
-                                    </div>]
-                                </div>
-                            </BOUCLE_artdansnotrelangue>
-                        </BOUCLE_traductions>
-                        </B_traductions>
-                            [(#REM) Si l'article en question n'a aucune traduction on affiche la version originale]
-                            <div class="item">
-                                <h3>
-                                    <a href="#URL_ARTICLE">[(#TITRE|supprimer_numero)]</a>
-                                </h3>
-
-                                <INCLURE{fond=inc/article-programme}{id_article}{id_trad}{lang}>
-                                <INCLURE{fond=inc/article-filsrouges}{id_article}{id_trad}{lang}>
-
-                                [<div class="description">
-                                    (#INTRODUCTION)
-                                </div>]
-                            </div>
-                        <//B_traductions>
-                </BOUCLE_articles>
-            </div>
-        </B_articles>
-    </BOUCLE_rubriques>
-</B_rubriques>

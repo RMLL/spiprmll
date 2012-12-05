@@ -1,22 +1,33 @@
-<?xml version="1.0" encoding="#CHARSET" ?>
 #CACHE{7200}
+[(#REM) PHV: 7200 partout sauf inc/entete-html et inc/fin-page 86400 et manque dans inc/radio ]
 
 <INCLURE{fond=inc/debut-page}{lang}{titrepage=<:accueil:>}>
 
-<div id="page-sommaire">
-    <INCLURE{fond=inc/entete}{id_rubrique}{lang}>
-    <div id="content-wrapper">
-        <div id="content">
-            <div id="main">
-                <INCLURE{fond=inc/sommaire}{lang}>
-            </div>
-            <div id="sidebar">
-                <INCLURE{fond=inc/side-bar}{lang}{sommaire=1}>
-            </div>
-            <div class="clear"></div>
-        </div>
-    </div>
-    <INCLURE{fond=inc/pied}>
-</div>
-<INCLURE{fond=inc/fin-page}{lang}>
+	<div id="page" class="home deuxcolonnes">
 
+		<INCLURE{fond=inc/entete}{id_rubrique}{lang}>
+
+[(#REM) 		<div id="location">
+			&gt; <a href="#URL_SITE_SPIP/" title=""><:accueil:></a>
+		</div>
+]
+		<div id="barredroite">
+		    [(#REM) PHV 15/07/11 l'ordre avant la fin des RMLL était inverse: Festival, JGP, Infos (RMLLD) et Radio.
+			        Et ce pour les 5 gabarits avec cette sidebar. ]
+			<INCLURE{fond=inc/extra-radio}{lang}>
+			<INCLURE{fond=inc/extra-infos}{lang}>
+			<INCLURE{fond=inc/extra-jgp}{lang}>
+			<INCLURE{fond=inc/extra-festival}{lang}>
+[(#REM)			<INCLURE{fond=inc/extra-modifs}{lang}>
+]
+		</div>
+
+		<div id="content">
+			[(#REM) 15/07 RMLL2011 terminées, plus de résa <INCLURE{fond=inc/annonceresa}{lang}> ]
+			<INCLURE{fond=inc/sommaire}{lang}>
+		</div>
+
+		<INCLURE{fond=inc/pied}>
+	</div>
+
+<INCLURE{fond=inc/fin-page}{lang}>

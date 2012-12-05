@@ -44,7 +44,7 @@
             $data[] = $article['data']['salle'];
             $data[] = $article['data']['id_article'];
             $data[] = $article['data']['id_orig'];
-            $data[] = supprimer_numero($article['data']['titre']);
+            $data[] = supprimer_numero(extraire_multi(nettoyer_raccourcis_typo($article['data']['titre'])));
             $data[] = $article['data']['intervenants'];
             $data[] = $article['data']['langue'];
             $data[] = $article['data']['nature'];

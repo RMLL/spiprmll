@@ -1,0 +1,42 @@
+#CACHE{7200}
+						[(#REM) Menu de navigation par rubriques ]
+						<BOUCLE_sidebar_hierarchie(HIERARCHIE) {id_article} {0,1}>
+						<div class="rubriques">
+						  [(#REM) Si on est dans un menu thèmes et pas une sous-rubrique, on rajoute la classe .current au titre ]
+							<h2 class="menu-titre[(#_:ID_RUBRIQUE|=={#ID_RUBRIQUE}|?{' current',''})]"><a href="#URL_RUBRIQUE">[(#TITRE|supprimer_numero)]</a></h2>
+							<ul class="menubarre">
+							<BOUCLE_sidebar_niv1(RUBRIQUES) {tout} {id_parent=#ID_RUBRIQUE} {par num titre, titre}{tout}>
+								<li[ class="(#EXPOSE||?{'current'})"]<BOUCLE_test2(RUBRIQUES) {lang?} {tout} {id_parent=#ID_RUBRIQUE} {par num titre, titre}{tout}>[(#EXPOSE||?{' id="current_father"'})]</BOUCLE_test2>>
+									<a href="#URL_RUBRIQUE">[(#TITRE|supprimer_numero)]</a>
+
+									<B_sidebar_niv2>
+									<ul>
+									<BOUCLE_sidebar_niv2(RUBRIQUES) {tout} {id_parent=#ID_RUBRIQUE} {par num titre, titre}{tout}>
+										<li[ class="(#EXPOSE||?{'current'})"]>
+											<a href="#URL_RUBRIQUE">[(#TITRE|supprimer_numero)]</a>
+										</li>
+									</BOUCLE_sidebar_niv2>
+									</ul>
+									</B_sidebar_niv2>
+
+								</li>
+							</BOUCLE_sidebar_niv1>
+							</ul>
+
+						</div>
+						</BOUCLE_sidebar_hierarchie>
+
+[(#REM) Nantes: que les sous-rubriques, jamais les parentes et hiérarchie ...
+< B_sous_rubriques>
+	<h2>o <:rubriques:></h2>
+
+
+	<ul class="menubarre">
+	
+	< BOUCLE_sous_rubriques(RUBRIQUES) {id_parent} {par num titre, titre}{tout}>
+		<li><a href="#URL_RUBRIQUE">[(#TITRE|supprimer_numero)]</a></li>
+	< /BOUCLE_sous_rubriques>
+		
+	</ul>
+< /B_sous_rubriques>
+]

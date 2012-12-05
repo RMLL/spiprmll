@@ -1,0 +1,36 @@
+#CACHE{3600}
+<?xml version="1.0"[ encoding="(#CHARSET)"]?>
+[(#HTTP_HEADER{Content-type: text/xml[; charset=(#CHARSET)]})]
+<rss version="2.0"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+>
+
+<channel>
+	<title>[(#NOM_SITE_SPIP|texte_backend)]</title>
+	<link>#URL_SITE_SPIP/</link>
+	<description>[(#DESCRIPTIF_SITE_SPIP|supprimer_tags)]</description>
+	<language>#LANG</language>
+	<generator>SPIP - www.spip.net</generator>
+
+<BOUCLE_10recents(ARTICLES) {lang ?}{branche ?}{id_mot ?} {par date} {inverse} {0,10} {unique}>
+
+	<BOUCLE_un_article(ARTICLES){id_article}>
+		<item>
+			<title>[(#TITRE|supprimer_numero|supprimer_tags|utf8_unhtml|normalise_html)]</title>
+			<link>[(#URL_ARTICLE|url_absolue)]</link>
+			[<guid isPermaLink="true">(#URL_ARTICLE|url_absolue)</guid>]
+			[<dc:date>(#DATE|date_iso)</dc:date>]
+			<dc:format>text/html</dc:format>
+			[<dc:language>(#LANG)</dc:language>]
+			[<dc:creator>(#LESAUTEURS|supprimer_tags|normalise_html)</dc:creator>]
+
+			<description>[(#DESCRIPTIF|supprimer_tags|utf8_unhtml|normalise_html)]</description>
+		</item>
+	</BOUCLE_un_article>
+
+</BOUCLE_10recents>
+
+</channel>
+
+</rss>

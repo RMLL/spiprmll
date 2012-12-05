@@ -65,7 +65,7 @@ class Rmll_Event {
             $horaire_liste[$h['id_horaire']] = sprintf("%02dh%02d", $h['heure'], $h['minute']);
         /* duree */
         $duree_liste = array(0 => _T('rmll:label_indefini'));
-        for($i = 20; $i<=240; $i+=20)
+        for($i = 20; $i<=480; $i+=20)
             $duree_liste[$i] = sprintf("%02dh%02d", intval($i/60), ($i%60));
         /* langue */
         $table_langue = new Rmll_Db('langue');
@@ -357,6 +357,8 @@ class Rmll_Helper {
             _T('rmll:label_gestion_niveau'), 'niveau', 'niveau.png');
         Rmll_Helper::icone_horizontale(
             _T('rmll:label_gestion_salle'), 'salle', 'salle.png');
+        Rmll_Helper::icone_horizontale(
+            _T('rmll:label_import_conference'), 'conference', 'importconf.png');
         Rmll_Helper::fin_cadre_enfonce();
     }
 
@@ -476,6 +478,17 @@ class Rmll_Helper {
     }
 
     /*
+    * Formulaire (fichier)
+    */
+    function formulaire_fichier ($nom, $value='', $prop = null, $astext = false) {
+        $m = sprintf("<input type=\"file\" name=\"%s\" id=\"%s\" value=\"%s\"%s />",
+            $nom, $nom, $value, Rmll_Helper::attr($prop));
+
+        if ($astext) return $m;
+        echo $m;
+    }
+
+    /*
     * Formulaire (cache)
     */
     function formulaire_cache ($nom, $value='', $astext = false) {
@@ -551,18 +564,29 @@ class Rmll_Helper {
             if (isset($_POST[$value]))
                 return  Rmll_Helper::nettoye_donnee($_POST[$value]);
         }
+        return null;
+    }
 
+   /*
+    * Récupérer le chemin vers un fichier uploadé
+    */
+    function inFile($value = null) {
+        $ret = null;
+        if ($value) {
+            if (isset($_FILES[$value]) && $_FILES[$value]['error'] == 0 && file_exists($_FILES[$value]['tmp_name']))
+                return  $_FILES[$value]['tmp_name'];
+        }
         return null;
     }
 }
 
 class Rmll_Db {
 
-    var $_table = '';
-    var $_name = '';
-    var $_error = '';
+    protected $_table = '';
+    protected $_name = '';
+    protected $_error = '';
 
-    function Rmll_Db ($table) {
+    function __construct ($table) {
         $this->_name = $table;
         $this->_table = 'spip_rmll_'.$table.'s';
     }
@@ -585,6 +609,22 @@ class Rmll_Db {
     function query($req) {
         spip_log(sprintf("Rmll Plugin [SQL QUERY] : [%s]", $req));
         return sql_query ($req);
+    }
+
+    /*
+    * Récupération du denier ID (autoincrement)
+    */
+    function last_id() {
+		$ret = false;
+        $req = sprintf('SELECT LAST_INSERT_ID() AS id');
+        $query = sql_query ($req);
+        if ($query) {
+            $data = sql_fetch($query);
+			if ($data && isset($data['id'])) {
+				$ret = $data['id'];
+			}
+        }
+		return $ret;
     }
 
     /*
@@ -662,7 +702,6 @@ class Rmll_Db {
             $this->_error = _T('rmll:error_db_insert_nodatas');
             return false;
         }
-
         return sql_insertq($this->_table, $datas);
     }
 
@@ -695,12 +734,11 @@ class Rmll_Db {
 }
 
 class Rmll_Article extends Rmll_Db {
-    function Rmll_Article () {
+    function __construct () {
         $this->_name = 'article';
-        $this->_table = 'spip_articles';
+        $this->_table = 'spip_'.$this->_name.'s';
     }
 }
-
 
 class Rmll_Conference extends Rmll_Db {
 
@@ -1009,6 +1047,101 @@ class Rmll_Conference extends Rmll_Db {
         }
         return $ret;
     }
+
+	function import_theme($fichier, $rubrique, &$messages = array(), &$errors = array()) {
+
+		$lang_datas = array(
+			'English' => 'en', 'French' => 'fr',
+			'Anglais' => 'en', 'Français' => 'fr',
+		);
+
+		if ((int) $rubrique > 0) {
+			$ret = null;
+			$fh = fopen($fichier, 'r');
+			if ($fh !== false) {
+				$i = 0;
+				while (($data = fgetcsv($fh, 0, ';')) !== false) {
+					$i++;
+					if ($i == 1) continue;
+
+					$id = $data[0];
+					$status = $data[2];
+					$topic = $data[3];
+					$title =  $data[4];
+					$abstract = str_replace("¬", "\n", $data[6]);
+					$lang = array_key_exists($data[7], $lang_datas) ? $lang_datas[$data[7]] : 'fr';
+					$license = $data[9];
+					$speakersArr = explode("¬", $data[11]);
+					$bio = str_replace("¬", "\n", $data[12]);
+					$notes = str_replace("¬", "\n", $data[18]);
+
+					if ($status != 1) continue;
+
+					$texte_fr = sprintf("\n\n{{{Résumé}}}\n\n%s\n\n{{{Biographie}}}\n\n%s\n\n", $abstract, $bio);
+					$texte_en = sprintf("\n\n{{{Abstract}}}\n\n%s\n\n{{{Biographie}}}\n\n%s\n\n", $abstract, $bio);
+					$notes = sprintf("CFP_ID=%d\nCFP_TOPIC=%s\nCFP_LICENSE=%s\n\n%s",
+						$id, $topic, $license, $notes);
+
+					$speakers = array();
+					foreach($speakersArr as $speaker) {
+						$speakers[] = preg_replace('#^(.*)\s+\[.*$#', '\1', $speaker);
+					}
+
+					// quelle langue ?
+					$lang_db = new Rmll_Db('langue');
+					$lang_rec = $lang_db->get_one_where(sprintf('code like %s', $lang_db->esc($lang)));
+					if ($lang_rec === false) {
+						$errors[] = sprintf('Langue inconnue \'%s\' pour l\'enregistrement \'%d\'', $lang, $id);
+						continue;
+					}
+
+					// déjà insérée ?
+					$conf_db = new Rmll_Db('conference');
+					$conf_rec = $conf_db->get_one_where(sprintf('notes like %s', $lang_db->esc(sprintf('%%CFP_ID=%d%%', $id))));
+					if ($conf_rec === false) {
+
+						$fields = array (
+							'titre' => sprintf('<multi>%s [en] %s</multi>', $title, $title),
+							'id_rubrique' => $rubrique,
+							'texte' => sprintf("<multi>%s[en]%s</multi>", $texte_fr, $texte_en),
+							'date' => date('Y-m-d H:i:s'),
+							'statut' => 'publie',
+							'date_modif' => date('Y-m-d H:i:s'),
+							'lang' => 'fr',
+						);
+						$article_db = new Rmll_Article();
+						if ($article_db->insert($fields)) {
+							$messages[] = sprintf('Insertion de l\'article lié à la conf \'%d\'', $id);
+						}
+						else {
+							$errors[] = sprintf('Echec lors de l\'insertion de l\'article lié à la conf \'%d\' (%d, %s)', $id, sql_errno(), sql_error());
+						}
+						$fields = array(
+							'id_langue' => $lang_rec['id_langue'],
+							'id_article' => $article_db->last_id(),
+							'notes' => $notes,
+							'intervenants' => implode(', ', $speakers),
+						);
+						if ($conf_db->insert($fields)) {
+							$messages[] = sprintf('Insertion de la conf \'%d\'', $id);
+						}
+						else {
+							$errors[] = sprintf('Echec lors de l\'insertion de la conf (%d, %s)', $id, sql_errno(), sql_error());
+						}
+					}
+					else {
+						$messages[] = sprintf('Conf \'%d\' déjà importée', $id);
+					}
+					//break;
+				}
+				fclose($fh);
+			}
+		}
+		else {
+			$errors[] = sprintf('L\'Id de la rubrique semble invalide');
+		}
+		return $ret;
+	}
 }
 
 ?>

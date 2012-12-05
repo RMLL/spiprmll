@@ -9,8 +9,8 @@
 <script type="text/javascript">
 
     var osm = {
-        lat: 44.82843,
-        lon: -0.63039,
+        lat: 48.58894,
+        lon: 7.75304,
         zoom: 13,
         projection: new OpenLayers.Projection('EPSG:4326'),
         map: null,
@@ -133,15 +133,14 @@
 
 <div id="map"></div>
 <div id="map-infos">
-    <div id="map-flags">
-        [(#SET{langues,[(#CONFIG{langues_multilingue}|explode{','}|serialize)]})]
-        <BOUCLE_langue_possibles(POUR){tableau #GET{langues}}>
-            [(#ENV{lang}|=={#VALEUR}|non)<a href=" [(#URL_ACTION_AUTEUR{'converser',#VALEUR&var_lang=#VALEUR,[(#SELF|parametre_url{lang,'','&'})]})]">
-                <img src="[(#CHEMIN{images})]/flags/[(#VALEUR)].png" alt="[(#VALEUR|traduire_nom_langue)]" />
-            </a>]
-        </BOUCLE_langue_possibles>
-    </div>
-    <div id="map-infos-content">
-    </div>
+	<h1><img src="#CHEMIN{images/rmll_plan-openstreetmap-strasbourg.png}" alt="RMLL - Le Plan de Strasbourg" /></h1><!-- no whitespace
+	--><p>
+		<a href="javascript:history.go(-1);" title="Retour à la page précédente">Page précédente</a>
+		<a href="/">Retour à l'accueil</a>
+	</p>
+  <div id="map-flags">
+  </div>
+  <div id="map-infos-content"><p><strong>Sélectionnez un schmurtz sur la carte pour en afficher ici les informations</strong></p>
+  </div>
 </div>
 <div class="clear"></div>

@@ -1,22 +1,25 @@
-<?xml version="1.0" encoding="#CHARSET" ?>
 #CACHE{7200}
 
 <INCLURE{fond=inc/debut-page}{lang}{titrepage=<:pass_erreur:> 404}>
 
-<div id="page">
-    <INCLURE{fond=inc/entete}{id_rubrique}{lang}>
-    <div id="content-wrapper">
-        <div id="content">
-            <div id="main">
-                <INCLURE{fond=inc/404}{lang}>
-            </div>
-            <div id="sidebar">
-                <INCLURE{fond=inc/side-bar}{lang}>
-            </div>
-            <div class="clear"></div>
-        </div>
-    </div>
-    <INCLURE{fond=inc/pied}>
-</div>
-<INCLURE{fond=inc/fin-page}{lang}>
+	<div id="page">
+		
+		<INCLURE{fond=inc/entete}{lang}>
 
+		<div id="location">
+			&gt; <a href="#URL_SITE_SPIP/" title="<:accueil:>"><:accueil:></a>
+			&gt; <a href="#URL_PAGE{404}" title="<:pass_erreur:> 404"><:pass_erreur:> 404</a>
+		</div>
+		
+		<div id="content">
+			<h2><:pass_erreur:> 404</h2>
+
+			<div class="description">
+				<:err404_msg:>
+			</div>
+		</div>
+
+		<INCLURE{fond=inc/pied}>
+	</div>
+
+<INCLURE{fond=inc/fin-page}{lang}>

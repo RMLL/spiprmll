@@ -1,35 +1,6 @@
 <?php
     require_once _DIR_PLUGIN_RMLL.'rmll_mes_options.php';
 
-/*
-function boucle_RMLL_CONFERENCES($id_boucle, &$boucles) {
-//function boucle_SPIP_RMLL_CONFERENCE($id_boucle, &$boucles) {
-    $boucle = &$boucles[$id_boucle];
-    $id_table = $boucle->id_table;
-
-    $boucle->select[] = 'rmll_langues.nom_langue';
-    $boucle->from['rmll_langues'] =  'spip_rmll_langues';
-    //$boucle->where[]= array("'='", "'spip_rmll_jour.id_jour'", "'$id_table.id_jour'");
-    $boucle->join['rmll_langues']= array("'$id_table'", 'id_langue', 'id_langue');
-
-    return calculer_boucle($id_boucle, $boucles);
-}
-*/
-
-    /*
-    if (!isset($boucle->modificateur['criteres']['statut'])) {
-        // Restreindre aux elements publies
-        // uniquement les evenements d'un article publie
-        if (!$GLOBALS['var_preview'])
-            if (!isset($boucle->modificateur['lien']) AND !isset($boucle->modificateur['tout'])
-            AND (!isset($boucle->lien) OR !$boucle->lien) AND (!isset($boucle->tout) OR !$boucle->tout)) {
-                $boucle->from["articles"] =  "spip_articles";
-                $boucle->where[]= array("'='", "'articles.id_article'", "'$id_table.id_article'");
-                $boucle->where[]= array("'='", "'articles.statut'", "'\"publie\"'");
-            }
-    }
-    */
-
 function balise_RMLL_GET_SESSIONS($p) {
     $_nom = interprete_argument_balise(1,$p);
     if ($_nom) {
@@ -42,6 +13,7 @@ function balise_RMLL_GET_SESSIONS($p) {
     return $p;
 }
 
+/*
 function rmll_get_sessions_subs($session) {
     require_once _DIR_PLUGIN_RMLL.'inc/rmll.class.php';
 
@@ -63,9 +35,7 @@ function balise_RMLL_GET_SESSIONS_SUBS($p) {
     $p->interdire_scripts = false; // la balise ne renvoie rien
     return $p;
 }
-
-
-
+*/
 
 function get_dl_filename($params) {
     $filename = 'schedule';
@@ -106,10 +76,7 @@ function time_sorter($a, $b) {
 
 function aff_nature($code) {
     $code = 'nature_code_'.$code;
-    $ret = '';
-    if (isset($GLOBALS[$GLOBALS['idx_lang']][$code]))
-        $ret = $GLOBALS[$GLOBALS['idx_lang']][$code];
-    return $ret;
+    return _T('rmll:'.$code);
 }
 
 function aff_date_complete($date){
@@ -122,10 +89,12 @@ function horairise($num){
 
 function aff_niveau($code) {
 	$code = 'niveau_code_'.$code;
-	$ret = '';
-	if (isset($GLOBALS[$GLOBALS['idx_lang']][$code]))
-		$ret = $GLOBALS[$GLOBALS['idx_lang']][$code];
-	return $ret;
+    return _T('rmll:'.$code);
+}
+
+function aff_langue($code) {
+    $code = 'langue_code_'.$code;
+    return _T('rmll:'.$code);
 }
 
 function code2utf($num) {

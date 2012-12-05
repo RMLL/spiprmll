@@ -1,10 +1,44 @@
-#CACHE{7200}
-
+#CACHE{600}
+[(#REM) Partie 1/2 ]
 <h2>#NOM_SITE_SPIP</h2>
 
 <div>#DESCRIPTIF_SITE_SPIP</div>
 
-<INCLURE{fond=inc/sommaire-une}{lang}>
+[(#REM) Partie 2/2 ]
+<h2><:a_la_une:></h2>
 
-<INCLURE{fond=inc/sommaire-actu}{lang}>
+<B_chaque_article>
+<ul>
+	[(#REM) Pour chacun des articles de la rubrique Actualités id=1 ... ]
+	<BOUCLE_chaque_article(ARTICLES){id_rubrique = 1} {par date}{inverse} {0, 20}>
+		[(#REM) ... on regarde s'il existe une trad dans la langue demandée]
+		<BOUCLE_article_dans_la_langue(ARTICLES){traduction}{lang=#ENV{lang}}{doublons}>
+			<li>
+				<a href="#URL_ARTICLE">[(#TITRE|supprimer_numero)]</a>
+				[<span class="gris">(<:thelast_changes:> : (#DATE|affdate_jourcourt))</span>]
+			</li>
+		</BOUCLE_article_dans_la_langue>
+
+		</B_article_dans_la_langue>
+
+		[(#REM) Sinon, on affiche l'article d'origine ]
+		<BOUCLE_article_origine(ARTICLES){id_article}{origine_traduction}{doublons}>
+			<li>
+				<a href="#URL_ARTICLE"><em>[(#TITRE|supprimer_numero)]</em></a>
+				[<span class="gris">(<:thelast_changes:> : (#DATE|affdate_jourcourt))</span>]
+			</li>
+		</BOUCLE_article_origine>
+
+		<//B_article_dans_la_langue>
+
+	</BOUCLE_chaque_article>
+</ul>
+
+<p>
+	<a href="#URL_RUBRIQUE{1}"><:liste_all:></a>
+</p>
+</B_chaque_article>
+<p>Pas encore d'actualité en ligne. Au boulot&nbsp;! :)</p>
+<//B_chaque_article>
+
 

@@ -5,6 +5,10 @@
  */
 
 $GLOBALS[$GLOBALS['idx_lang']] = array(
+    // Common
+    'langue_code_fr' => 'Français',
+    'langue_code_en' => 'Anglais',
+
     // BackEnd
     'titre_menu_gestion' => "Gestion RMLL",
     'titre_menu_planning' => "Planning des RMLL (emploi du temps, salles)",
@@ -18,6 +22,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     'label_gestion_nature' => "Gestion des types d'évènements",
     'label_gestion_niveau' => "Gestion des niveaux",
     'label_gestion_salle' => "Gestion des salles",
+    'label_import_conference' => "Import des conférences",
 
     'label_ajout' => "Ajout",
     'label_ajouter' => "Ajouter",
@@ -47,6 +52,9 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     'label_notes' => 'Notes',
     'label_planning_jours' => 'Planning par journées',
     'label_planning_salle' => 'Planning par salles',
+    'label_id_theme' => 'Thème (id)',
+    'label_fichier' => 'Fichier',
+	'label_importer' => 'Importer',
 
     'label_ajouter_prog' => 'Ajouter au programme',
     'label_edition_prog' => 'Edition du programme',
@@ -59,6 +67,8 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     'message_suppr_ok' => "Suppression réalisée avec succès",
     'message_suppr_err' => "Erreur lors de la suppression",
     'message_suppr_confirm' => "Etes vous sûr de vouloir supprimer ?",
+
+    'message_warning_import' => "Utiliser la fonctionalité d'import seulement si vous savez ce que vous faites et que vous êtes conscient des conséquences",
 
     // FrontEnd
     'intervenants' => "Intervenant(s) :",
@@ -88,6 +98,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     'nature_code_visio' => "Visioconférence",
     'nature_code_demo' => "Démonstration",
     'nature_code_proj' => "Projection/Débat",
+    'nature_code_aut' => "Autre",
 
     'filsrouges_label' => 'Thèmes transversaux :',
 
@@ -103,9 +114,11 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     'programme_intro' => "Des plannings journaliers détaillés sont également disponibles :",
 
     'affichage_theme' => "Affichage par thème :",
+    'affichage_room' => "Affichage par salle/lieu :",
     'affichage_jour' => "Affichage par jour :",
     'affichage_motcle' => "Affichage par fil rouge :",
     'selection_theme' => "Sélectionner un thème",
+    'selection_room' => "Sélectionner une salle/lieu",
     'selection_jour' => "Sélectionner un jour",
     'selection_motcle' => "Sélectionner un fil rouge",
 
@@ -120,10 +133,14 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 
     'accessible_link_jour' => 'Voir le programme du',
     'accessible_link_theme' => 'Voir le programme du thème',
+    'accessible_link_room' => 'Voir le programme de la salle/lieu',
     'accessible_link_theme_transversal' => 'Voir le programme du thème transversal :',
     'accessible_link_article' => 'Plus d\'informations sur ',
 
     'goto_maincontent' => 'Aller au contenu',
+
+    // export XML (mobiles)
+    'undefined_room' => 'Salle non définie',
 );
 
 ?>

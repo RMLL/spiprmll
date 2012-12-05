@@ -20,6 +20,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'menu' => 'Menu',
 	'sponsors' => "Sponsors",
 	'partners' => "Partners",
+	'partners_sponsors' => "Partners y sponsors",
     'village_asso' => "Village associatif",
 	'liste_all' => "Lista completa",
     'booking' => "Reserva",
@@ -38,7 +39,5 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     'carte' => 'Carta',
     'radio_rmll' => 'RMLL Radio',
     'listen_radio_rmll' => 'Listen to the RMLL Radio',
-
-    'videos' => "Videos",
 );
 ?>

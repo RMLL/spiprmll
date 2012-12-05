@@ -1,28 +1,59 @@
-#menu {
-    text-align: center;
-    height: 30px;
+/*
+	@description	Feuille de style spéciale IE6 pour RMLL 2011 - copie d'IE7 pour l'instant
+	@author Ph. Vayssière
+	@version  1
+	@date 2011/05/22
+*/
+
+#menu1 {
+	text-align: center;
 }
 
-#head-wrapper, #content-wrapper, #footer-wrapper {
-    text-align: center;
+#menu1 li {
+	display: inline;
+	width: auto;
 }
 
-#head, #content, #footer {
-    text-align: left;
+#menu2 li,
+#menu2 li a,
+#menu2 li span {
+	display: inline;
+	
 }
 
-#logo, #main {
-    width: 74.99%;
+#barredroite > #radio h2 span {
+	display: inline;
+	zoom: 1;
 }
 
-#main {
-    height: 700px;
+/* max, min */
+#head,
+#page,
+#footer {
+	width: 990px;
 }
 
-#sidebar {
-    height: 580px;
+#head {
+	height: 281px;
 }
 
-#page-sommaire #main {
-    padding: 10px 0;
+#acces {
+	height: 1em;
 }
+
+#menu2 {
+	width: 618px;
+}
+
+#menu2 li {
+	height: 46px;
+}
+
+#footer {
+	height: 203px;
+}
+
+#barredroite > div {
+	height: 80px;
+}
+

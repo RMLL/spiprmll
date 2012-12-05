@@ -5,6 +5,10 @@
  */
 
 $GLOBALS[$GLOBALS['idx_lang']] = array(
+    // Common
+    'langue_code_fr' => 'French',
+    'langue_code_en' => 'English',
+
     // BackEnd
     'titre_menu_gestion' => "Gestion RMLL",
     'titre_menu_planning' => "Planning des RMLL (emploi du temps, salles)",
@@ -88,6 +92,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     'nature_code_visio' => "Videoconferencing",
     'nature_code_demo' => "Showcase",
     'nature_code_proj' => "Movie/Debate",
+    'nature_code_aut' => "Other",
 
     'filsrouges_label' => 'Transversal topics:',
 
@@ -102,10 +107,12 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 
     'programme_intro' => "Dailys timetables are also available:",
 
-    'affichage_theme' => "Filter by topic :",
+    'affichage_theme' => "Filter by topic:",
+    'affichage_room' => "Filter by room/place:",
     'affichage_jour' => "Filter by day:",
     'affichage_motcle' => "Filter by transversal topic:",
     'selection_theme' => "Select a topic",
+    'selection_room' => "Select a room/place",
     'selection_jour' => "Select a day",
     'selection_motcle' => "Select a transversal topic",
 
@@ -120,10 +127,14 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 
     'accessible_link_jour' => 'View schedule for',
     'accessible_link_theme' => 'View schedule for track',
+    'accessible_link_room' => 'View schedule for room/place',
     'accessible_link_theme_transversal' => 'View schedule for transversal topic',
     'accessible_link_article' => 'More details about',
 
     'goto_maincontent' => 'Skip to main content',
+
+    // export XML (mobiles)
+    'undefined_room' => 'Undefined room',
 );
 
 ?>

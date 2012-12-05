@@ -4,12 +4,11 @@
     require_once _DIR_PLUGIN_RMLL.'inc/rmll.class.php';
 
 class RmllSchedule {
-    var $themes_rubriques = null;
-    var $periods = null;
-    var $days = null;
-    var $confObj = null;
-    var $page = '';
-
+    public $themes_rubriques = null;
+    public $periods = null;
+    public $days = null;
+    public $confObj = null;
+    public $page = '';
 
     function RmllSchedule() {
         $this->periods =  $GLOBALS['rmll_periods'];

@@ -1,4 +1,4 @@
-#CACHE{0}
+#CACHE{600}
 #SET{filename, #ARRAY{date,#ENV{d},theme,#ENV{t}}|get_dl_filename}
 [(#HTTP_HEADER{Content-Disposition: inline[; filename=(#GET{filename}).csv]})]
 [(#HTTP_HEADER{Content-type: application/vnd.ms-excel[; charset=(#CHARSET)]})]<?php
