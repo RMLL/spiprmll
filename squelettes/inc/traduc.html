@@ -1,0 +1,101 @@
+<div id="breadcrumb">
+    <span class="delim">{</span>
+    <a href="#URL_SITE_SPIP/"><:accueil:></a><span class="delim">;</span>
+    <a href="#URL{plan}"><:traduc:></a><span class="delim">;</span>
+    <span class="delim">}</span>
+</div>
+
+<h2><:traduc:></h2>
+<BOUCLE_secteurs(RUBRIQUES) {racine} {par titre}>
+    <h3>
+        <a href="#URL_RUBRIQUE">[(#TITRE|supprimer_numero)]</a>
+            <B_secteurs_mots>
+                    <span class="trad-keyw">
+                    <BOUCLE_secteurs_mots(MOTS){id_rubrique}{id_groupe=3}{par titre}{" - "}>
+                        <span class="trad-keyw-color#ID_MOT">#TITRE</span>
+                    </BOUCLE_secteurs_mots>
+                    </span>
+            </B_secteurs_mots>
+    </h3>
+
+    [(#REM) Articles et sous-rubriques ]
+
+    <B_articles_racine>
+        <ul>
+        <BOUCLE_articles_racine(ARTICLES) {id_rubrique} {par num titre} {doublons} {lang=fr}>
+            <li>
+                <a href="#URL_ARTICLE">[(#TITRE|supprimer_numero)]</a>
+                <B_articles_racine_mots>
+                    <span class="trad-keyw">
+                    <BOUCLE_articles_racine_mots(MOTS){id_article}{id_groupe=3}{par titre}{" - "}>
+                        <span class="trad-keyw-color#ID_MOT">#TITRE</span>
+                    </BOUCLE_articles_racine_mots>
+                    </span>
+                </B_articles_racine_mots>
+            </li>
+
+            <B_articles_racine2>
+                <strong><:traduc_label:></strong>
+                <ul>
+                    <BOUCLE_articles_racine2(ARTICLES) {traduction}{lang!=fr}>
+                        <li>
+                            [<img src="#CHEMIN{images}/flags/(#LANG).png" alt="#LANG" />]
+                            <a href="#URL_ARTICLE">[(#TITRE|supprimer_numero)]</a>
+                        </li>
+                    </BOUCLE_articles_racine2>
+                </ul>
+            </B_articles_racine2>
+
+        </BOUCLE_articles_racine>
+        </ul>
+    </B_articles_racine>
+
+    <B_rubriques>
+        <ul>
+        <BOUCLE_rubriques(RUBRIQUES) {id_parent} {par num titre}>
+            <li>
+                <h3>
+                    <a href="#URL_RUBRIQUE">[(#TITRE|supprimer_numero)]</a>
+                    <B_rubriques_mots>
+                            <span class="trad-keyw">
+                            <BOUCLE_rubriques_mots(MOTS){id_rubrique}{id_groupe=3}{par titre}{" - "}>
+                                <span class="trad-keyw-color#ID_MOT">#TITRE</span>
+                            </BOUCLE_rubriques_mots>
+                            </span>
+                    </B_rubriques_mots>
+                </h3>
+                <B_articles>
+                    <ul>
+                        <BOUCLE_articles(ARTICLES) {id_rubrique} {par num titre} {doublons} {lang=fr}>
+                            <li>
+                                <a href="#URL_ARTICLE">[(#TITRE|supprimer_numero)]</a>
+                                <B_articles_mots>
+                                    <span class="trad-keyw">
+                                    <BOUCLE_articles_mots(MOTS){id_article}{id_groupe=3}{par titre}{" - "}>
+                                        <span class="trad-keyw-color#ID_MOT">#TITRE</span>
+                                    </BOUCLE_articles_mots>
+                                    </span>
+                                </B_articles_mots>
+                            </li>
+                            <B_articles2>
+                                <strong><:traduc_label:></strong>
+                                <ul>
+                                    <BOUCLE_articles2(ARTICLES) {traduction}{lang!=fr}>
+                                        <li>
+                                            [<img src="#CHEMIN{images}/flags/(#LANG).png" alt="#LANG" />]
+                                            <a href="#URL_ARTICLE">[(#TITRE|supprimer_numero)]</a>
+                                        </li>
+                                    </BOUCLE_articles2>
+                                </ul>
+                            </B_articles2>
+                        </BOUCLE_articles>
+                    </ul>
+                </B_articles>
+
+                <BOUCLE_sous_rubriques(BOUCLE_rubriques)></BOUCLE_sous_rubriques>
+            </li>
+        </BOUCLE_rubriques>
+        </ul>
+    </B_rubriques>
+</BOUCLE_secteurs>
+

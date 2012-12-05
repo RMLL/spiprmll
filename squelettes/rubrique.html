@@ -2,82 +2,31 @@
 #CACHE{7200}
 
 <BOUCLE_rubrique_principal(RUBRIQUES) {id_rubrique}>
-
     <INCLURE{fond=inc/debut-page}{lang}{titrepage=#TITRE}>
-
-        <div id="page" class="deuxcolonnes">
-
-            <INCLURE{fond=inc/entete}{id_rubrique}{lang}>
-
-            <div id="location">
-                &gt; <a href="#URL_SITE_SPIP/" title=""><:accueil:></a>
-                <BOUCLE_ariane(HIERARCHIE){id_article}> &gt; <a href="#URL_RUBRIQUE">[(#TITRE|supprimer_numero|couper{80})]</a></BOUCLE_ariane>
-            </div>
-
-            <div id="barredroite">
-                <INCLURE{fond=inc/extra-modifs-rubrique}{id_rubrique}{lang}>
-                <INCLURE{fond=inc/extra-sousrubriques}{id_rubrique}{lang}>
-                <INCLURE{fond=inc/extra-infos}{lang}>
-            </div>
-
+    <div id="page">
+        <INCLURE{fond=inc/entete}{id_rubrique}{lang}>
+        <div id="content-wrapper">
             <div id="content">
-
-                <?php
-                    global $rmll_theme_id;
-                    $rmll_theme_id = #ID_RUBRIQUE;
-                ?>
-
-                <INCLURE{fond=inc/rubrique}{id_rubrique}{lang}>
-
-                <?php
-                    require_once("plugins/rmll/rmll_mes_options.php");
-                    global $rmll_prog_page;
-                    if (#ID_RUBRIQUE == $rmll_prog_page) {
-                ?>
-
-                    <div class="rmll-ical-wrap">
-                        <img src="[(#CHEMIN{images/schedule.png})]" alt="" />
-                        <a href="spip.php?page=rmll_progall&amp;lang=#ENV{lang}"><:rmll:afficher_programme_complet:></a>
-                        (<a target="_blank" href="spip.php?page=rmll_progall&amp;lang=#ENV{lang}"><:rmll:nouvelle_fenetre:></a>)
-                    </div>
-
-                    <div class="rmll-ical-wrap">
-                        <img src="[(#CHEMIN{images/ical.png})]" alt="" />
-                        <a href="spip.php?page=rmll_progical&amp;lang=#ENV{lang}">
-                            <:rmll:planning_ical:>
-                        </a>
-                    </div>
-
-                    <BOUCLE_sous_rubriques(RUBRIQUES) {id_parent} {par num titre, titre}>
-                        [<div class="rmll-evenements-theme">
-                            <h3 class="rubrique"><a href="#URL_RUBRIQUE">[(#TITRE|supprimer_numero)]</a></h3>
-
-                            <div class="description">(#DESCRIPTIF)</div>
-
-                            <div class="rmll-ical-wrap">
-                                <img src="[(#CHEMIN{images/schedule.png})]" alt="" />
-                                <a href="spip.php?page=rmll_progall&amp;lang=#ENV{lang}&amp;t=#ID_RUBRIQUE"><:rmll:afficher_programme:></a>
-                                (<a target="_blank" href="spip.php?page=rmll_progall&amp;lang=#ENV{lang}&amp;t=#ID_RUBRIQUE"><:rmll:nouvelle_fenetre:></a>)
-                            </div>
-
-                            <div class="rmll-ical-wrap">
-                                <img src="[(#CHEMIN{images/ical.png})]" alt="" />
-                                <a href="spip.php?page=rmll_progical&amp;lang=#ENV{lang}&amp;t=#ID_RUBRIQUE">
-                                    <:rmll:planning_ical:>
-                                </a>
-                            </div>
-
-                        </div>]
-                    </BOUCLE_sous_rubriques>
-                <?php
-                    }
-                ?>
-
+                <div id="main">
+                    <INCLURE{fond=inc/breadcrumb}{id_rubrique}{id_article}{lang}>
+                    <?php if (rmll_is_prog(#ID_RUBRIQUE)) { ?>
+                        <INCLURE{fond=inc/rmll-programme}{id_rubrique}{lang}>
+                    <?php } elseif(rmll_is_theme(#ID_RUBRIQUE)) { ?>
+                        <INCLURE{fond=inc/rmll-theme}{id_rubrique}{lang}>
+                    <?php } elseif(rmll_is_theme(#ID_PARENT)) { ?>
+                        <INCLURE{fond=inc/rmll-session}{id_rubrique}{lang}>
+                    <?php } else { ?>
+                        <INCLURE{fond=inc/rubrique}{id_rubrique}{lang}>
+                    <?php } ?>
+                </div>
+                <div id="sidebar">
+                    <INCLURE{fond=inc/side-bar}{id_rubrique}{lang}{langmode=rubrique}>
+                </div>
+                <div class="clear"></div>
             </div>
-
-            <INCLURE{fond=inc/pied}>
         </div>
-
+        <INCLURE{fond=inc/pied}>
+    </div>
     <INCLURE{fond=inc/fin-page}{lang}>
-
 </BOUCLE_rubrique_principal>
+

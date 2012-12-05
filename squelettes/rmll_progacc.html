@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="#CHARSET" ?>
+#CACHE{7200}
+
+#SET{rmll_titre,(#EVAL{_T('rmll:programme')})}
+
+<INCLURE{fond=inc/debut-page}{lang}{titrepage=#GET{rmll_titre}}>
+
+    <?php
+        if (
+            (isset($_GET['d']) && $_GET['d'] != '')
+            || (isset($_GET['t']) && $_GET['t'] != '')
+            || (isset($_GET['k']) && $_GET['k'] != '')
+        ) {
+    ?>
+        <div class="skip">
+            <a href="#skipcontent" title="<?php echo _T('rmll:goto_maincontent'); ?>">
+                <:rmll:goto_maincontent:>
+            </a>
+        </div>
+    <?php
+        }
+    ?>
+
+    <div id="prog">
+        <div class="flags">
+            [(#SET{langues,[(#CONFIG{langues_multilingue}|explode{','}|serialize)]})]
+            <BOUCLE_langue_possibles(POUR){tableau #GET{langues}}>
+                [(#ENV{lang}|=={#VALEUR}|non)<a
+                        href=" [(#URL_ACTION_AUTEUR{'converser',#VALEUR&var_lang=#VALEUR,[(#SELF|parametre_url{lang,'','&'})]})]"
+                        title="[(#VALEUR|traduire_nom_langue)]"
+                    >
+                    <img src="[(#CHEMIN{images})]/flags/[(#VALEUR)].png" alt="[(#VALEUR|traduire_nom_langue)]" />
+                </a>]
+            </BOUCLE_langue_possibles>
+        </div>
+
+        <h1><a href="#URL_SITE_SPIP"><:rmll:programme:> &mdash; #NOM_SITE_SPIP</a></h1>
+
+        <?php
+            require_once _DIR_PLUGIN_RMLL.'inc/rmll_conferences_all.php';
+            $s = new RmllSchedule();
+            $s->display_acc();
+        ?>
+
+    </div>
+
+<INCLURE{fond=inc/fin-page}{lang}>

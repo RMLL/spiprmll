@@ -1,0 +1,147 @@
+#CACHE{7200}
+
+<?php
+    require_once _DIR_PLUGIN_OSM.'/inc/osm.class.php';
+    $markerObj = new Osm_Marker();
+    $osmPois = $markerObj->get_pois();
+?>
+
+<script type="text/javascript">
+
+    var osm = {
+        lat: 44.82843,
+        lon: -0.63039,
+        zoom: 13,
+        projection: new OpenLayers.Projection('EPSG:4326'),
+        map: null,
+        current_popup: null,
+
+        pois: <?php echo $osmPois; ?>,
+
+        init: function() {
+            var newlat = this.qsGet('lat');
+            if (newlat) {
+                this.lat = newlat;
+            }
+            var newlon = this.qsGet('lon');
+            if (newlon) {
+                this.lon = newlon;
+            }
+            var newzoom = this.qsGet('zoom');
+            if (newzoom) {
+                this.zoom = newzoom;
+            }
+
+            this.map = new OpenLayers.Map ("map", {
+                controls:[
+                    new OpenLayers.Control.Navigation(),
+                    new OpenLayers.Control.PanZoomBar(),
+                    new OpenLayers.Control.LayerSwitcher(),
+                    new OpenLayers.Control.Attribution(),
+                    new OpenLayers.Control.MousePosition(),
+                    new OpenLayers.Control.ScaleLine(),
+                ],
+                maxExtent: new OpenLayers.Bounds(-20037508.34,-20037508.34,20037508.34,20037508.34),
+                maxResolution: 156543.0399,
+                numZoomLevels: 19,
+                units: 'm',
+                projection: new OpenLayers.Projection("EPSG:900913"),
+                displayProjection: this.projection
+            });
+            var layerMapnik = new OpenLayers.Layer.OSM.Mapnik("Render1");
+            var layerRender = new OpenLayers.Layer.OSM.Osmarender("Render2");
+            this.map.addLayers([layerMapnik, layerRender]);
+            this.map.setCenter (this.getPoint(this.lon, this.lat), this.zoom);
+
+            this.addMarkers();
+        },
+
+        qsGet: function (key) {
+            var ret = null;
+            key = key.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+            var regexS = "[\\?&]"+key+"=([^&#]*)";
+            var regex = new RegExp(regexS);
+            var results = regex.exec(window.location.href);
+            if (results != null) {
+                ret = results[1];
+            }
+            return ret;
+        },
+
+        getPoint: function(lon, lat) {
+            return new OpenLayers.LonLat(lon, lat).transform(this.projection, this.map.getProjectionObject());
+        },
+
+        createMarker: function (layer, lon, lat, title, desc, url, width, height) {
+            var size = new OpenLayers.Size(width, height);
+            var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
+            var icon = new OpenLayers.Icon(url, size, offset);
+            var point = this.getPoint(lon, lat);
+            var marker = new OpenLayers.Marker(point, icon);
+            var feature = new OpenLayers.Feature(layer, point);
+            feature.closeBox = true;
+            feature.popupClass = OpenLayers.Class(OpenLayers.Popup.FramedCloud);
+            feature.data.popupContentHTML = title;
+            feature.data.overflow = "hidden";
+            // adding our infos (creating var infoHTML)
+            feature.data.infoHTML = desc;
+            marker.feature = feature;
+
+            var markerClick = function(evt) {
+                if (this.popup == null) {
+                    this.popup = this.createPopup(this.closeBox);
+                    osm.map.addPopup(this.popup);
+                    this.popup.show();
+                } else {
+                    this.popup.toggle();
+                }
+                if (osm.current_popup) {
+                    osm.current_popup.hide();
+                }
+                osm.current_popup = this.popup;
+                $('#map-infos-content').html(this.data.infoHTML);
+                OpenLayers.Event.stop(evt);
+            };
+            marker.events.register("mousedown", feature, markerClick);
+            return marker;
+        },
+
+        addMarkers: function() {
+            for(p in this.pois) {
+                var layer = new OpenLayers.Layer.Markers(this.pois[p].name);
+                if (this.pois[p].hidden) {
+                    layer.setVisibility(false);
+                }
+                this.map.addLayer(layer);
+                var i,n;
+                for(i=0,n=this.pois[p].markers.length; i<n; i++) {
+                    var m = this.pois[p].markers[i];
+                    var marker = this.createMarker(layer, m.longitude, m.latitude, m.name, m.description, '/plugins/osm/markers/'+m.icon, m.width, m.height);
+                    layer.addMarker(marker);
+                }
+            }
+        },
+    }
+
+    $(document).ready(function() {
+        $('#map').height(window.innerHeight);
+        $('#map-infos').height(window.innerHeight);
+        osm.init();
+    });
+
+</script>
+
+<div id="map"></div>
+<div id="map-infos">
+    <div id="map-flags">
+        [(#SET{langues,[(#CONFIG{langues_multilingue}|explode{','}|serialize)]})]
+        <BOUCLE_langue_possibles(POUR){tableau #GET{langues}}>
+            [(#ENV{lang}|=={#VALEUR}|non)<a href=" [(#URL_ACTION_AUTEUR{'converser',#VALEUR&var_lang=#VALEUR,[(#SELF|parametre_url{lang,'','&'})]})]">
+                <img src="[(#CHEMIN{images})]/flags/[(#VALEUR)].png" alt="[(#VALEUR|traduire_nom_langue)]" />
+            </a>]
+        </BOUCLE_langue_possibles>
+    </div>
+    <div id="map-infos-content">
+    </div>
+</div>
+<div class="clear"></div>

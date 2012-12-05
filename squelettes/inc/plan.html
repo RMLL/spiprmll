@@ -1,0 +1,42 @@
+<div id="breadcrumb">
+    <span class="delim">{</span>
+    <a href="#URL_SITE_SPIP/"><:accueil:></a><span class="delim">;</span>
+    <a href="#URL{plan}"><:plan_site:></a><span class="delim">;</span>
+    <span class="delim">}</span>
+</div>
+
+<h2><:plan_site:></h2>
+<BOUCLE_secteurs(RUBRIQUES) {racine} {par titre}>
+
+    <h3><a href="#URL_RUBRIQUE">[(#TITRE|supprimer_numero)]</a></h3>
+
+    [(#REM) Articles et sous-rubriques ]
+
+    <B_articles_racine>
+        <ul>
+        <BOUCLE_articles_racine(ARTICLES) {id_rubrique} {par date} {inverse} {doublons} {lang}>
+            <li><a href="#URL_ARTICLE">[(#TITRE|supprimer_numero)]</a></li>
+        </BOUCLE_articles_racine>
+        </ul>
+    </B_articles_racine>
+
+    <B_rubriques>
+        <ul>
+        <BOUCLE_rubriques(RUBRIQUES) {id_parent} {par num titre}>
+            <li>
+                <h3><a href="#URL_RUBRIQUE">[(#TITRE|supprimer_numero)]</a></h3>
+                <B_articles>
+                <ul>
+                    <BOUCLE_articles(ARTICLES) {id_rubrique} {par num titre}>
+                        <li><a href="#URL_ARTICLE">[(#TITRE|supprimer_numero)]</a></li>
+                    </BOUCLE_articles>
+                </ul>
+                </B_articles>
+
+                <BOUCLE_sous_rubriques(BOUCLE_rubriques)></BOUCLE_sous_rubriques>
+            </li>
+        </BOUCLE_rubriques>
+        </ul>
+    </B_rubriques>
+</BOUCLE_secteurs>
+

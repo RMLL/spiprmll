@@ -3,55 +3,20 @@
 
 <INCLURE{fond=inc/debut-page}{lang}{titrepage=<:plan_site:>}>
 
-	<div id="page">
-		
-		<INCLURE{fond=inc/entete}{lang}>
-	
-		<div id="location">
-			&gt; <a href="#URL_SITE_SPIP/" title="<:accueil:>"><:accueil:></a>
-			&gt; <a href="#URL{plan}" title="<:plan_site:>"><:plan_site:></a>
-		</div>
-	
-		<div id="content" class="sitemap">
-
-			<h2><:plan_site:></h2>
-		 	<BOUCLE_secteurs(RUBRIQUES) {racine} {par titre}>
-
-				<h3><a href="#URL_RUBRIQUE">[(#TITRE|supprimer_numero)]</a></h3>
-
-				[(#REM) Articles et sous-rubriques ]
-
-				<B_articles_racine>
-				<ul>
-						<BOUCLE_articles_racine(ARTICLES) {id_rubrique} {par date} {inverse} {doublons} {lang}>
-						<li><a href="#URL_ARTICLE">[(#TITRE|supprimer_numero)]</a></li>
-						</BOUCLE_articles_racine>
-				</ul>
-				</B_articles_racine>
-
-				<B_rubriques>
-				<ul>
-					<BOUCLE_rubriques(RUBRIQUES) {id_parent} {par num titre}>
-						<li>
-							<h3><a href="#URL_RUBRIQUE">[(#TITRE|supprimer_numero)]</a></h3>
-							<B_articles>
-								<ul>
-									<BOUCLE_articles(ARTICLES) {id_rubrique} {par num titre}>
-										<li><a href="#URL_ARTICLE">[(#TITRE|supprimer_numero)]</a></li>
-									</BOUCLE_articles>
-								</ul>
-							</B_articles>
-
-							<BOUCLE_sous_rubriques(BOUCLE_rubriques)></BOUCLE_sous_rubriques>
-						</li>
-					</BOUCLE_rubriques>
-
-				</ul>
-				</B_rubriques>
-			</BOUCLE_secteurs>
-
-		</div>
-		<INCLURE{fond=inc/pied}>
-	</div>
-
+<div id="page">
+    <INCLURE{fond=inc/entete}{id_rubrique}{lang}>
+    <div id="content-wrapper">
+        <div id="content">
+            <div id="main">
+                <INCLURE{fond=inc/plan}{lang}>
+            </div>
+            <div id="sidebar">
+                <INCLURE{fond=inc/side-bar}{lang}>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <INCLURE{fond=inc/pied}>
+</div>
 <INCLURE{fond=inc/fin-page}{lang}>
+

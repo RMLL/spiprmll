@@ -65,16 +65,18 @@ table.rmll-evenement-edit {
 }
 
 table.rmll-evenement-edit th {
-	padding : 5px 8px;
+	padding : 5px 2px;
     white-space : nowrap;
+    text-align : right;
 }
 
 table.rmll-evenement-edit td {
-	padding : 0px 10px;
+	padding : 0px 2px;
 }
 
 table.rmll-evenement-show th {
     white-space : nowrap;
+    text-align : right;
 }
 
 table.rmll-evenement-show td {

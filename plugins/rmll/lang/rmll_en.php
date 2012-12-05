@@ -39,11 +39,18 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     'label_programme' => 'Programme',
     'label_indefini' => 'Non défini',
     'label_duree' => 'Durée',
-    'label_enregistrer' => 'Enregistrer',
+    'label_enregistrer' => 'Save',
+    'label_supprimer' => 'Delete',
+    'label_modifier' => 'Modify',
     'label_intervenants' => 'Intervenants',
     'label_videourl' => 'Url de la vidéo',
+    'label_notes' => 'Notes',
     'label_planning_jours' => 'Planning par journées',
     'label_planning_salle' => 'Planning par salles',
+
+    'label_ajouter_prog' => 'Ajouter au programme',
+    'label_edition_prog' => 'Edition du programme',
+    'suppression_warning' => 'Êtes vous sûr de vouloir supprimer ?',
 
     'message_sauv_ok' => "Enregistrement réalisé avec succès",
     'message_sauv_err' => "Erreur lors de l'enregistrement",
@@ -54,16 +61,16 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     'message_suppr_confirm' => "Etes vous sûr de vouloir supprimer ?",
 
     // FrontEnd
-    'intervenants' => "Speaker(s)",
-    'date' => "Date",
-    'horaire' => "Schedule",
-    'duree' => "Duration",
+    'intervenants' => "Speaker(s) :",
+    'date' => "Date :",
+    'horaire' => "Schedule :",
+    'duree' => "Duration :",
     'minutes' => "minutes",
-    'langue' => "Language",
-    'lieu' => "Place",
-    'type_evenement' => "Nature",
-    'video' => "Video",
-    'niveau' => "Level",
+    'langue' => "Language :",
+    'lieu' => "Place :",
+    'type_evenement' => "Nature :",
+    'video' => "Video :",
+    'niveau' => "Level :",
 
     'pause_lunch' => "Lunch break",
     'pause_pause' => "Break",
@@ -71,14 +78,18 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     'niveau_code_deb' => "Newbie",
     'niveau_code_con' => "Confirmed",
     'niveau_code_exp' => "Expert",
+    'niveau_code_n_a' => "N/A",
 
     'nature_code_ag' => "Assemblée générale",
     'nature_code_atl' => "Workshop",
-    'nature_code_conf' => "Meeting",
+    'nature_code_conf' => "Conference",
     'nature_code_plen' => "Plenary session",
     'nature_code_tabler' => "Round-table conference",
     'nature_code_visio' => "Videoconferencing",
     'nature_code_demo' => "Showcase",
+    'nature_code_proj' => "Movie/Debate",
+
+    'filsrouges_label' => 'Transversal topics:',
 
     'programme' => "Schedule",
     'programme_du' => "Daily program of: ",
@@ -93,13 +104,26 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 
     'affichage_theme' => "Filter by topic :",
     'affichage_jour' => "Filter by day:",
+    'affichage_motcle' => "Filter by transversal topic:",
     'selection_theme' => "Select a topic",
     'selection_jour' => "Select a day",
+    'selection_motcle' => "Select a transversal topic",
 
     'programme_titre' => "LSM - Schedule",
     'afficher_programme' => "Show the schedule",
+    'afficher_programme_acc' => "Show the schedule (accessible version)",
     'afficher_programme_complet' => "Show the whole schedule",
+    'afficher_programme_acc_complet' => "Show the whole schedule (accessible version)",
     'nouvelle_fenetre' => 'new window',
+
+    'derniers_entrees_programme' => 'last schedule\'s entries',
+
+    'accessible_link_jour' => 'View schedule for',
+    'accessible_link_theme' => 'View schedule for track',
+    'accessible_link_theme_transversal' => 'View schedule for transversal topic',
+    'accessible_link_article' => 'More details about',
+
+    'goto_maincontent' => 'Skip to main content',
 );
 
 ?>

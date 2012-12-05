@@ -40,10 +40,17 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     'label_indefini' => 'Non défini',
     'label_duree' => 'Durée',
     'label_enregistrer' => 'Enregistrer',
+    'label_supprimer' => 'Supprimer',
+    'label_modifier' => 'Modifier',
     'label_intervenants' => 'Intervenants',
     'label_videourl' => 'Url de la vidéo',
+    'label_notes' => 'Notes',
     'label_planning_jours' => 'Planning par journées',
     'label_planning_salle' => 'Planning par salles',
+
+    'label_ajouter_prog' => 'Ajouter au programme',
+    'label_edition_prog' => 'Edition du programme',
+    'suppression_warning' => 'Êtes vous sûr de vouloir supprimer cette entrée ?',
 
     'message_sauv_ok' => "Enregistrement réalisé avec succès",
     'message_sauv_err' => "Erreur lors de l'enregistrement",
@@ -54,16 +61,16 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     'message_suppr_confirm' => "Etes vous sûr de vouloir supprimer ?",
 
     // FrontEnd
-    'intervenants' => "Intervenant(s)",
-    'date' => "Date",
-    'horaire' => "Horaire",
-    'duree' => "Durée",
+    'intervenants' => "Intervenant(s) :",
+    'date' => "Date :",
+    'horaire' => "Horaire :",
+    'duree' => "Durée :",
     'minutes' => "minutes",
-    'langue' => "Langue",
-    'lieu' => "Lieu",
-    'type_evenement' => "Type d'événement",
-    'video' => "Vidéo",
-    'niveau' => "Niveau",
+    'langue' => "Langue :",
+    'lieu' => "Lieu :",
+    'type_evenement' => "Type d'événement :",
+    'video' => "Vidéo :",
+    'niveau' => "Niveau :",
 
     'pause_lunch' => "Repas",
     'pause_pause' => "Pause",
@@ -71,6 +78,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     'niveau_code_deb' => "Débutant",
     'niveau_code_con' => "Confirmé",
     'niveau_code_exp' => "Expert",
+    'niveau_code_n_a' => "N/A",
 
     'nature_code_ag' => "Assemblée générale",
     'nature_code_atl' => "Atelier",
@@ -79,6 +87,9 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     'nature_code_tabler' => "Table ronde",
     'nature_code_visio' => "Visioconférence",
     'nature_code_demo' => "Démonstration",
+    'nature_code_proj' => "Projection/Débat",
+
+    'filsrouges_label' => 'Thèmes transversaux :',
 
     'programme' => "Programme",
     'programme_du' => "Programme du",
@@ -93,13 +104,26 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 
     'affichage_theme' => "Affichage par thème :",
     'affichage_jour' => "Affichage par jour :",
+    'affichage_motcle' => "Affichage par fil rouge :",
     'selection_theme' => "Sélectionner un thème",
     'selection_jour' => "Sélectionner un jour",
+    'selection_motcle' => "Sélectionner un fil rouge",
 
     'programme_titre' => "RMLL - Programme",
     'afficher_programme' => "Afficher le programme",
+    'afficher_programme_acc' => "Afficher le programme (version accessible)",
     'afficher_programme_complet' => "Afficher le programme complet",
+    'afficher_programme_acc_complet' => "Afficher le programme complet (version accessible)",
     'nouvelle_fenetre' => 'nouvelle fenêtre',
+
+    'derniers_entrees_programme' => 'Derniers ajouts au programme',
+
+    'accessible_link_jour' => 'Voir le programme du',
+    'accessible_link_theme' => 'Voir le programme du thème',
+    'accessible_link_theme_transversal' => 'Voir le programme du thème transversal :',
+    'accessible_link_article' => 'Plus d\'informations sur ',
+
+    'goto_maincontent' => 'Aller au contenu',
 );
 
 ?>

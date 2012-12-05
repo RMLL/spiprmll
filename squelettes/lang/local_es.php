@@ -38,5 +38,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     'carte' => 'Carta',
     'radio_rmll' => 'RMLL Radio',
     'listen_radio_rmll' => 'Listen to the RMLL Radio',
+
+    'videos' => "Videos",
 );
 ?>

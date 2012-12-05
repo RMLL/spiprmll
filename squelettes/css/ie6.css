@@ -1,4 +1,28 @@
-#page, #head, #footer {
-	/*width : 901px;*/
-	width : expression(document.body.clientWidth < 901 ? "auto" : "901px");
+#menu {
+    text-align: center;
+    height: 30px;
+}
+
+#head-wrapper, #content-wrapper, #footer-wrapper {
+    text-align: center;
+}
+
+#head, #content, #footer {
+    text-align: left;
+}
+
+#logo, #main {
+    width: 74.99%;
+}
+
+#main {
+    height: 700px;
+}
+
+#sidebar {
+    height: 580px;
+}
+
+#page-sommaire #main {
+    padding: 10px 0;
 }

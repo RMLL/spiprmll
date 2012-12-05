@@ -1,0 +1,46 @@
+#CACHE{7200}
+
+<h2><:actu:></h2>
+
+<div class="news-focus">
+    <BOUCLE_exclure(ARTICLES){id_mot=1}{doublons}>
+    </BOUCLE_exclure>
+    <B_chaque_article>
+        [(#REM) Pour chacun des articles de la rubrique... ]
+        <BOUCLE_chaque_article(ARTICLES){id_rubrique = 2}{doublons}{par date}{inverse} {0, 10}{lang=fr}>
+            [(#REM) ... on regarde s'il existe une trad dans la langue demandée]
+            <BOUCLE_article_dans_la_langue(ARTICLES){traduction}{lang=#ENV{lang}}{doublons}>
+                <div class="item">
+                    <h3>
+                        <a href="#URL_ARTICLE">[(#TITRE|supprimer_numero)]</a>
+                    </h3>
+                    <div class="date"><:publie_le:> [(#DATE|affdate_jourcourt)]</div>
+                    [<div class="description">
+                        (#INTRODUCTION)
+                    </div>]
+                </div>
+            </BOUCLE_article_dans_la_langue>
+
+            </B_article_dans_la_langue>
+
+            [(#REM) Sinon, on affiche l'article d'origine ]
+            <BOUCLE_article_origine(ARTICLES){id_article}{origine_traduction}{doublons}>
+            </BOUCLE_article_origine>
+                <div class="item">
+                    <h3>
+                        <a href="#URL_ARTICLE">[(#TITRE|supprimer_numero)]</a>
+                    </h3>
+                    <div class="date"><:publie_le:> [(#DATE|affdate_jourcourt)]</div>
+                    [<div class="description">
+                        (#INTRODUCTION)
+                    </div>]
+                </div>
+            <//B_article_dans_la_langue>
+
+        </BOUCLE_chaque_article>
+        <p>
+            <a href="#URL_RUBRIQUE{2}"><:liste_all:></a>
+        </p>
+    </B_chaque_article>
+</div>
+

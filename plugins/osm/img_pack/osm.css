@@ -1,0 +1,62 @@
+
+table.osm {
+  margin: 0px 0px 0px 30px;
+  border-collapse: collapse;
+}
+
+table.osm td, table.osm th {
+  border: 1px solid black;
+  padding: 2px 6px;
+}
+
+table.osm th {
+  text-align: center;
+}
+
+form.osm {
+  margin: 0px 0px 0px 30px;
+}
+
+form.osm .element {
+  margin: 0px 0px 10px 0px;
+}
+
+form.osm label {
+  float: left;
+  width: 110px;
+  font-weight: bold;
+}
+
+form.osm_embed {
+  display: inline;
+}
+
+h1.osm {
+  font-size: 1.7em;
+  color: #808080;
+  padding: 5px 5px 5px 15px;
+}
+
+h2.osm {
+  font-size: 1.4em;
+  color: #808080;
+  padding: 5px 5px 5px 25px;
+}
+
+.osm-erreur {
+  border: 2px dashed red;
+  margin: 0px 30px;
+  padding: 10px;
+}
+
+.osm-infos {
+  border: 2px dashed green;
+  margin: 0px 30px;
+  padding: 10px;
+}
+
+.osm-attention {
+  border: 2px dashed orange;
+  margin: 0px 30px;
+  padding: 10px;
+}

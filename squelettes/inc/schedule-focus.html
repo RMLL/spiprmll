@@ -1,0 +1,19 @@
+#CACHE{7200}
+
+<B_schedule_art>
+    <div class="elem schedule-focus-wrapper">
+        <div class="schedule-focus">
+            <h3><a href="#URL_RUBRIQUE{4}"><:rmll:derniers_entrees_programme:></a></h3>
+            <BOUCLE_schedule_art(ARTICLES) {statut=publie} {par date_modif} {inverse} {0, 15}>
+                <BOUCLE_schedule_conf(RMLL_CONFERENCES){id_article}>
+                    [<div class="title"><a href="#URL_ARTICLE">(#TITRE|supprimer_numero)</a></div>]
+                    <div class="content">
+                        [<span class="speakers"><:rmll:intervenants:> </span>(#INTERVENANTS)]
+                    </div>
+                </BOUCLE_schedule_conf>
+            </BOUCLE_schedule_art>
+        </div>
+    </div>
+    <hr />
+</B_schedule_art>
+

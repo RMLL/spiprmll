@@ -1,0 +1,58 @@
+#CACHE{7200}
+<div id="flags">
+    <BOUCLE_testautre(CONDITION){si #ENV{langmode}|=={''}}>
+        [(#SET{langues,[(#CONFIG{langues_multilingue}|explode{','}|serialize)]})]
+
+        <BOUCLE_langue_autre(POUR){tableau #GET{langues}}>
+            [(#ENV{lang}|=={#VALEUR}|non)<a href=" [(#URL_ACTION_AUTEUR{'converser',#VALEUR&amp;var_lang=#VALEUR,[(#SELF|parametre_url{lang,'','&amp;'})]})]">
+                <img src="[(#CHEMIN{images})]/flags/[(#VALEUR)].png" alt="[(#VALEUR|traduire_nom_langue)]" />
+            </a>]
+        </BOUCLE_langue_autre>
+    </BOUCLE_testautre>
+
+    <BOUCLE_testrubrique(CONDITION){si #ENV{langmode}|=={rubrique}}>
+        <BOUCLE_rub(RUBRIQUES){id_rubrique}>
+            [(#REM) on boucle sur les langues disponibles dans le public grâce à spip-bonux]
+            [(#SET{langues,[(#CONFIG{langues_multilingue}|explode{','}|serialize)]})]
+            <BOUCLE_langue_rubriques(POUR){tableau #GET{langues}}>
+                [(#ENV{lang}|=={#VALEUR}|non)<a href="[(#URL_ACTION_AUTEUR{'converser',#VALEUR&amp;var_lang=#VALEUR,[(#SELF|parametre_url{lang,'','&amp;'})]})]">
+                    <img src="[(#CHEMIN{images})]/flags/[(#VALEUR)].png" alt="[(#VALEUR|traduire_nom_langue)]" />
+                </a>]
+            </BOUCLE_langue_rubriques>
+        </BOUCLE_rub>
+    </BOUCLE_testrubrique>
+
+    <BOUCLE_testarticle(CONDITION){si #ENV{langmode}|=={article}}>
+        <BOUCLE_menulangue(ARTICLES){id_article}>
+            [(#REM) un menu langue plat qui redirige vers la traduction de l'article si elle existe ... sinon sur l'article en cours mais en ayant changé de langue pour l'interface]
+            [(#REM) on boucle sur les langues disponibles dans le public grâce à spip-bonux]
+            [(#SET{langues,[(#CONFIG{langues_multilingue}|explode{','}|serialize)]})]
+            <BOUCLE_langue_articles(POUR){tableau #GET{langues}}>
+                [(#REM) on récupère la traduction "potentielle" de l'article en cours]
+                <BOUCLE_article_traduit(ARTICLES){traduction}{lang=#VALEUR}>
+                    [(#ENV{lang}|=={#VALEUR}|non)<a href="[(#URL_ACTION_AUTEUR{'converser',#VALEUR&amp;var_lang=#VALEUR,[(#URL_ARTICLE|parametre_url{lang,'','&amp;'})]})]">
+                        <img src="[(#CHEMIN{images})]/flags/[(#VALEUR)].png" alt="[(#VALEUR|traduire_nom_langue)]" />
+                    </a>]
+                </BOUCLE_article_traduit>
+                [(#REM) Si pas de traduction, on change bien la langue mais le lien reste sur la même page]
+                [(#ENV{lang}|=={#VALEUR}|non)<a href="[(#URL_ACTION_AUTEUR{'converser',#VALEUR&amp;var_lang=#VALEUR,[(#URL_ARTICLE|parametre_url{lang,'','&amp;'})]})]">
+                    <img src="[(#CHEMIN{images})]/flags/[(#VALEUR)].png" alt="[(#VALEUR|traduire_nom_langue)]" />
+                </a>]
+                <//B_article_traduit>
+            </BOUCLE_langue_articles>
+        </BOUCLE_menulangue>
+    </BOUCLE_testarticle>
+
+    <BOUCLE_testmot(CONDITION){si #ENV{langmode}|=={mot}}>
+        <BOUCLE_mot(MOTS){id_mot}>
+            [(#REM) on boucle sur les langues disponibles dans le public grâce à spip-bonux]
+            [(#SET{langues,[(#CONFIG{langues_multilingue}|explode{','}|serialize)]})]
+            <BOUCLE_langue_mots(POUR){tableau #GET{langues}}>
+                [(#ENV{lang}|=={#VALEUR}|non)<a href="[(#URL_ACTION_AUTEUR{'converser',#VALEUR&amp;var_lang=#VALEUR,[(#SELF|parametre_url{lang,'','&amp;'})]})]">
+                    <img src="[(#CHEMIN{images})]/flags/[(#VALEUR)].png" alt="[(#VALEUR|traduire_nom_langue)]" />
+                </a>]
+            </BOUCLE_langue_mots>
+        </BOUCLE_mot>
+    </BOUCLE_testmot>
+
+</div>

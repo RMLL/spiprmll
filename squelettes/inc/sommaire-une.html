@@ -1,0 +1,42 @@
+#CACHE{7200}
+
+<h2><:a_la_une:></h2>
+
+<div class="news-focus">
+    <B_mot_cle>
+        [(#REM) Pour chacun des articles de la rubrique... ]
+        <BOUCLE_mot_cle(ARTICLES){titre_mot = a_la_une}{lang=fr}{par date}{inverse}>
+            [(#REM) ... on regarde s'il existe une trad dans la langue demandée]
+            <BOUCLE_mot_cle_article_dans_la_langue(ARTICLES){traduction}{lang=#ENV{lang}}{doublons}>
+                <div class="item">
+                    <h3>
+                        <a href="#URL_ARTICLE">[(#TITRE|supprimer_numero)]</a>
+                    </h3>
+                    <div class="date"><:publie_le:> [(#DATE|affdate_jourcourt)]</div>
+
+                    [<div class="description">
+                        (#INTRODUCTION)
+                    </div>]
+                </div>
+            </BOUCLE_mot_cle_article_dans_la_langue>
+
+            </B_mot_cle_article_dans_la_langue>
+
+            [(#REM) Sinon, on affiche l'article d'origine ]
+            <BOUCLE_mot_cle_article_origine(ARTICLES){id_article}{origine_traduction}{doublons}>
+            </BOUCLE_mot_cle_article_origine>
+                <div class="item">
+                    <h3>
+                        <a href="#URL_ARTICLE">[(#TITRE|supprimer_numero)]</a>
+                    </h3>
+                    <div class="date"><:publie_le:> [(#DATE|affdate_jourcourt)]</div>
+
+                    [<div class="description">
+                        (#INTRODUCTION)
+                    </div>]
+                </div>
+            <//B_mot_cle_article_dans_la_langue>
+
+        </BOUCLE_mot_cle>
+    </B_mot_cle>
+</div>

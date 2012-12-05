@@ -1,58 +1,42 @@
 #CACHE{7200}
 
-<B_rubrique_principal>
+<B_rubriques>
 
-    <BOUCLE_rubrique_principal(RUBRIQUES) {id_rubrique}>
+    <BOUCLE_rubriques(RUBRIQUES){id_rubrique}>
+
+        <B_sous_rubriques>
+            <ul class="submenu">
+                <BOUCLE_sous_rubriques(RUBRIQUES) {id_parent} {par num titre, titre}>
+                        <li>
+                            <a href="#URL_RUBRIQUE">[(#TITRE|supprimer_numero)]</a>
+                        </li>
+                </BOUCLE_sous_rubriques>
+                <div class="clear"></div>
+            </ul>
+        </B_sous_rubriques>
+
+        <B_sous_rubriques2>
+            <ul class="submenu">
+                <BOUCLE_sous_rubriques2(RUBRIQUES) {id_enfant}>
+                    <BOUCLE_sous_rubriques3(RUBRIQUES) {id_parent} {par num titre, titre}>
+                        <li>
+                            <a href="#URL_RUBRIQUE">[(#TITRE|supprimer_numero)]</a>
+                        </li>
+                    </BOUCLE_sous_rubriques3>
+                </BOUCLE_sous_rubriques2>
+                <div class="clear"></div>
+            </ul>
+        </B_sous_rubriques2>
+
         <h2>[(#TITRE|supprimer_numero)]</h2>
-
-        <?php
-            require_once("plugins/rmll/rmll_mes_options.php");
-            global $rmll_theme_id, $rmll_themes_rubriques;
-            if (in_array($rmll_theme_id, $rmll_themes_rubriques)) {
-        ?>
-            <div class="rmll-ical-wrap">
-                <img src="[(#CHEMIN{images/schedule.png})]" alt="" />
-                <a href="spip.php?page=rmll_progall&amp;lang=#ENV{lang}&amp;t=#ID_RUBRIQUE"><:rmll:afficher_programme:></a>
-                (<a target="_blank" href="spip.php?page=rmll_progall&amp;lang=#ENV{lang}&amp;t=#ID_RUBRIQUE"><:rmll:nouvelle_fenetre:></a>)
-            </div>
-
-            <div class="rmll-ical-wrap">
-                <img src="[(#CHEMIN{images/ical.png})]" alt="" />
-                <a href="spip.php?page=rmll_progical&amp;lang=#ENV{lang}&amp;t=#ID_RUBRIQUE">
-                    <:rmll:planning_ical:>
-                </a>
-            </div>
-        <?php
-            }
-        ?>
 
         [<div class="description">(#TEXTE|image_reduire{180,0})</div>]
 
-        <B_articles>
-        <h3><:articles:></h3>
-        <ul>
-            <BOUCLE_articles(ARTICLES){id_rubrique}{par num titre, titre}{inverse}{lang=fr}>
-            <B_traductions>
-                [(#REM) On affiche toutes les versions de l'article en question]
-                <BOUCLE_traductions(ARTICLES){lang}{traduction}>
-                        [(#REM) On affiche toutes les versions de l'article en question]
-                        <BOUCLE_artdansnotrelangue(ARTICLES){id_article}{lang}{unique}>
-                        <li>
-                            <a href="#URL_ARTICLE">[(#TITRE|supprimer_numero)]</a>
-                        </li>
-                        </BOUCLE_artdansnotrelangue>
-                </BOUCLE_traductions>
-                </B_traductions>
-                    [(#REM) Si l'article en question n'a aucune traduction on affiche la version originale]
-                    <li>
-                        <a href="#URL_ARTICLE">[(#TITRE|supprimer_numero)]</a>
-                    </li>
-                <//B_traductions>
-            </BOUCLE_articles>
+        <?php if (#ID_RUBRIQUE == 2) { ?>
+            <INCLURE{fond=inc/rubrique-tri-date}{id_rubrique}{lang}>
+        <?php } else { ?>
+            <INCLURE{fond=inc/rubrique-tri-titre}{id_rubrique}{lang}>
+        <?php } ?>
+    </BOUCLE_rubriques>
 
-            </ul>
-            </B_articles>
-
-    </BOUCLE_rubrique_principal>
-
-</B_rubrique_principal>
+</B_rubriques>

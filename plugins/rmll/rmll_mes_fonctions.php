@@ -1,19 +1,89 @@
 <?php
+    require_once _DIR_PLUGIN_RMLL.'rmll_mes_options.php';
+
+/*
+function boucle_RMLL_CONFERENCES($id_boucle, &$boucles) {
+//function boucle_SPIP_RMLL_CONFERENCE($id_boucle, &$boucles) {
+    $boucle = &$boucles[$id_boucle];
+    $id_table = $boucle->id_table;
+
+    $boucle->select[] = 'rmll_langues.nom_langue';
+    $boucle->from['rmll_langues'] =  'spip_rmll_langues';
+    //$boucle->where[]= array("'='", "'spip_rmll_jour.id_jour'", "'$id_table.id_jour'");
+    $boucle->join['rmll_langues']= array("'$id_table'", 'id_langue', 'id_langue');
+
+    return calculer_boucle($id_boucle, $boucles);
+}
+*/
+
+    /*
+    if (!isset($boucle->modificateur['criteres']['statut'])) {
+        // Restreindre aux elements publies
+        // uniquement les evenements d'un article publie
+        if (!$GLOBALS['var_preview'])
+            if (!isset($boucle->modificateur['lien']) AND !isset($boucle->modificateur['tout'])
+            AND (!isset($boucle->lien) OR !$boucle->lien) AND (!isset($boucle->tout) OR !$boucle->tout)) {
+                $boucle->from["articles"] =  "spip_articles";
+                $boucle->where[]= array("'='", "'articles.id_article'", "'$id_table.id_article'");
+                $boucle->where[]= array("'='", "'articles.statut'", "'\"publie\"'");
+            }
+    }
+    */
+
+function balise_RMLL_GET_SESSIONS($p) {
+    $_nom = interprete_argument_balise(1,$p);
+    if ($_nom) {
+        $p->code = "vide(\$Pile['vars'][$_nom] = explode(',', constant('RMLL_SESSION_ID')))";
+    }
+    else {
+        $p->code = "''";
+    }
+    $p->interdire_scripts = false; // la balise ne renvoie rien
+    return $p;
+}
+
+function rmll_get_sessions_subs($session) {
+    require_once _DIR_PLUGIN_RMLL.'inc/rmll.class.php';
+
+    $rmllc = new Rmll_Conference();
+    $ret = array($session) + $rmllc->get_all_sousrubriques($session);
+    return $ret;
+}
+
+function balise_RMLL_GET_SESSIONS_SUBS($p) {
+    $_nom = interprete_argument_balise(1,$p);
+    $_session = interprete_argument_balise(2,$p);
+    if ($_nom && $_session) {
+
+        $p->code = "vide(\$Pile['vars'][$_nom] = rmll_get_sessions_subs($_session))";
+    }
+    else {
+        $p->code = "''";
+    }
+    $p->interdire_scripts = false; // la balise ne renvoie rien
+    return $p;
+}
+
+
+
 
 function get_dl_filename($params) {
-    $filename = "planning";
-    if (trim($params['date']) == '')
+    $filename = 'schedule';
+    if (trim($params['theme']) != '') {
+        $filename .= '_theme_'.$params['theme'];
+    }
+    elseif (trim($params['keyword']) != '') {
+        $filename .= '_transversal_'.$params['keyword'];
+    }
+    else {
         $filename .= '_global';
-    else
-        $filename .= '_'.trim($params['date']);
-    if (trim($params['theme']) != '')
-        $filename .= '_theme'.trim($params['theme']);
+    }
     return $filename;
 }
 
-function get_color_theme ($list_themes, $theme_id) {
+function get_color_theme ($theme_id) {
     $ret = 0;
-    $id = array_search($theme_id, $list_themes);
+    $id = array_search($theme_id, explode(',', RMLL_SESSION_ID));
     if (!($id === false))
         $ret = $id;
     return $ret;

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="#CHARSET" ?>
+#CACHE{7200}
+
+<INCLURE{fond=inc/debut-page}{lang}{titrepage=<:traduc:>}>
+
+<div id="page">
+    <INCLURE{fond=inc/entete}{id_rubrique}{lang}>
+    <div id="content-wrapper">
+        <div id="content">
+            <div id="main">
+                <div id="traduc">
+                    <INCLURE{fond=inc/traduc}{lang}>
+                </div>
+            </div>
+            <div id="sidebar">
+                <INCLURE{fond=inc/side-bar}{lang}>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <INCLURE{fond=inc/pied}>
+</div>
+<INCLURE{fond=inc/fin-page}{lang}>
+

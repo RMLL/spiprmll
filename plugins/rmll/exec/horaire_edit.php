@@ -8,30 +8,21 @@
 include_spip('inc/rmll.class');
 
 function exec_horaire_edit () {
-
     /* admin ou pas */
     Rmll_Helper::test_acces_admin();
-
     /* quelques controles ? */
     Rmll_Helper::faire_controles();
-
-    debut_page(_T('rmll:titre_page_gestion'));
-
-
-    debut_gauche();
-
-    debut_cadre_enfonce();
-    icone_horizontale(_T('rmll:label_liste'),
-        generer_url_ecrire("horaire"), null,
-        _DIR_PLUGIN_RMLL.'/img_pack/liste.png');
-    icone_horizontale(_T('rmll:label_ajout'),
-        generer_url_ecrire("horaire_edit"), null,
-        _DIR_PLUGIN_RMLL.'/img_pack/ajout.png');
-    fin_cadre_enfonce();
-
+    Rmll_Helper::debut_page(_T('rmll:titre_page_gestion'));
+    Rmll_Helper::debut_gauche();
+    Rmll_Helper::debut_cadre_enfonce();
+    Rmll_Helper::icone_horizontale(
+        _T('rmll:label_liste'), 'horaire', 'liste.png');
+    Rmll_Helper::icone_horizontale(
+        _T('rmll:label_ajout'), 'horaire_edit','ajout.png');
+    Rmll_Helper::fin_cadre_enfonce();
     Rmll_Helper::menu_gestion();
+    Rmll_Helper::debut_droite();
 
-    debut_droite();
     $table = new Rmll_Db('horaire');
 
     /* Récupération des données */
@@ -72,7 +63,7 @@ function exec_horaire_edit () {
     Rmll_Helper::titre_moyen(_T('rmll:label_ajout'));
 
     /* remplissage et création du formulaire d'ajout */
-    for ($liste_heures = array(), $i=7; $i<=20; $i++) $liste_heures[$i] = sprintf("%02d", $i);
+    for ($liste_heures = array(), $i=7; $i<=23; $i++) $liste_heures[$i] = sprintf("%02d", $i);
     for ($liste_minutes = array(), $i=0; $i<=55; $i+=5) $liste_minutes[$i] = sprintf("%02d", $i);
 
     Rmll_Helper::formulaire_debut('', array('class' => 'rmll'));
@@ -102,6 +93,6 @@ function exec_horaire_edit () {
 <?php
     Rmll_Helper::formulaire_fin();
 
-    echo fin_page();
+    Rmll_Helper::fin_page();
 }
 ?>

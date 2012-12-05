@@ -40,10 +40,17 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     'label_indefini' => 'Non défini',
     'label_duree' => 'Durée',
     'label_enregistrer' => 'Enregistrer',
+    'label_supprimer' => 'Supprimer',
+    'label_modifier' => 'Modifier',
     'label_intervenants' => 'Intervenants',
     'label_videourl' => 'Url de la vidéo',
+    'label_notes' => 'Notas',
     'label_planning_jours' => 'Planning par journées',
     'label_planning_salle' => 'Planning par salles',
+
+    'label_ajouter_prog' => 'Ajouter au programme',
+    'label_edition_prog' => 'Edition du programme',
+    'suppression_warning' => 'Êtes vous sûr de vouloir supprimer ?',
 
     'message_sauv_ok' => "Enregistrement réalisé avec succès",
     'message_sauv_err' => "Erreur lors de l'enregistrement",
@@ -54,16 +61,17 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     'message_suppr_confirm' => "Etes vous sûr de vouloir supprimer ?",
 
     // FrontEnd
-    'intervenants' => "Participante(s)",
-    'date' => "Fecha",
-    'horaire' => "Horario",
-    'duree' => "Duración",
+    'intervenants' => "Participante(s) :",
+    'date' => "Fecha :",
+    'horaire' => "Horario :",
+    'duree' => "Duración :",
     'minutes' => "minutes",
-    'langue' => "Idioma",
-    'lieu' => "Lugar",
-    'type_evenement' => "Actividad:",
-    'video' => "Video",
-    'niveau' => "Nivel",
+    'langue' => "Idioma :",
+    'lieu' => "Lugar :",
+    'type_evenement' => "Actividad :",
+    'video' => "Video :",
+    'niveau' => "Nivel :",
+    'notes' => "Notas :",
 
     'pause_lunch' => "Comida",
     'pause_pause' => "Pausa",
@@ -74,11 +82,13 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 
     'nature_code_ag' => "Asamblea General",
     'nature_code_atl' => "Taller",
-    'nature_code_conf' => "conferencia",
+    'nature_code_conf' => "Conferencia",
     'nature_code_plen' => "Plenario",
     'nature_code_tabler' => "Mesa redonda",
     'nature_code_visio' => "Videoconferencia",
     'nature_code_visio' => "Demostración",
+
+    'filsrouges_label' => 'Temas transversales :',
 
     'programme' => "Programación",
     'programme_du' => "Programación del",
@@ -90,6 +100,8 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     'planning_ical_jour' => "Decargar el planning iCal de la jornada (Formato vCalendar)",
 
     'programme_intro' => "Dailys timetables are also available :",
+
+    'derniers_entrees_programme' => 'Derniers ajouts au programme',
 );
 
 ?>

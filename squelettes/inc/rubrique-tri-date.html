@@ -1,0 +1,38 @@
+<B_rubriques>
+    <BOUCLE_rubriques(RUBRIQUES){id_rubrique}>
+        <B_articles>
+                <div class="news-focus">
+                    <BOUCLE_articles(ARTICLES){id_rubrique}{par date}{inverse}{lang=fr}>
+                        <B_traductions>
+                            [(#REM) On affiche toutes les versions de l'article en question]
+                            <BOUCLE_traductions(ARTICLES){lang}{traduction}>
+                                [(#REM) On affiche toutes les versions de l'article en question]
+                                <BOUCLE_artdansnotrelangue(ARTICLES){id_article}{lang}{unique}>
+                                    <div class="item">
+                                        <h3>
+                                            <a href="#URL_ARTICLE">[(#TITRE|supprimer_numero)]</a>
+                                        </h3>
+                                        <div class="date"><:publie_le:> [(#DATE|affdate_jourcourt)]</div>
+                                        [<div class="description">
+                                            (#INTRODUCTION)
+                                        </div>]
+                                    </div>
+                                </BOUCLE_artdansnotrelangue>
+                            </BOUCLE_traductions>
+                            </B_traductions>
+                                [(#REM) Si l'article en question n'a aucune traduction on affiche la version originale]
+                                <div class="item">
+                                    <h3>
+                                        <a href="#URL_ARTICLE">[(#TITRE|supprimer_numero)]</a>
+                                    </h3>
+                                    <div class="date"><:publie_le:> [(#DATE|affdate_jourcourt)]</div>
+                                    [<div class="description">
+                                        (#INTRODUCTION)
+                                    </div>]
+                                </div>
+                            <//B_traductions>
+                    </BOUCLE_articles>
+                </div>
+            </B_articles>
+    </BOUCLE_rubriques>
+</B_rubriques>
