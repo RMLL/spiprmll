@@ -1,0 +1,4 @@
+#page, #head, #footer {
+	/*width : 901px;*/
+	width : expression(document.body.clientWidth < 901 ? "auto" : "901px");
+}

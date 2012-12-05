@@ -1,0 +1,91 @@
+#CACHE{7200}
+
+<BOUCLE_article(ARTICLES){id_article}>
+
+	#DEBUT_SURLIGNE
+	<h2>
+		[(#TITRE|supprimer_numero)]
+	</h2>
+	#FIN_SURLIGNE
+
+	<B_articles_autrelangue>
+		<div class="trads">
+			<:trads:> :
+			<BOUCLE_articles_autrelangue(ARTICLES) {traduction} {exclus}>
+				<a href="#URL_ARTICLE" dir="#LANG_DIR" [title="(#LANG|traduire_nom_langue)"]>
+					<img src="[(#CHEMIN{images/drapeaux/})][(#LANG)].png" [alt="(#LANG|traduire_nom_langue)"] />
+				</a>
+			</BOUCLE_articles_autrelangue>
+		</div>
+	</B_articles_autrelangue>
+
+    <INCLURE{fond=rmll/article-header}{id_article}>
+
+	#DEBUT_SURLIGNE
+		[<div class="description">
+				(#TEXTE|image_reduire{450,0})
+				<div class="clear"></div>
+		</div>]
+	#FIN_SURLIGNE
+
+	[(#REM) Portfolio : album d'images ]
+	<B_documents_portfolio>
+	<div id="portfolio"  class="portfolio">
+			<h3><:info_portfolio:></h3>
+			<div class="description">
+				<BOUCLE_documents_portfolio(DOCUMENTS) {id_article} {mode=document} {extension IN png,jpg,gif} {par num titre, date} {doublons}>
+				[<a href="[(#URL_ARTICLE|parametre_url{id_document,#ID_DOCUMENT})]#portfolio"[ title="(#TITRE|couper{80}|texte_backend)"]>
+					(#FICHIER|copie_locale|image_reduire{0,120}|inserer_attribut{alt,[(#TITRE|couper{80}|texte_backend)]})
+				</a>]
+				</BOUCLE_documents_portfolio>
+			</div>
+	</div>
+	</B_documents_portfolio>
+
+	<BOUCLE_afficher_document(DOCUMENTS) {id_document} {id_article} {mode=document}{extension IN png,jpg,gif}>
+	<div class="gallery" id="document_actif">
+		<div class="description">
+			<div class="elem">
+				[<a href="/#FICHIER" target="_blank">
+					(#EMBED_DOCUMENT|image_reduire{650,0})
+				</a>]
+			</div>
+			[<div class="#EDIT{titre} titre">(#TITRE)</div>]
+			[<div class="#EDIT{descriptif} desc">(#DESCRIPTIF)</div>]
+		</div>
+	</div>
+	</BOUCLE_afficher_document>
+
+	[<div class="postscriptum">
+			<h3><:info_ps:></h3>
+			#DEBUT_SURLIGNE
+			<div class="description#EDIT{ps}">
+					(#PS)
+			</div>
+			#FIN_SURLIGNE
+	</div>]
+
+	[(#REM) Autres documents joints a l'article ]
+	<B_documents_joints>
+	<div class="docjoints" id="documents_joints">
+			<h2><:titre_documents_joints:></h2>
+			<div class="description">
+				<BOUCLE_documents_joints(DOCUMENTS) {id_article} {mode=document} {par num titre, date} {doublons}>
+				<div class="docsjoints">
+						[(#LOGO_DOCUMENT|#URL_DOCUMENT|inserer_attribut{alt,#TITRE})]
+						<div class="titre"><a href="#URL_DOCUMENT" title="<:bouton_telecharger:>" type="#MIME_TYPE">[(#TITRE|sinon{<:info_document:>})]</a> <small>(#TYPE_DOCUMENT[ - (#TAILLE|taille_en_octets)])</small></div>
+						[<div class="descriptif">(#DESCRIPTIF)</div>]
+				</div>
+				</BOUCLE_documents_joints>
+			</div>
+	</div>
+	</B_documents_joints>
+
+	[<div id="notes">
+		<h3 class="section-title"><:info_notes:></h3>
+		<div class="description">
+			#DEBUT_SURLIGNE(#NOTES)#FIN_SURLIGNE
+		</div>
+	</div>]
+
+</BOUCLE_article>

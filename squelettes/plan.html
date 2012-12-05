@@ -3,29 +3,21 @@
 
 <INCLURE{fond=inc/debut-page}{lang}{titrepage=<:plan_site:>}>
 
-	<INCLURE{fond=inc/entete}{id_rubrique}{lang}>
-
-	<div id="content">
-		<div class="extra">
-			<div class="search">
-				#FORMULAIRE_RECHERCHE
-			</div>
-			<div class="contents">
-				<INCLURE{fond=inc/dernieres-infos}{lang}>
-			</div>
+	<div id="page">
+		
+		<INCLURE{fond=inc/entete}{lang}>
+	
+		<div id="location">
+			&gt; <a href="#URL_SITE_SPIP/" title="<:accueil:>"><:accueil:></a>
+			&gt; <a href="#URL{plan}" title="<:plan_site:>"><:plan_site:></a>
 		</div>
-		<div class="all plan">
+	
+		<div id="content" class="sitemap">
 
-			<div id="rootline">
-				<a href="#URL_SITE_SPIP/" title=""><:accueil:></a>
-				&rsaquo;&rsaquo; <a href="#URL{plan}" title=""><:plan_site:></a>
-			</div>
-
-			<h1><:plan_site:></h1>
-
+			<h2><:plan_site:></h2>
 		 	<BOUCLE_secteurs(RUBRIQUES) {racine} {par titre}>
 
-				<h2><a href="#URL_RUBRIQUE">[(#TITRE|supprimer_numero)]</a></h2>
+				<h3><a href="#URL_RUBRIQUE">[(#TITRE|supprimer_numero)]</a></h3>
 
 				[(#REM) Articles et sous-rubriques ]
 
@@ -55,17 +47,11 @@
 					</BOUCLE_rubriques>
 
 				</ul>
-
 				</B_rubriques>
-
 			</BOUCLE_secteurs>
 
-
-
 		</div>
-		<div class="clear"></div>
+		<INCLURE{fond=inc/pied}>
 	</div>
-
-	<INCLURE{fond=inc/pied}>
 
 <INCLURE{fond=inc/fin-page}{lang}>

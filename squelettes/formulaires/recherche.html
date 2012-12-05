@@ -1,6 +1,8 @@
 #CACHE{7200}
 <form action="#URL_PAGE{recherche}" method="get">
-	<input name='page' value='recherche' type='hidden' />
-	<input class="text" type="text" name="recherche" value="<:recherche:>" onfocus="this.value='';" />
-	<input class="img" type="image" src="[(#CHEMIN{images/loupe.png})]" value="ok" />
+	<div id="search">
+		<input name="page" value="recherche" type="hidden" />
+		<input class="text" type="text" name="recherche" value="<:recherche:>" onfocus="this.select();" />
+		<input class="img" type="image" src="[(#CHEMIN{images/loupe.gif})]" value="ok" />
+	</div>
 </form>

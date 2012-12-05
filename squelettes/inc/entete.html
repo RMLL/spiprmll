@@ -1,38 +1,59 @@
-<INCLURE{fond=inc/entete-inc}{id_rubrique}{lang}>
+#CACHE{7200}
+<div id="head">
+        <div id="acces">
+        <a href="#content"><:contenu:></a> — <a href="#menu2"><:menu:></a> — <a href="#search"><:recherche:></a>
+    </div>
+        <ul id="menu1">
+            <li><a href="#URL_SITE_SPIP/" title=""><:accueil:></a></li>
+            <BOUCLE_submenu(RUBRIQUES){id_rubrique IN 1,7,8,16}{!lang_select}>
+                <li>
+                    <a href="[(#URL_RUBRIQUE)]"[ class="(#EXPOSE)"] title="">[(#TITRE|supprimer_numero)]</a>
+                </li>
+            </BOUCLE_submenu>
+            <li><a href="#URL_ARTICLE{3}"><:partners:></a></li>
+            <li><a href="#URL_ARTICLE{4}"><:sponsors:></a></li>
+            <li><a href="#URL_PAGE{plan}"><:plan_site:></a></li>
+            <li><a href="#URL_ARTICLE{7}"><:contact:></a></li>
+            <!--<li>
+                <a href="#URL_PAGE{rmll_progcount}"></a>
+                <a href="#URL_PAGE{linuxfr}"></a>
+                <a href="#URL_PAGE{rmll_test}"></a>
+            </li>-->
+        </ul>
+        <a id="mainlink" href="#URL_SITE_SPIP/" title="Nantes 2009 : Rendez-vous libres !">&nbsp;</a>
+        <h1><:titre_rmll:></h1>
+        <ul id="menu2">
+            <BOUCLE_menu(RUBRIQUES){id_rubrique IN 3,4,5,6}{!lang_select}>
+                <li>
+                    <a href="#URL_RUBRIQUE"[ class="(#EXPOSE)"] title="">[(#TITRE|supprimer_numero)]</a>
+                </li>
+            </BOUCLE_menu>
+            <li>
+                <a href="https://reservation.rmll.info/" title=""><:booking:></a>
+            </li>
+            <li>
+                <a href="http://rmll2009.openstreetmap.fr/" title=""><:carte:></a>
+            </li>
+        </ul>
+        #FORMULAIRE_RECHERCHE
 
-<div id="header">
-	<div class="occitan">
-		<span>&ldquo;</span>Adishatz, benvenguts a las jornadas du logiciau libre<span>&bdquo;</span>
-	</div>
-	
-	<div class="slogan-part1">
-		<div class="num">9</div>
-		<div class="renc"><span><:slogan_eme:></span><:slogan_recontresmondiales:></div>
-	</div>
-	<div class="slogan-part2">
-		<:slogan_logiciellibre:>
-	</div>
-	<div class="slogan-part3">
-		<:slogan_ouetquand:>
-	</div>
-	<div class="slogan">
-		<:slogan_desc:>
-	</div>
-	
-	
-	<div class="bisonvert">
-		<div>
-			<!--
-			<a href="#URL_PAGE{geo}" class="bison">Bison</a>
-			<a href="#URL_PAGE{geo}" class="vert">Vert.net</a>
-			!-->
-			<a href="#URL_PAGE{geo}">
-				<img src="[(#CHEMIN{images/bisonvert.png})]" alt="BisonVert.Net" />
-			</a>
-		</div>
-		<div class="comment">
-			<a href="#URL_PAGE{geo}"><:covoiturage:></a>
-		</div>
-	</div>
-	
+        <div style="clear:both;padding:5px 0px 0px 50px;text-align:center;width:200px;">
+            <img style="border:none;" src="[(#CHEMIN{images/bison_vert/bisonvert.png})]" alt="Bison Vert - <:covoiturage:>" />
+            <br/>
+            <a href="#URL_PAGE{co-voiturage}" title="Bison Vert - <:covoiturage:>">
+                <:covoiturage:>
+            </a>
+        </div>
 </div>
+
+<div id="icons">
+    <BOUCLE_langues(ARTICLES){fusion lang}{par lang}>
+        <!--
+        <a href="[(#REM|sinon{spip.php?action=cookie}|parametre_url{url,#SELF}|parametre_url{var_lang,#LANG})]" dir="#LANG_DIR" [title="(#LANG|traduire_nom_langue)"]>!-->
+        <a href="[(#REM|sinon{spip.php?action=cookie}|parametre_url{url,/}|parametre_url{var_lang,#LANG})]" dir="#LANG_DIR" [title="(#LANG|traduire_nom_langue)"]>
+            <img src="[(#CHEMIN{images/drapeaux/})][(#LANG)].png" [alt="(#LANG|traduire_nom_langue)"] />
+        </a>
+    </BOUCLE_langues>
+    <a href="#URL_PAGE{backend}&amp;lang=#LANG"><img src="[(#CHEMIN{images/rss.png})]" alt="rss" /></a>
+</div>
+

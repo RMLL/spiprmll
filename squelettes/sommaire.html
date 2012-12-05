@@ -3,23 +3,25 @@
 
 <INCLURE{fond=inc/debut-page}{lang}{titrepage=<:accueil:>}>
 
-	<INCLURE{fond=inc/entete}{id_rubrique}{lang}>
+	<div id="page" class="deuxcolonnes">
 
-	<div id="content">
-		<div class="extra">
-			<div class="search">
-				#FORMULAIRE_RECHERCHE
-			</div>
-			<div class="contents">
-				<INCLURE{fond=inc/dernieres-infos-accueil}{lang}>
-			</div>
+		<INCLURE{fond=inc/entete}{id_rubrique}{lang}>
+
+		<div id="location">
+			&gt; <a href="#URL_SITE_SPIP/" title=""><:accueil:></a>
 		</div>
-		<div class="all">
-			<INCLURE{fond=inc/accueil}{lang}>
+
+		<div id="barredroite">
+            <INCLURE{fond=inc/extra-radio}{lang}>
+			<INCLURE{fond=inc/extra-modifs}{lang}>
+			<INCLURE{fond=inc/extra-infos}{lang}>
 		</div>
-		<div class="clear"></div>
+
+		<div id="content">
+			<INCLURE{fond=inc/sommaire}{lang}>
+		</div>
+
+		<INCLURE{fond=inc/pied}>
 	</div>
-
-	<INCLURE{fond=inc/pied}>
 
 <INCLURE{fond=inc/fin-page}{lang}>

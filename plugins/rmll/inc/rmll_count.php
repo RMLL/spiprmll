@@ -1,7 +1,8 @@
 <?php
-	global $rmll_prog_page;
-
-	include("rmll.class.php");
+    require_once("plugins/rmll/rmll_mes_options.php");
+    require_once("plugins/rmll/rmll_mes_fonctions.php");
+    require_once("plugins/rmll/inc/rmll.class.php");
+    global $rmll_prog_page;
 
 	$rc = new Rmll_Conference();
 	$conf = $rc->get_all_sub($rmll_prog_page, $GLOBALS['lang']);

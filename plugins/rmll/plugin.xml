@@ -4,25 +4,24 @@
 	<auteur>
 	Emmanuel Bouthenot
 _ kolter@openics.org
-_ &#169; 2008 - WTFPLv2
+_ &#169; 2008-2009 - Licence WTFPLv2
 	</auteur>
-	<version>0.1</version>
+	<version>0.2</version>
 	<etat>stable</etat>
 	<description>Gestion des programmes des RMLL</description>
 	<lien>http://rmll.info</lien>
-	<options>rmll_mes_options.php</options>
+
+    <prefix>rmll</prefix>
+    <install>base/rmll_install.php</install>
+
 	<fonctions>rmll_mes_fonctions.php</fonctions>
-	<prefix>rmll</prefix>
-	
-	<install>base/rmll_install.php</install>
-	
-	
-	<pipeline>
+    <options>rmll_mes_options.php</options>
+
+    <pipeline>
 		<nom>ajouter_boutons</nom>
 		<action>ajouter_item</action>
 		<inclure>inc/rmll.php</inclure>
 	</pipeline>
-	
 
 	<pipeline>
 		<nom>header_prive</nom>
@@ -35,6 +34,6 @@ _ &#169; 2008 - WTFPLv2
 		<action>affiche_milieu</action>
 		<inclure>inc/rmll.php</inclure>
 	</pipeline>
-	
+
 	<chemin dir='' />
 </plugin>

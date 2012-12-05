@@ -1,8 +1,49 @@
 <?php
 
+function get_dl_filename($params) {
+    $filename = "planning";
+    if (trim($params['date']) == '')
+        $filename .= '_global';
+    else
+        $filename .= '_'.trim($params['date']);
+    if (trim($params['theme']) != '')
+        $filename .= '_theme'.trim($params['theme']);
+    return $filename;
+}
+
+function get_color_theme ($list_themes, $theme_id) {
+    $ret = 0;
+    $id = array_search($theme_id, $list_themes);
+    if (!($id === false))
+        $ret = $id;
+    return $ret;
+}
+
+function get_slot_interval($h, $m, $d) {
+    list($year, $month, $day) = explode('-', date('Y-n-j'));
+    $t1 = mktime($h, $m, 0, $month, $day, $year);
+    $t2 = $t1 + ($d*60);
+    return sprintf("%s-%s", strftime("%R", $t1), strftime("%R", $t2));
+}
+
+function time_sorter($a, $b) {
+    if ($a['data']['heure'] == $b['data']['heure'])
+        return $a['data']['minute'] - $b['data']['minute'];
+    else
+        return $a['data']['heure'] - $b['data']['heure'];
+}
+
+
+function aff_nature($code) {
+    $code = 'nature_code_'.$code;
+    $ret = '';
+    if (isset($GLOBALS[$GLOBALS['idx_lang']][$code]))
+        $ret = $GLOBALS[$GLOBALS['idx_lang']][$code];
+    return $ret;
+}
 
 function aff_date_complete($date){
-	return ucfirst(nom_jour($date). ' ' .affdate($date));
+    return ucfirst(nom_jour($date). ' ' .affdate($date));
 }
 
 function horairise($num){
@@ -11,14 +52,6 @@ function horairise($num){
 
 function aff_niveau($code) {
 	$code = 'niveau_code_'.$code;
-	$ret = '';
-	if (isset($GLOBALS[$GLOBALS['idx_lang']][$code]))
-		$ret = $GLOBALS[$GLOBALS['idx_lang']][$code];
-	return $ret;
-}
-
-function aff_nature($code) {
-	$code = 'nature_code_'.$code;
 	$ret = '';
 	if (isset($GLOBALS[$GLOBALS['idx_lang']][$code]))
 		$ret = $GLOBALS[$GLOBALS['idx_lang']][$code];

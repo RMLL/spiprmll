@@ -1,200 +1,131 @@
 <?php
-	global $rmll_prog_page_date, $rmll_prog_page;
+    require_once("plugins/rmll/rmll_mes_options.php");
+    require_once("plugins/rmll/rmll_mes_fonctions.php");
+    require_once("plugins/rmll/inc/rmll.class.php");
 
-	include("plugins/rmll/inc/rmll.class.php");
-	$jours = new Rmll_Db('jour');
-	$ljours = $jours->get_all();
+    global $rmll_prog_page, $rmll_themes_rubriques;
 
-	$rc = new Rmll_Conference();
-	$conf = $rc->get_all_sub($rmll_prog_page, $GLOBALS['lang']);
+    $objJour = new Rmll_Db('jour');
+    $jours = $objJour->get_all();
 
-	function prepare2js($texte) {
-		//return addslashes(extraire_trad(traiter_raccourcis(str_replace(array("\r\r", "\r\n", "\r"), " ", $texte))));
-		//return addslashes(extraire_trad(nettoyer_raccourcis_typo(str_replace(array("\r\r", "\r\n", "\r"), " ", $texte))));
-		return addslashes(supprimer_numero(extraire_trad(str_replace(array("\r\r", "\r\n", "\r", "\n"), " ", propre($texte)))));
-	}
+    $rc = new Rmll_Conference();
+    // cleaning empty themes and keep confs this day
+    $datas = $rc->get_all_sub($rmll_prog_page, $GLOBALS['lang']);
+    $conf = array();
+    for($i=0, $n=count($datas); $i<$n; $i++) {
+        $articles = $datas[$i]['articles'];
+        $new_articles = array();
+        if (!empty($articles)) {
+            foreach($articles as $article) {
+                if (!($article['data']['heure'] === null || $article['data']['minute'] === null))
+                    $new_articles[] = $article;
+            }
+            usort($new_articles, 'time_sorter');
+            $datas[$i]['articles'] = $new_articles;
+        }
+        if (!empty($datas[$i]['articles']))
+            $conf[] = $datas[$i];
+    }
+    $nb_themes = count($conf);
+?>
 
-	function snip2trad($v) {
-		$ret = $v;
-		if (isset($GLOBALS[$GLOBALS['idx_lang']][$v]))
-			$ret = addslashes($GLOBALS[$GLOBALS['idx_lang']][$v]);
-		return $ret;
-	}
+<div class="rmll-listdays-wrap">
+    <div class="msg"><?php echo _T('rmll:programme_intro'); ?></div>
+    <ul>
+        <?php
+            foreach($jours as $j) {
+        ?>
+            <li>
+                <a href="spip.php?page=rmll_progdate&amp;lang=<?php echo $GLOBALS['lang']; ?>&amp;d=<?php echo $j['date']; ?>">
+                    <?php echo ucfirst(nom_jour($j['date'])).' '.jour($j['date']); ?>
+                </a>
+            </li>
+        <?php
+            }
+        ?>
+    </ul>
+</div>
 
-	function sorter($a, $b) {
-		if ($a['data']['heure'] == $b['data']['heure'])
-			return $a['data']['minute'] - $b['data']['minute'];
-		else
-			return $a['data']['heure'] - $b['data']['heure'];
-	}
+<div class="rmll-ical-wrap">
+    <img src="squelettes/images/ical.png" alt="" />
+    <a href="spip.php?page=rmll_progical&amp;lang=<?php echo $GLOBALS['lang']; ?>">
+        <?php echo _T('rmll:planning_ical'); ?>
+    </a>
+</div>
 
-	?>
-	<script type="text/javascript">
-		//<![CDATA[
-			var conferences = [
-			<?php
-				$clist = array();
-				foreach($conf as $theme) {
-					$articles = $theme['articles'];
-					foreach($articles as $article) {
-						$clist[] = sprintf("{ 'id' : %d, 'drap' : \"%s\", 'titre' : \"%s\", 'jour' : \"%s\", 'horaire' : \"%s\", 'duree' : \"%s\", 'langue' : \"%s\", 'nature' : \"%s\", 'niveau' : \"%s\", 'lieu' : \"%s\", 'description' : \"%s\", 'intervenants' : \"%s\" }",
-							$article['data']['id_article'],
-							$article['data']['drap'],
-							prepare2js($article['data']['titre']),
-							ucfirst(nom_jour($article['data']['jour']).' '.affdate($article['data']['jour'])),
-							sprintf("%02d:%02d", $article['data']['heure'], $article['data']['minute']),
-							prepare2js($article['data']['duree']),
-							prepare2js($article['data']['langue']), prepare2js($article['data']['nature']),
-							prepare2js(aff_niveau($article['data']['niveau'])),
-							prepare2js($article['data']['salle']),
-							prepare2js($article['data']['descriptif']),
-							prepare2js($article['data']['intervenants'])
-							);
-					}
-				}
-				echo implode(",\n", $clist);
-			?>
-			];
-
-			var tooltip_id = "tooltip";
-			var tooltip_disp = false;
-			var mouse_x = 0;
-			var mouse_y = 0;
-
-			function getMousePos (e) {
-				if (!e) var e = window.event;
-				if (e.pageX || e.pageY) 	{
-					mouse_x = e.pageX;
-					mouse_y = e.pageY;
-				}
-				else if (e.clientX || e.clientY) 	{
-					mouse_x = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
-					mouse_y = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
-				}
-			}
-
-			function tooltip_show (text) {
-				if (tooltip_disp)
-					tooltip_hide ();
-				o = document.getElementById(tooltip_id);
-				if (o) {
-					if (mouse_x != 0 && mouse_y != 0) {
-						o.style.left = (mouse_x - 300) +"px";
-						o.style.top = (mouse_y + 20) +"px";
-						o.style.visibility = "visible";
-						o.innerHTML = text;
-						tooltip_disp = true;
-					}
-				}
-			}
-
-			function tooltip_hide () {
-				o = document.getElementById(tooltip_id);
-				if (tooltip_disp && o) {
-					o.style.visibility = "hidden";
-					tooltip_disp = false;
-				}
-			}
-
-			function aff_programme (id) {
-
-				for (var i = 0, n = conferences.length; i < n; i++) {
-					if (conferences[i]['id'] == id) {
-						var t = '<h1>';
-						if (conferences[i]['drap'] != '')
-							t += '<img class="drap" src="squelettes/images/flags/'+ conferences[i]['drap'] +'.png" alt="" />';
-						t += conferences[i]['titre'] + '</h1>';
-						t += '<div class="description rmllevenements">';
-						t += '<div class="info"><span class="expl"><?php echo snip2trad('date'); ?> :</span>'+conferences[i]['jour']+'</div>';
-						if (conferences[i]['intervenants'] != '')
-							t += '<div class="info"><span class="expl"><?php echo snip2trad('intervenants');?> :</span>'+conferences[i]['intervenants']+'</div>';
-						if (conferences[i]['nature'] != '')
-							t += '<div class="info"><span class="expl"><?php echo snip2trad('type_evenement'); ?> :</span>'+conferences[i]['nature']+'</div>';
-						if (conferences[i]['niveau'] != '')
-							t += '<div class="info"><span class="expl"><?php echo snip2trad('niveau'); ?> :</span>'+conferences[i]['niveau']+'</div>';
-						if (conferences[i]['horaire'] != '00:00')
-							t += '<div class="info"><span class="expl"><?php echo snip2trad('horaire'); ?> :</span>'+conferences[i]['horaire']+'</div>';
-						if (conferences[i]['duree'] != '0')
-							t += '<div class="info"><span class="expl"><?php echo snip2trad('duree'); ?> :</span>'+conferences[i]['duree']+' <?php echo snip2trad('minutes'); ?></div>';
-						if (conferences[i]['langue'] != '')
-							t += '<div class="info"><span class="expl"><?php echo snip2trad('langue'); ?> :</span>'+conferences[i]['langue']+'</div>';
-						if (conferences[i]['lieu'] != '')
-							t += '<div class="info"><span class="expl"><?php echo snip2trad('lieu'); ?> :</span>'+conferences[i]['lieu']+'</div>';
-						t += '</div>';
-
-						if (conferences[i]['description'] != '')
-							t += '<div class="description">'+conferences[i]['description']+'</div>';
-						return tooltip_show(t);
-					}
-				}
-				return false;
-			}
-
-			document.onmousemove = getMousePos;
-		//]]>
-	</script>
-
-	<div id="tooltip" style="position: absolute; visibility : hidden;"></div>
-
-	<br />
-	<div class="link-cal">
-		<img src="squelettes/images/ical.png" alt="" />
-		<a href="spip.php?page=progical&amp;lang=<?php echo $GLOBALS['lang']; ?>">
-			<?php echo snip2trad('planning_ical'); ?>
-		</a>
-	</div>
-
-	<div class="planning-box">
-		<table border="1" class="planning">
-			<tr class="dates">
-				<th></th>
-				<?php
-					foreach($ljours as $jo) {
-				?>
-					<th>
-						<a href="<?php printf("%s&amp;d=%s&amp;lang=%s", $rmll_prog_page_date, $jo['date'], $GLOBALS['lang']); ?>">
-							<?php echo ucfirst(nom_jour($jo['date']).' '.affdate($jo['date'])); ?>
-						</a>
-					</th>
-				<?php
-					}
-				?>
-			</tr>
-			<?php
-				$i = 0;
-				foreach($conf as $theme) {
-					$i++;
-					$oddeven = ' '.(($i % 2) == 0 ? 'odd' : 'even');
-					$articles = $theme['articles'];
-					usort($articles, 'sorter');
-			?>
-				<tr class="conf<?php echo $oddeven; ?>">
-					<th>
-						<a href="spip.php?page=progical&amp;lang=<?php echo $GLOBALS['lang']; ?>&amp;t=<?php echo $theme['id']; ?>" title="<?php echo snip2trad('planning_ical_theme'); ?>">
-							<img src="squelettes/images/ical-small.png" alt="<?php echo snip2trad('planning_ical_theme'); ?>" />
-						</a>
-						<a href="spip.php?rubrique=<?php echo $theme['id']; ?>"><?php echo supprimer_numero(extraire_trad(nettoyer_raccourcis_typo($theme['titre']))); ?></a>
-					</th>
-				<?php
-					foreach($ljours as $jour) {
-				?>
-					<td>
-					<?php
-						foreach($articles as $article) {
-							if ($article['data']['id_jour'] == $jour['id_jour']) {
-								echo '<a href="spip.php?article='.$article['data']['id_article'].'" onmouseover="javascript:aff_programme(\''.$article['data']['id_article'].'\');" onmouseout="javascript:tooltip_hide();"></a>';
-							}
-
-						}
-					?>
-					</td>
-				<?php
-					}
-				?>
-
-				</tr>
-			<?php
-				}
-			?>
-		</table>
-	</div>
+<div id="rmll-timeline" class="rmll-schedule-wrap rmll-schedule-summary-wrap">
+    <table class="rmll-schedule rmll-schedule-all">
+        <tr class="header">
+            <th class="timeslot">&nbsp;</th>
+            <?php
+                for($i=0; $i<$nb_themes; $i++) {
+            ?>
+                <th class="conf">
+                    <a href="spip.php?rubrique=<?php echo $conf[$i]['id']; ?>&amp;lang=<?php echo $GLOBALS['lang']; ?>">
+                        <?php echo supprimer_numero(extraire_multi(nettoyer_raccourcis_typo($conf[$i]['titre']))); ?>
+                    </a>
+                </th>
+            <?php
+                }
+            ?>
+        </tr>
+        <?php
+            foreach($jours as $j) {
+        ?>
+            <tr>
+                <td class="timeslot">
+                    <a href="spip.php?page=rmll_progdate&amp;lang=<?php echo $GLOBALS['lang']; ?>&amp;d=<?php echo $j['date']; ?>">
+                        <?php echo ucfirst(nom_jour($j['date'])).' '.jour($j['date']); ?>
+                    </a>
+                </td>
+                <?php
+                    for($i=0; $i<$nb_themes; $i++) {
+                    ?>
+                        <td class="conf">
+                        <?php
+                            $articles = $conf[$i]['articles'];
+                            foreach($articles as $cf) {
+                                if ($cf['data']['jour'] != $j['date'])
+                                    continue;
+                                $time = get_slot_interval($cf['data']['heure'], $cf['data']['minute'], $cf['data']['duree']);
+                                $bloc_id = 'rmll-schedule-'.$cf['data']['id_article'];
+                            ?>
+                                <div class="infos conf-color-<?php  echo get_color_theme($rmll_themes_rubriques, $conf[$i]['id']); ?>">
+                                    <div class="time">
+                                        <?php echo $time; ?>
+                                        <a href="spip.php?article=<?php echo $cf['data']['id_article']; ?>&amp;lang=<?php echo $GLOBALS['lang']; ?>" onclick="javascript:return !$('#<?php echo $bloc_id; ?>').toggle();">(+)</a>
+                                    </div>
+                                    <div class="hider" id="<?php echo $bloc_id; ?>">
+                                        <div class="title">
+                                            <?php if (!empty($cf['data']['drap'])) { ?>
+                                                <img class="drap" src="plugins/rmll/img_pack/flags/<?php echo $cf['data']['drap'] ?>.png" alt="" />
+                                            <?php } ?>
+                                            <a href="spip.php?article=<?php echo $cf['data']['id_article']; ?>&amp;lang=<?php echo $GLOBALS['lang']; ?>">
+                                                <?php  echo supprimer_numero($cf['data']['titre']); ?>
+                                            </a>
+                                        </div>
+                                        <?php if ($cf['data']['nature_code'] != '') { ?>
+                                            <div class="nature">
+                                                (<?php echo _T('rmll:nature_code_'.$cf['data']['nature_code']); ?>)
+                                            </div>
+                                        <?php } ?>
+                                        <?php if (!empty($cf['data']['intervenants'])) { ?>
+                                            <div class="speaker">
+                                                <?php echo $cf['data']['intervenants']; ?>
+                                            </div>
+                                        <?php } ?>
+                                    </div>
+                                </div>
+                            <?php
+                            }
+                        ?>
+                        </td>
+                    <?php
+                    }
+                ?>
+            </tr>
+        <?php
+        }
+        ?>
+    </table>
+</div>

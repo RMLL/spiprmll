@@ -10,7 +10,7 @@ function action_editer_evenement_dist() {
 
 	$id_article = _request('arg');
 	$redirect = urldecode(_request('redirect'));
-	
+
 	$evenement = Rmll_Helper::inPost('evenement');
 	$jour = Rmll_Helper::inPost('jour');
 	$horaire = Rmll_Helper::inPost('horaire');
@@ -21,7 +21,7 @@ function action_editer_evenement_dist() {
 	$salle = Rmll_Helper::inPost('salle');
 	$intervenants = Rmll_Helper::inPost('intervenants');
 	$video = Rmll_Helper::inPost('video');
-	
+
 	$suppr_evenement = Rmll_Helper::inPost('suppr_evenement');
 
 	$ev = new Rmll_Event();
@@ -46,7 +46,7 @@ function action_editer_evenement_dist() {
 			'id_article' => $id_article, 'intervenants' => $intervenants,
 			'video' => $video));
 	}
-		
+
 	if ($redirect)
 		redirige_par_entete($redirect);
 }

@@ -45,7 +45,7 @@ h2.rmll {
 .rmll-erreur {
   border : 2px dashed red;
   margin : 0px 30px;
-  padding : 10px;  
+  padding : 10px;
 }
 
 .rmll-infos {
@@ -66,10 +66,15 @@ table.rmll-evenement-edit {
 
 table.rmll-evenement-edit th {
 	padding : 5px 8px;
+    white-space : nowrap;
 }
 
 table.rmll-evenement-edit td {
 	padding : 0px 10px;
+}
+
+table.rmll-evenement-show th {
+    white-space : nowrap;
 }
 
 table.rmll-evenement-show td {
@@ -78,4 +83,8 @@ table.rmll-evenement-show td {
 
 table.rmll-evenement-show td.suppr {
 	text-align : right;
+}
+
+.rmll-editer-evenement {
+    padding-top : 10px;
 }

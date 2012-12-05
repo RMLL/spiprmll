@@ -1,107 +1,83 @@
 <?xml version="1.0" encoding="#CHARSET" ?>
 #CACHE{7200}
+
 <BOUCLE_rubrique_principal(RUBRIQUES) {id_rubrique}>
 
-<INCLURE{fond=inc/debut-page}{lang}{titrepage=#TITRE}>
+    <INCLURE{fond=inc/debut-page}{lang}{titrepage=#TITRE}>
 
-	<INCLURE{fond=inc/entete}{id_rubrique}{lang}>
+        <div id="page" class="deuxcolonnes">
 
-	<div id="content">
-		<div class="extra">
-			<div class="search">
-				#FORMULAIRE_RECHERCHE
-			</div>
-			<div class="contents">
-				<INCLURE{fond=inc/dernieres-infos}{lang}>
-			</div>
-		</div>
-		<div class="all">
+            <INCLURE{fond=inc/entete}{id_rubrique}{lang}>
 
-			<div id="rootline">
-				<a href="#URL_SITE_SPIP/" title=""><:accueil:></a>
-				<BOUCLE_ariane(HIERARCHIE){id_article}> &rsaquo;&rsaquo; <a href="#URL_RUBRIQUE">[(#TITRE|supprimer_numero|couper{80})]</a></BOUCLE_ariane>
-			</div>
+            <div id="location">
+                &gt; <a href="#URL_SITE_SPIP/" title=""><:accueil:></a>
+                <BOUCLE_ariane(HIERARCHIE){id_article}> &gt; <a href="#URL_RUBRIQUE">[(#TITRE|supprimer_numero|couper{80})]</a></BOUCLE_ariane>
+            </div>
 
-			<h1>[(#TITRE|supprimer_numero)]</h1>
-			[<div class="description">(#TEXTE)</div>]
+            <div id="barredroite">
+                <INCLURE{fond=inc/extra-modifs-rubrique}{id_rubrique}{lang}>
+                <INCLURE{fond=inc/extra-sousrubriques}{id_rubrique}{lang}>
+                <INCLURE{fond=inc/extra-infos}{lang}>
+            </div>
 
-			
-			<?php
-				global $rmll_prog_page_date, $rmll_prog_page;
-				$rmll_prog_page_date = "#URL_PAGE{progdate}";
-				$rmll_prog_page = 18;
-				if (#ID_RUBRIQUE == $rmll_prog_page) {
-					require_once("plugins/rmll/rmll_mes_fonctions.php");
-					require_once("plugins/rmll/inc/rmll_conferences.php");
-				}
-			?>
+            <div id="content">
 
-			<BOUCLE_sous_rubriques(RUBRIQUES) {id_parent} {par num titre, titre}>
-				<h2 class="rubrique"><a href="#URL_RUBRIQUE">[(#TITRE|supprimer_numero)]</a></h2>
-				[<div class="description">(#DESCRIPTIF)</div>]
-				<h4 class="more"><a href="#URL_RUBRIQUE"><:more_infos:></a></h4>
-			</BOUCLE_sous_rubriques>
+                <?php
+                    global $rmll_theme_id;
+                    $rmll_theme_id = #ID_RUBRIQUE;
+                ?>
 
+                <INCLURE{fond=inc/rubrique}{id_rubrique}{lang}>
 
-			<BOUCLE_articles(ARTICLES){id_rubrique}{par num titre, titre}{inverse}{lang=fr}>
-			<B_traductions>
-				[(#REM) On affiche toutes les versions de l'article en question]
-				<BOUCLE_traductions(ARTICLES){lang}{traduction}>
-						[(#REM) On affiche toutes les versions de l'article en question]
-						<BOUCLE_artdansnotrelangue(ARTICLES){id_article}{lang}{unique}>
-						<h3 class="article">
-							
-							<BOUCLE_rmll_conference_lang0(spip_rmll_conference) {id_article}>
-								<BOUCLE_rmll_lang0(spip_rmll_langue) {id_langue}>
-									[<img class="drap" src="squelettes/images/flags/(#CODE).png" alt="" />]
-								</BOUCLE_rmll_lang0>
-							</BOUCLE_rmll_conference_lang0>
+                <?php
+                    require_once("plugins/rmll/rmll_mes_options.php");
+                    global $rmll_prog_page;
+                    if (#ID_RUBRIQUE == $rmll_prog_page) {
+                ?>
 
-							<a href="#URL_ARTICLE">[(#TITRE|supprimer_numero)]</a>
-						</h3>
-						[<div class="description">(#DESCRIPTIF)</div>]
+                    <div class="rmll-ical-wrap">
+                        <img src="[(#CHEMIN{images/schedule.png})]" alt="" />
+                        <a href="spip.php?page=rmll_progall&amp;lang=#ENV{lang}"><:rmll:afficher_programme_complet:></a>
+                        (<a target="_blank" href="spip.php?page=rmll_progall&amp;lang=#ENV{lang}"><:rmll:nouvelle_fenetre:></a>)
+                    </div>
 
-						[(#ID_RUBRIQUE|=={1}|?{
-							<h3 class="date">[(#DATE|affdate_jourcourt)]</h3>
-							<div class="description">
-							#INTRODUCTION
-							</div>
-						,''})]
+                    <div class="rmll-ical-wrap">
+                        <img src="[(#CHEMIN{images/ical.png})]" alt="" />
+                        <a href="spip.php?page=rmll_progical&amp;lang=#ENV{lang}">
+                            <:rmll:planning_ical:>
+                        </a>
+                    </div>
 
-						<h4 class="more"><a href="#URL_ARTICLE"><:read_more:></a></h4>
-						</BOUCLE_artdansnotrelangue>
-				</BOUCLE_traductions>
-				</B_traductions>
-					[(#REM) Si l'article en question n'a aucune traduction on affiche la version originale]
-					<h3 class="article">
+                    <BOUCLE_sous_rubriques(RUBRIQUES) {id_parent} {par num titre, titre}>
+                        [<div class="rmll-evenements-theme">
+                            <h3 class="rubrique"><a href="#URL_RUBRIQUE">[(#TITRE|supprimer_numero)]</a></h3>
 
-						<BOUCLE_rmll_conference_lang1(spip_rmll_conference) {id_article}>
-							<BOUCLE_rmll_lang1(spip_rmll_langue) {id_langue}>
-								[<img class="drap" src="squelettes/images/flags/(#CODE).png" alt="" />]
-							</BOUCLE_rmll_lang1>
-						</BOUCLE_rmll_conference_lang1>
+                            <div class="description">(#DESCRIPTIF)</div>
 
-						<a href="#URL_ARTICLE">[(#TITRE|supprimer_numero)]</a>
-					</h3>
-					[<div class="description">(#DESCRIPTIF)</div>]
+                            <div class="rmll-ical-wrap">
+                                <img src="[(#CHEMIN{images/schedule.png})]" alt="" />
+                                <a href="spip.php?page=rmll_progall&amp;lang=#ENV{lang}&amp;t=#ID_RUBRIQUE"><:rmll:afficher_programme:></a>
+                                (<a target="_blank" href="spip.php?page=rmll_progall&amp;lang=#ENV{lang}&amp;t=#ID_RUBRIQUE"><:rmll:nouvelle_fenetre:></a>)
+                            </div>
 
-					[(#ID_RUBRIQUE|=={1}|?{
-						<h3 class="date">[(#DATE|affdate_jourcourt)]</h3>
-						<div class="description">
-						#INTRODUCTION
-						</div>
-					,''})]
+                            <div class="rmll-ical-wrap">
+                                <img src="[(#CHEMIN{images/ical.png})]" alt="" />
+                                <a href="spip.php?page=rmll_progical&amp;lang=#ENV{lang}&amp;t=#ID_RUBRIQUE">
+                                    <:rmll:planning_ical:>
+                                </a>
+                            </div>
 
-					<h4 class="more"><a href="#URL_ARTICLE"><:read_more:></a></h4>
-				<//B_traductions>
-			</BOUCLE_articles>
+                        </div>]
+                    </BOUCLE_sous_rubriques>
+                <?php
+                    }
+                ?>
 
-		</div>
-		<div class="clear"></div>
-	</div>
+            </div>
 
-	<INCLURE{fond=inc/pied}>
+            <INCLURE{fond=inc/pied}>
+        </div>
 
-<INCLURE{fond=inc/fin-page}{lang}>
+    <INCLURE{fond=inc/fin-page}{lang}>
 
 </BOUCLE_rubrique_principal>

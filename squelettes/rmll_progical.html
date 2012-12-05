@@ -1,0 +1,9 @@
+#CACHE{0}
+#SET{filename, #ARRAY{date,#ENV{d},theme,#ENV{t}}|get_dl_filename}
+[(#HTTP_HEADER{Content-Disposition: inline[; filename=(#GET{filename}).ics]})]
+[(#HTTP_HEADER{Content-type: text/calendar[; charset=(#CHARSET)]})]<?php
+    global $rmll_prog_date, $rmll_prog_theme;
+    $rmll_prog_date = trim("#ENV{d}");
+    $rmll_prog_theme = trim("#ENV{t}");
+    require_once("plugins/rmll/inc/rmll_ical.php");
+?>
