@@ -1,56 +1,58 @@
 #CACHE{600}
 
-<BOUCLE_rmll_conferences(RMLL_CONFERENCES ?){id_article=#ID_ARTICLE}>
-	<div class="rmll-evenements-brief">
-		<p class="rmll_noms">
-			<strong><:rmll:intervenants:> </strong>[(#INTERVENANTS)]
-		</p>
+<BOUCLE_rmll_conferences(RMLL_CONFERENCES ?){id_article}>
+    <div class="rmll-evenements-brief">
+        <p class="rmll_noms">
+            <strong><:rmll:intervenants:> </strong>[(#INTERVENANTS)]
+        </p>
 
-		<ul class="rmll_meta">[(#REM) 1ère liste d'infos ]
-		<BOUCLE_rmll_langues(RMLL_LANGUES ?) {id_langue}>
-			[<li>
-				<strong><:rmll:langue:> </strong>(#NOM)
-			</li>]
-		</BOUCLE_rmll_langues>
+        <ul class="rmll_meta">[(#REM) 1ère liste d'infos ]
+        <BOUCLE_rmll_langues(RMLL_LANGUES ?) {id_langue}>
+            [<li>
+                <strong><:rmll:langue:> </strong>(#NOM)
+            </li>]
+        </BOUCLE_rmll_langues>
 
-		<BOUCLE_rmll_niveaux(RMLL_NIVEAUS ?) {id_niveau}>
-			[<li>
-				<strong><:rmll:niveau:> </strong>(#CODE|aff_niveau)
-			</li>]
-		</BOUCLE_rmll_niveaux>
+        <BOUCLE_rmll_niveaux(RMLL_NIVEAUS ?) {id_niveau}>
+            [<li>
+                <strong><:rmll:niveau:> </strong>(#CODE|aff_niveau)
+            </li>]
+        </BOUCLE_rmll_niveaux>
 
-		<BOUCLE_rmll_natures(RMLL_NATURES ?){id_nature}>
-			[<li>
-				<strong><:rmll:type_evenement:> </strong>(#CODE|aff_nature)
-			</li>]
-		</BOUCLE_rmll_natures>
-		</ul>
+        <BOUCLE_rmll_natures(RMLL_NATURES ?){id_nature}>
+            [<li>
+                <strong><:rmll:type_evenement:> </strong>(#CODE|aff_nature)
+            </li>]
+        </BOUCLE_rmll_natures>
+        </ul>
 
-		<ul class="rmll_temps">[(#REM) 2ème liste d'infos
-		 ]<BOUCLE_rmll_jours(RMLL_JOURS ?) {id_jour}>[
+        <ul class="rmll_temps">[(#REM) 2ème liste d'infos
+        ]<BOUCLE_rmll_jours(RMLL_JOURS ?) {id_jour}>[
             <li>
                 <strong><:rmll:date:> </strong>(#DATE|aff_date_complete)
             </li>
-		]</BOUCLE_rmll_jours>[(#REM) no whitespace
+        ]</BOUCLE_rmll_jours>[(#REM) no whitespace
 
-		]<BOUCLE_rmll_horaires(RMLL_HORAIRES ?) {id_horaire}>[
-			<li>
-				<strong><:rmll:horaire:> </strong>(#HEURE|horairise)h[(#MINUTE|horairise)]
-			</li>][
-			<li>
-				<strong><:rmll:duree:> </strong>(#DUREE) <:minutes:>
-			</li>
-		]</BOUCLE_rmll_horaires>[(#REM) no whitespace
-		]</ul>
+        ]<BOUCLE_rmll_horaires(RMLL_HORAIRES ?) {id_horaire}>[
+            <li>
+                <strong><:rmll:horaire:> </strong>(#HEURE|horairise)h[(#MINUTE|horairise)]
+            </li>][
+            <li>
+                <strong><:rmll:duree:> </strong>(#DUREE) <:minutes:>
+            </li>
+        ]</BOUCLE_rmll_horaires>[(#REM) no whitespace
+        ]</ul>
 
-		<BOUCLE_rmll_salles(RMLL_SALLES ?) {id_salle}>
-			[<p class="salle">
-				<strong><:rmll:lieu:> </strong>(#NOM)
-			</p>]
-		</BOUCLE_rmll_salles>
+        <ul class="rmll_temps">[(#REM) 3ème liste d'infos
+        ]<BOUCLE_rmll_salles(RMLL_SALLES ?) {id_salle}>
+                [<li>
+                    <strong><:rmll:lieu:> </strong>(#NOM|aff_salle)
+                </li>]
+        </BOUCLE_rmll_salles>[(#REM) no whitespace
+        ]</ul>
 
-		[<p class="video">
-			<strong><:rmll:video:> </strong>(#VIDEO)
-		</p>]
-	</div>
+        [<p class="video">
+            <strong><:rmll:video:> </strong>(#VIDEO)
+        </p>]
+    </div>
 </BOUCLE_rmll_conferences>

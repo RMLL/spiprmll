@@ -1,0 +1,17 @@
+#CACHE{600}
+
+<div id="theme-rmll">
+<BOUCLE_rubriques(RUBRIQUES){id_rubrique}>
+    <h2>[(#TITRE|supprimer_numero)]</h2>
+    [<div class="description">(#TEXTE|image_reduire{180,0})</div>]
+    <B_sousrubriques>
+        <ul class="menu-schedule">
+            <BOUCLE_sousrubriques(RUBRIQUES){id_parent}{statut=publie}{par num titre, titre}>
+                <li>
+                    <a href="#URL_RUBRIQUE">[(#TITRE|supprimer_numero)]</a>
+                </li>
+            </BOUCLE_sousrubriques>
+        </ul>
+    </B_sousrubriques>
+</BOUCLE_rubriques>
+</div>

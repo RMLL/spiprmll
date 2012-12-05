@@ -1,0 +1,16 @@
+#CACHE{7200}
+
+<?php
+    $url = "http://2012.rmll.info/template/header";
+    if ($GLOBALS['lang'] == 'en') {
+        $url = "http://2012.rmll.info/en/template/header";
+    }
+    $content = @file_get_contents($url);
+    $content = trim($content);
+    // Remove BOM
+    $bom = pack("CCC", 0xef, 0xbb, 0xbf);
+    if (0 == strncmp($content, $bom, 3)) {
+        $content = substr($content, 3);
+    }
+    echo $content;
+?>

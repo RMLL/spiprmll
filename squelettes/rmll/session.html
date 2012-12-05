@@ -1,44 +1,187 @@
 #CACHE{600}
 
 <BOUCLE_rubriques(RUBRIQUES){id_rubrique}>
-	<h2>[(#TITRE|supprimer_numero)]</h2>
-	[<div class="description">(#TEXTE|image_reduire{180,0})</div>]
+    <h2>
+        <?php if (rmll_is_theme(#ID_PARENT)) { ?>
+        <BOUCLE_surrubriques(RUBRIQUES){id_rubrique=#ID_PARENT}>
+            [(#TITRE|supprimer_numero) &mdash; ]
+        </BOUCLE_surrubriques>
+        <?php } ?>
+        [(#TITRE|supprimer_numero)]
+    </h2>
+    [<div class="description">(#TEXTE|image_reduire{180,0})</div>]
 
-	<div class="rmll-ical-wrap">
-		<img src="[(#CHEMIN{images/schedule.png})]" alt="" />
-		<a href="spip.php?page=rmll_progall&amp;lang=#ENV{lang}&amp;t=#ID_RUBRIQUE"><:rmll:afficher_programme:></a>
-		(<a target="_blank" href="spip.php?page=rmll_progall&amp;lang=#ENV{lang}&amp;t=#ID_RUBRIQUE"><:rmll:nouvelle_fenetre:></a>)
-	</div>
+    <div class="rmll-ical-wrap">
+        <img src="[(#CHEMIN{images/schedule.png})]" alt="" />
+        <a href="spip.php?page=rmll_progall&amp;lang=#ENV{lang}&amp;t=#ID_RUBRIQUE"><:rmll:afficher_programme:></a>
+        (<a target="_blank" href="spip.php?page=rmll_progall&amp;lang=#ENV{lang}&amp;t=#ID_RUBRIQUE"><:rmll:nouvelle_fenetre:></a>)
+    </div>
 
-	<div class="rmll-ical-wrap">
-		<img src="[(#CHEMIN{images/schedule.png})]" alt="" />
-		<a href="spip.php?page=rmll_progacc&amp;lang=#ENV{lang}&amp;t=#ID_RUBRIQUE"><:rmll:afficher_programme_acc:></a>
-		(<a target="_blank" href="spip.php?page=rmll_progacc&amp;lang=#ENV{lang}&amp;t=#ID_RUBRIQUE"><:rmll:nouvelle_fenetre:></a>)
-	</div>
+    <div class="rmll-ical-wrap">
+        <img src="[(#CHEMIN{images/schedule.png})]" alt="" />
+        <a href="spip.php?page=rmll_progacc&amp;lang=#ENV{lang}&amp;t=#ID_RUBRIQUE"><:rmll:afficher_programme_acc:></a>
+        (<a target="_blank" href="spip.php?page=rmll_progacc&amp;lang=#ENV{lang}&amp;t=#ID_RUBRIQUE"><:rmll:nouvelle_fenetre:></a>)
+    </div>
 
-	<div class="rmll-ical-wrap">
-		<img src="[(#CHEMIN{images/ical.png})]" alt="" />
-		<a href="spip.php?page=rmll_progical&amp;lang=#ENV{lang}&amp;t=#ID_RUBRIQUE">
-			<:rmll:planning_ical:>
-		</a>
-	</div>
+    <div class="rmll-ical-wrap">
+        <img src="[(#CHEMIN{images/ical.png})]" alt="" />
+        <a href="spip.php?page=rmll_progical&amp;lang=#ENV{lang}&amp;t=#ID_RUBRIQUE">
+            <:rmll:planning_ical:>
+        </a>
+    </div>
 </BOUCLE_rubriques>
 
+<?php
+/*
+
 <B_articles>
-	<div class="news-focus">
-		<BOUCLE_articles(ARTICLES){id_rubrique}{par num titre, titre}{inverse}>
-			<div class="item">
-				<h3>
-					<a href="#URL_ARTICLE">[(#TITRE|supprimer_numero)]</a>
-				</h3>
+    <div class="news-focus">
+        <BOUCLE_articles(ARTICLES){id_rubrique}{par num titre, titre}{inverse}>
+            <div class="item">
+                <h3>
+                    <a href="#URL_ARTICLE">[(#TITRE|supprimer_numero)]</a>
+                </h3>
 
-				<INCLURE{fond=rmll/article-header}{id_article}{lang}>
-				<INCLURE{fond=rmll/filsrouges}{id_article}{lang}>
+                <INCLURE{fond=rmll/article-header}{id_article}{lang}>
+                <INCLURE{fond=rmll/motscles}{id_article}{lang}>
 
-				[<div class="description">
-					(#TEXTE|couper{600, '...'})
-				</div>]
-			</div>
-		</BOUCLE_articles>
-	</div>
+                [<div class="description">
+                    (#TEXTE|couperhtml{300,'...'}|image_reduire{50,0})
+                    <a href="#URL_ARTICLE"><:rmll:read_more:></a>
+                </div>]
+            </div>
+        </BOUCLE_articles>
+    </div>
 </B_articles>
+
+*/
+
+?>
+
+<?php
+    require_once("plugins/rmll/inc/rmll_conferences_all.php");
+    $s = new RmllSchedule();
+    $conf = $s->get_theme_info(#ID_RUBRIQUE);
+    if (!empty($conf)) {
+    ?>
+        <div class="news-focus">
+    <?php
+        foreach($conf['articles'] as $cf) {
+//var_dump(array_keys($cf['data']));
+        ?>
+            <div class="item">
+                <h3>
+                    <a href="<?php echo generer_url_entite($cf['id'], 'article'); ?>">
+                        <?php echo supprimer_numero(extraire_multi($cf['data']['titre'])); ?>
+                    </a>
+                </h3>
+
+                <?php
+                    if ($cf['data']['id_conference'] > 0) {
+                ?>
+                    <div class="rmll-evenements-brief">
+                        <p class="rmll_noms">
+                            <strong><:rmll:intervenants:> </strong><?php echo $cf['data']['intervenants']; ?>
+                        </p>
+
+                        <ul class="rmll_meta">
+                            <?php if (!empty($cf['data']['langue'])) { ?>
+                                <li>
+                                    <strong><:rmll:langue:> </strong><?php echo $cf['data']['langue']; ?>
+                                </li>
+                            <?php } ?>
+
+                            <?php if (!empty($cf['data']['niveau'])) { ?>
+                                <li>
+                                    <strong><:rmll:niveau:> </strong><?php echo aff_niveau($cf['data']['niveau']); ?>
+                                </li>
+                            <?php } ?>
+
+                            <?php if (!empty($cf['data']['nature'])) { ?>
+                                <li>
+                                    <strong><:rmll:type_evenement:> </strong><?php echo $cf['data']['nature']; ?>
+                                </li>
+                            <?php } ?>
+                        </ul>
+
+                        <ul class="rmll_temps">
+                            <?php if ($cf['data']['jour']) { ?>
+                                <li>
+                                    <strong><:rmll:date:> </strong><?php echo aff_date_complete($cf['data']['jour']); ?>
+                                </li>
+                            <?php } ?>
+
+                            <?php if ($cf['data']['heure'] > 0) { ?>
+                                <li>
+                                    <strong><:rmll:horaire:> </strong><?php printf('%s:%s', horairise($cf['data']['heure']), horairise($cf['data']['minute'])); ?>
+                                </li>
+                            <?php } ?>
+
+                            <?php if ($cf['data']['duree'] > 0) { ?>
+                                <li>
+                                    <strong><:rmll:duree:> </strong><?php echo $cf['data']['duree']; ?> <:minutes:>
+                                </li>
+                            <?php } ?>
+
+                        </ul>
+
+                        <?php if (!empty($cf['data']['salle'])) { ?>
+                            <ul class="rmll_temps">
+                                <li>
+                                    <strong><:rmll:lieu:> </strong><?php echo $cf['data']['salle']; ?>
+                                </li>
+                            </ul>
+                        <?php } ?>
+
+                        <?php if (!empty($cf['data']['video'])) { ?>
+                            <p class="video">
+                                <strong><:rmll:video:> </strong><?php echo $cf['data']['video']; ?>
+                            </p>
+                        <?php } ?>
+                    </div>
+                <?php
+                    }
+                ?>
+
+                <?php
+                    if (!empty($cf['keywords'])) {
+                ?>
+                    <div>
+                    <?php
+                        foreach($s->render_keywords($cf['keywords'], true) as $k => $v) {
+                    ?>
+                        <div class="rmll-evenements-brief">
+                            <strong><?php echo $k; ?> :</strong>
+                            <?php echo implode(' &mdash; ', $v); ?>
+                        </div>
+                    <?php
+                        }
+                    ?>
+                    </div>
+                <?php
+                    }
+                ?>
+
+                <?php
+                    if (!empty($cf['data']['texte'])) {
+                ?>
+                    <div class="description">
+                    <?php
+                        //echo image_reduire(filtre_couperhtml(propre($cf['data']['texte']), 300, '...'), 50, 0);
+                        //echo filtre_couperhtml(propre(supprime_img($cf['data']['texte'])), 300, '...');
+                        //echo propre(supprime_img(supprime_intertitre($cf['data']['texte'])));
+                        echo resume($cf['data']['texte']);
+                    ?>
+                    <a href="<?php echo generer_url_entite($cf['id'], 'article'); ?>"><:rmll:read_more:></a>
+                    </div>
+                <?php
+                    }
+                ?>
+            </div>
+        <?php
+            }
+        ?>
+        </div>
+    <?php
+    }
+?>

@@ -1,0 +1,6 @@
+#CACHE{0}
+#SET{filename, #ARRAY{prefix,captation,suffix,rmll,date,#ENV{d},theme,#ENV{t},nature,#ENV{n}}|get_dl_filename}
+[(#HTTP_HEADER{Content-Disposition: inline[; filename=(#GET{filename}).csv]})]
+[(#HTTP_HEADER{Content-type: application/vnd.ms-excel[; charset=(#CHARSET)]})]<?php
+    require_once _DIR_PLUGIN_RMLL.'inc/rmll_csvuni.php';
+?>

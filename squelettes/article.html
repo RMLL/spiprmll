@@ -1,61 +1,37 @@
 #CACHE{7200}
 
+[(#SET{rmll_theme_id, 37})]
+
 <BOUCLE_article(ARTICLES){id_article}>
 
-	<INCLURE{fond=inc/debut-page}{lang}{titrepage=#TITRE}>
+    <INCLURE{fond=inc/debut-page}{lang}{titrepage=#TITRE}{metadesc=#TEXTE}>
 
-		<div id="page" class="deuxcolonnes">
+        <INCLURE{fond=inc/entete}{id_rubrique}{lang}{env}>
 
-			<INCLURE{fond=inc/entete}{lang}>
+        <INCLURE{fond=inc/entete-menu}{id_rubrique}{lang}>
 
-			<div id="location">
-				<a href="#URL_SITE_SPIP/" title=""><:accueil:></a>
-				<BOUCLE_ariane(HIERARCHIE){id_article}> &gt; <a href="#URL_RUBRIQUE">[(#TITRE|supprimer_numero|couper{80})]</a></BOUCLE_ariane>
-			</div>
+        <div id="wrapper">
+            <div class="container">
+                <div class="span-22 push-1 blueprint">
+                    <div class="span-22 shadow">
+                        <div class="maincontent">
+                            <div class="span-6 shadow first leftcol">
+                                <div class="col-content">
+                                    <INCLURE{fond=inc/extra-sousrubriques}{id_rubrique=#GET{rmll_theme_id}}{id_current=#ID_RUBRIQUE}{lang}>
+                                </div>
+                            </div>
+                            <div class="span-16 shadow last rightcol">
+                                <div class="col-content">
+                                    <INCLURE{fond=inc/article}{id_article}{id_document}>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-			<div id="barredroite">
-	[(#REM)		<INCLURE{fond=inc/extra-modifs-rubrique}{id_rubrique}{lang}>
-	]			<INCLURE{fond=inc/extra-sousrubriques}{id_rubrique}{lang}>
-				<INCLURE{fond=inc/extra-radio}{lang}>
-				<INCLURE{fond=inc/extra-infos}{lang}>
-				<INCLURE{fond=inc/extra-jgp}{lang}>
-				<INCLURE{fond=inc/extra-festival}{lang}>
-			</div>
+        <INCLURE{fond=inc/pied}>
 
-			<div id="content">
-				[(#REM) 15/07 RMLL2011 terminées, plus d'incitation vers la résa
-				<INCLURE{fond=inc/annonceresa}{lang}> ]
-
-				<B_article_dans_la_langue>
-					<BOUCLE_article_dans_la_langue(ARTICLES){id_article}{traduction}{lang=#ENV{lang}}{doublons}>
-
-					</BOUCLE_article_dans_la_langue>
-				</B_article_dans_la_langue>
-					<BOUCLE_article_origine(ARTICLES){id_article}{origine_traduction}{doublons}>
-
-					</BOUCLE_article_origine>
-				<//B_article_dans_la_langue>
-
-				<INCLURE{fond=inc/article}{id_article}{id_document}>
-
-				<?php
-					if (#ID_ARTICLE == 8) {
-					?>
-[(#REM)						<INCLURE{fond=inc/newsletter}{url_newsletter=https://rmll.info/cgi-bin/mailman/subscribe/rmll}>
-]					<?php
-					}
-					if (#ID_ARTICLE == 9) {
-					?>
-[(#REM)						<INCLURE{fond=inc/newsletter}{url_newsletter=https://rmll.info/cgi-bin/mailman/subscribe/participants}>
-]					<?php
-					}
-				?>
-
-			</div>
-
-			<INCLURE{fond=inc/pied}>
-		</div>
-
-	<INCLURE{fond=inc/fin-page}{lang}>
-
+    <INCLURE{fond=inc/fin-page}{lang}>
 </BOUCLE_article>

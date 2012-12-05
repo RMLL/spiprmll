@@ -1,0 +1,14 @@
+#CACHE{7200}
+
+<BOUCLE_groupes(GROUPES_MOTS){par titre}>
+    <div>
+        <B_mots>
+            <div class="rmll-evenements-brief">
+                [<strong>(#TITRE|supprimer_numero) :</strong>]
+                <BOUCLE_mots(MOTS){id_groupe}{par titre}{" &mdash; "}{id_article}>
+                    [<a href="#URL_MOT">(#TITRE|supprimer_numero)</a>]
+                </BOUCLE_mots>
+            </div>
+        </B_mots>
+    </div>
+</BOUCLE_groupes>

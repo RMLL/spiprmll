@@ -1,15 +1,28 @@
 #CACHE{7200}
 <meta http-equiv="Content-Type" content="text/html; charset=#CHARSET" />
 <meta name="generator" content="SPIP[ (#SPIP_VERSION)]" />
-<link rel="shortcut icon" type="image/png" href="[(#CHEMIN{images/favicon.png})]" />
-<link rel="alternate" type="application/rss+xml" title="<:syndiquer_site:>" href="#URL_PAGE{backend}" />
-<meta name="viewport" content="width=device-width" />[(#REM) Pour les mobiles ]
 
-<!--[if IE]><![endif]-->[(#REM) PHV commentaire conditionnel vide pour cause de bug IE8 ]
-<link rel="stylesheet" href="[(#CHEMIN{css/style.css})]?v=12" type="text/css" />
-<link rel="stylesheet" href="[(#CHEMIN{css/spip.css})]" type="text/css" />
-<!--[if IE 7]><link rel="stylesheet" href="[(#CHEMIN{css/ie7.css})]" type="text/css" /><![endif]-->
-<!--[if IE 6]><link rel="stylesheet" href="[(#CHEMIN{css/ie6.css})]" type="text/css" /><![endif]-->
+<link rel="shortcut icon" href="[(#CHEMIN{images/favicon.ico})]" type="image/vnd.microsoft.icon" />
+<link href="http://fonts.googleapis.com/css?family=Oswald" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="[(#CHEMIN{css/blueprint/screen.css})]" type="text/css" />
+<link rel="stylesheet" href="[(#CHEMIN{css/superfish.css})]" type="text/css" />
+<link rel="stylesheet" href="[(#CHEMIN{css/rmll.css})]?v=66" type="text/css" />
+<!--[if lt IE 8]>
+    <link rel="stylesheet" href="[(#CHEMIN{css/blueprint/ie.css})]" type="text/css" />
+<![endif]-->
 
-[(#REM) PHV ***TODO déplacer appel à JS dans inc/pied avant /body (pour raisons de perf) ]
 #INSERT_HEAD
+
+<script type="text/javascript" src="[(#CHEMIN{js/superfish.js})]"></script>
+<script type="text/javascript" src="[(#CHEMIN{js/supersubs.js})]"></script>
+
+<script type="text/javascript">
+    jQuery(function(){
+        jQuery('#superfish-1').supersubs({minWidth: 12, maxWidth: 27, extraWidth: 1}).superfish({
+            animation: {opacity:'show'},
+            speed: 'fast',
+            autoArrows: false,
+            dropShadows: false
+        });
+    });
+</script>

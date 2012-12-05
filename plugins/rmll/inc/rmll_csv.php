@@ -37,17 +37,17 @@
         foreach($theme['articles'] as $article) {
             $data = array();
             $data[] = $theme['id'];
-            $data[] = supprimer_numero(extraire_multi(nettoyer_raccourcis_typo($theme['titre'])));
+            $data[] = textebrut(supprimer_numero(extraire_multi(nettoyer_raccourcis_typo($theme['titre']))));
             $data[] = $article['data']['jour'];
-            $data[] = sprintf("%02d:%02d", $article['data']['heure'], $article['data']['minute'])   ;
+            $data[] = sprintf("%02d:%02d", $article['data']['heure'], $article['data']['minute']);
             $data[] = $article['data']['duree'];
             $data[] = $article['data']['salle'];
             $data[] = $article['data']['id_article'];
             $data[] = $article['data']['id_orig'];
-            $data[] = supprimer_numero(extraire_multi(nettoyer_raccourcis_typo($article['data']['titre'])));
+            $data[] = textebrut(supprimer_numero(extraire_multi(nettoyer_raccourcis_typo($article['data']['titre']))));
             $data[] = $article['data']['intervenants'];
             $data[] = $article['data']['langue'];
-            $data[] = $article['data']['nature'];
+            $data[] = $article['data']['nature_code'] == '' ? '' : _T('rmll:nature_code_'.$article['data']['nature_code']);
             $data[] = $article['data']['niveau'] == '' ? '' : _T('rmll:niveau_code_'.$article['data']['niveau']);
             $data[] = sprintf("http://%s/spip.php?article%d", $_SERVER['HTTP_HOST'], $article['data']['id_article']);
             $data[] = sprintf("http://%s/ecrire/?exec=articles&id_article=%d", $_SERVER['HTTP_HOST'], $article['data']['id_article']);

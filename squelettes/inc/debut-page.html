@@ -1,10 +1,11 @@
 #CACHE{7200}
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="#LANG" xml:lang="#LANG" dir="#LANG_DIR">
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="#LANG" dir="ltr" lang="#LANG">
 <head>
-		<title>[(#ENV*{titrepage}|supprimer_numero|textebrut) - ][(#NOM_SITE_SPIP|textebrut)]</title>
-		[<meta name="description" content="(#DESCRIPTIF_SITE_SPIP|couper{150}|textebrut)" />]
-		<INCLURE{fond=inc/entete-html}{lang}>
+        <title>[(#ENV*{titrepage}|supprimer_numero|textebrut) - ][(#NOM_SITE_SPIP|textebrut)]</title>
+        <meta name="description" content="[(#ENV*{metadesc}|prepare_meta)][(#DESCRIPTIF_SITE_SPIP|prepare_meta)]" />
+        <INCLURE{fond=inc/entete-html}{lang}>
 </head>
 
-<body>
+<body id="schedulermll">

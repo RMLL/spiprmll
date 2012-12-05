@@ -1,4 +1,16 @@
 #CACHE{7200}
-<div id="footer">
-	<p>[(#REM) 2011, ]<a href="http://rmll.info">RMLL.info</a>[(#REM) - <a href="#">Mentions légales</a> - <a href="#">Accessibilité</a>]</p>
-</div>
+
+<?php
+    $url = "http://2012.rmll.info/template/footer";
+    if ($GLOBALS['lang'] == 'en') {
+        $url = "http://2012.rmll.info/en/template/footer";
+    }
+    $content = @file_get_contents($url);
+    $content = trim($content);
+    // Remove BOM
+    $bom = pack("CCC", 0xef, 0xbb, 0xbf);
+    if (0 == strncmp($content, $bom, 3)) {
+        $content = substr($content, 3);
+    }
+    echo str_ireplace(array('</body>', '</html>'), array(), $content);
+?>

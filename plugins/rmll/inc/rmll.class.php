@@ -65,8 +65,16 @@ class Rmll_Event {
             $horaire_liste[$h['id_horaire']] = sprintf("%02dh%02d", $h['heure'], $h['minute']);
         /* duree */
         $duree_liste = array(0 => _T('rmll:label_indefini'));
-        for($i = 20; $i<=480; $i+=20)
+        for($i = 20; $i<=480; $i+=20) {
             $duree_liste[$i] = sprintf("%02dh%02d", intval($i/60), ($i%60));
+        }
+        for($i = 30; $i<=480; $i+=30) {
+            $duree_liste[$i] = sprintf("%02dh%02d", intval($i/60), ($i%60));
+        }
+        foreach(array(5, 50) as $i) {
+            $duree_liste[$i] = sprintf("%02dh%02d", intval($i/60), ($i%60));
+        }
+        ksort($duree_liste);
         /* langue */
         $table_langue = new Rmll_Db('langue');
         $langue_liste = array(0 => _T('rmll:label_indefini'));
@@ -862,25 +870,31 @@ class Rmll_Conference extends Rmll_Db {
     }
 */
 
-    function get_keywords($article, $groupe) {
+    function get_keywords($article) {
         $ret = array();
         $req = sprintf('
             SELECT
                 spip_mots.id_mot AS id_mot,
-                spip_mots.titre AS titre
+                spip_groupes_mots.id_groupe AS id_groupe_mot,
+                spip_mots.titre AS titre,
+                spip_groupes_mots.titre AS titre_groupe
             FROM
                 spip_mots
+            JOIN
+                spip_groupes_mots ON spip_groupes_mots.id_groupe = spip_mots.id_groupe
             LEFT JOIN
                 spip_mots_articles ON spip_mots_articles.id_mot=spip_mots.id_mot
             WHERE
                 spip_mots_articles.id_article = %d
-            AND
-                spip_mots.id_groupe = %d
-            ', (int) $article, (int) $groupe);
+            ', (int) $article);
         $query = $this->query ($req);
         if ($query !== false) {
             while ($data = sql_fetch($query)) {
-                $ret[$data['id_mot']] = $data['titre'];
+                $ret[$data['id_mot']] = array(
+                    'titre' => $data['titre'],
+                    'id_groupe_mot' => $data['id_groupe_mot'],
+                    'titre_groupe' => $data['titre_groupe'],
+                );
             }
         }
         return $ret;
@@ -930,11 +944,23 @@ class Rmll_Conference extends Rmll_Db {
         return $ret;
     }
 
-    function get_all_confs($rubriques, $lang, $keyword_group = 0) {
+    function get_all_confs($rubriques, $lang) {
         $ret = array();
         $req = sprintf('
             SELECT
-                c.*, a.descriptif AS descriptif, a.texte AS texte, a.titre AS titre, j.date AS jour, h.minute AS minute, h.heure AS heure, l.nom AS langue, l.code AS drap, niv.code AS niveau, n.nom AS nature, n.code AS nature_code, s.nom AS salle
+                c.*,
+                a.descriptif AS descriptif,
+                a.texte AS texte,
+                a.titre AS titre,
+                j.date AS jour,
+                h.minute AS minute,
+                h.heure AS heure,
+                l.nom AS langue,
+                l.code AS drap,
+                niv.code AS niveau,
+                n.nom AS nature,
+                n.code AS nature_code,
+                s.nom AS salle
             FROM
                 spip_rmll_conferences c
             LEFT JOIN
@@ -956,7 +982,7 @@ class Rmll_Conference extends Rmll_Db {
             AND
                 a.lang = \'fr\'
             AND
-                statut = \'publie\'
+                a.statut = \'publie\'
             AND
                 a.id_rubrique IN (%s)
             ORDER BY
@@ -964,6 +990,7 @@ class Rmll_Conference extends Rmll_Db {
             ',
             $this->_dayfilter ? 0 : -1,
             implode(',', $rubriques));
+
         $query = $this->query ($req);
         if ($query !== false) {
             while ($data = sql_fetch($query)) {
@@ -986,7 +1013,7 @@ class Rmll_Conference extends Rmll_Db {
                             $r['data']['texte'] = $tr['texte'];
                     }
                 }
-                $r['keywords'] = $keyword_group > 0 ? $this->get_keywords($data['id_article'], $keyword_group) : array();
+                $r['keywords'] = $this->get_keywords($data['id_article']);
                 $ret[] = $r;
             }
         }
@@ -1011,7 +1038,7 @@ class Rmll_Conference extends Rmll_Db {
         return $ret;
     }
 
-    function get_confs ($sessions, $lang, $keyword_group = 0) {
+    function get_confs ($sessions, $lang) {
         $ret = false;
 
         if (!is_array($sessions)) {
@@ -1021,14 +1048,20 @@ class Rmll_Conference extends Rmll_Db {
         if (!empty($sessions)) {
             $req = sprintf('
                 SELECT
-                    id_rubrique, titre, descriptif, texte
+                    r1.id_rubrique AS id_rubrique,
+                    r1.titre AS titre,
+                    r1.descriptif AS descriptif,
+                    r1.texte AS texte,
+                    r1.id_parent AS id_parent,
+                    r2.titre AS titre_parent
                 FROM
-                    spip_rubriques
+                    spip_rubriques AS r1
+                LEFT JOIN
+                    spip_rubriques AS r2 ON r1.id_parent = r2.id_rubrique
                 WHERE
-                    id_rubrique IN (%s)
+                    r1.id_rubrique IN (%s)
                 ORDER BY
-                    titre', implode(',', $sessions));
-
+                    r1.titre', implode(',', $sessions));
             $query = $this->query ($req);
             if ($query !== false) {
                 $ret = array();
@@ -1040,7 +1073,9 @@ class Rmll_Conference extends Rmll_Db {
                         'titre' => $data['titre'],
                         'descriptif' => $data['descriptif'],
                         'texte' => $data['texte'],
-                        'articles' => $this->get_all_confs($rubriques, $lang, $keyword_group),
+                        'articles' => $this->get_all_confs($rubriques, $lang),
+                        'id_parent' => $data['id_parent'],
+                        'titre_parent' => $data['titre_parent'],
                     );
                 }
             }
@@ -1078,7 +1113,7 @@ class Rmll_Conference extends Rmll_Db {
 					if ($status != 1) continue;
 
 					$texte_fr = sprintf("\n\n{{{Résumé}}}\n\n%s\n\n{{{Biographie}}}\n\n%s\n\n", $abstract, $bio);
-					$texte_en = sprintf("\n\n{{{Abstract}}}\n\n%s\n\n{{{Biographie}}}\n\n%s\n\n", $abstract, $bio);
+					$texte_en = sprintf("\n\n{{{Abstract}}}\n\n%s\n\n{{{Biography}}}\n\n%s\n\n", $abstract, $bio);
 					$notes = sprintf("CFP_ID=%d\nCFP_TOPIC=%s\nCFP_LICENSE=%s\n\n%s",
 						$id, $topic, $license, $notes);
 

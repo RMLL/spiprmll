@@ -1,62 +1,42 @@
-#CACHE{7200}
-<div id="head">
-	<div id="header_links">
-		<p id="acces">
-			<a href="#content"><:contenu:></a> &middot; <a href="#search"><:recherche:></a>
-			<span id="icons">
-				[(#REM) PHV: switch langue anglaise inséré à la main ... Puis pour en et fr : action=cookie modifié pour redirect et url modifié par redirect (?) ]
-			  <a href="spip.php?action=converser&amp;redirect=%2F&amp;var_lang=en" title="english site" lang="en" hreflang="en"><img src="squelettes/images/drapeaux/en.png" alt="english" /></a>
-				<BOUCLE_langues(ARTICLES){fusion lang}>
-					[(#REM)<a href="[(#REM|sinon{spip.php?action=cookie}|parametre_url{url,#SELF}|parametre_url{var_lang,#LANG})]" dir="#LANG_DIR" [title="(#LANG|traduire_nom_langue)"]>
-					]<a href="[(#REM|sinon{spip.php?action=converser}|parametre_url{redirect,/}|parametre_url{var_lang,#LANG})]" dir="#LANG_DIR" [title="(#LANG|traduire_nom_langue)"]>
-						<img src="[(#CHEMIN{images/drapeaux/})][(#LANG)].png" [alt="(#LANG|traduire_nom_langue)"] />
-					</a>
-				</BOUCLE_langues>
-				<a href="#URL_PAGE{backend}&amp;lang=#LANG"><img src="[(#CHEMIN{images/rss.png})]" alt="rss" /></a>
-			</span>
-		</p>
-		<ul id="menu1">
-			<li><a href="#URL_SITE_SPIP/spip.php"><:accueil:></a></li>
-			<BOUCLE_submenu(RUBRIQUES){id_rubrique IN 1,27,28}{!lang_select}{tout}>
-			<li>
-				<a href="[(#URL_RUBRIQUE)]"[ class="(#EXPOSE)"] title="">[(#TITRE|supprimer_numero)]</a>
-			</li>
-			</BOUCLE_submenu>
-			<li><a href="#URL_RUBRIQUE{4}"><:partners_sponsors:></a></li>
-			<li><a href="#URL_PAGE{plan}"><:plan_site:></a></li>
-			<li><a href="#URL_ARTICLE{28}"><:contact:></a></li>
-[(#REM)			<!--<li>
-				<a href="#URL_PAGE{rmll_progcount}"></a>
-				<a href="#URL_PAGE{linuxfr}"></a>
-				<a href="#URL_PAGE{rmll_test}"></a>
-			</li>-->
-]		</ul>
-	</div>
-	<div id="header_bg">
-		<h1><a href="#URL_SITE_SPIP/spip.php" title="<:accueil:> - [(#GET{dummy,<:titre_rmll:>}|attribut_html)]"><img src="#CHEMIN{images/rmll_strasbourg.png}" alt="<:accueil:> - [(#GET{dummy,<:titre_rmll:>}|attribut_html)]" /></a></h1>
-		<p>9 au 14 juillet 2011 - Strasbourg, libre sans frontières</p>
-	</div>
+#CACHE{3600}
 
-	#FORMULAIRE_RECHERCHE
-
-	<ul id="menu2">
-		<BOUCLE_menu(RUBRIQUES){id_rubrique IN 2,6}{!lang_select}{tout}>
-			<li[ class="(#EXPOSE)"]>
-				<a href="#URL_RUBRIQUE">[(#TITRE|supprimer_numero)]</a>
-			</li>
-		</BOUCLE_menu>
-		<BOUCLE_menu_info(RUBRIQUES){id_rubrique==21}{!lang_select}{tout}>
-			<li class="long[ (#EXPOSE)]">
-				<a href="#URL_RUBRIQUE{21}"><multi>Informations<br />pratiques[en]Practical<br/>information</multi></a>
-			</li>
-		</BOUCLE_menu_info>
-		<li>
-			<a href="https://reservation.rmll.info/"><:booking:></a>
-		</li>
-		<li>
-			<a href="/spip.php?page=osm" title=""><:carte:></a>
-		</li>
-	</ul>
+<div id="skip-link">
+    <a href="#content" class="element-invisible element-focusable"><:go_to_maint_content:></a>
 </div>
 
-
+<div id="header">
+    <div class="container">
+        <div class="span-22 push-1">
+            <div class="span-6 first logo">
+                <a href="<:site_link:>">
+                    <img src="[(#CHEMIN{images/})]logo-rmll-2012-[(#LANG).png]" width="206" height="83" />
+                </a>
+            </div>
+            <div class="span-16 last event">
+                <a href="<:city_link:>">
+                    <img src="[(#CHEMIN{images/})]geneve-2012-[(#LANG).png]" width="186" height="47" />
+                </a>
+            </div>
+        </div>
+        <div id="languages">
+            <div id="block-locale-language" class="block block-locale">
+                <div class="content">
+                    <ul class="language-switcher-locale-url">
+                        <li class="en first[(#LANG|=={en}|?{" active",""})]">
+                            
+                            <a href="[(#URL_ACTION{'converser'}|parametre_url{var_lang,[(#ENV{lang}|=={fr}|?{'en','fr'})]}|parametre_url{redirect,#SELF})]" title="English">
+                                English
+                            </a>
+                        </li>
+                        <li class="fr last[(#LANG|=={fr}|?{" active",""})]">
+                            
+                            <a href="[(#URL_ACTION{'converser'}|parametre_url{var_lang,[(#ENV{lang}|=={fr}|?{'en','fr'})]}|parametre_url{redirect,#SELF})]" title="Français">
+                                Français
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

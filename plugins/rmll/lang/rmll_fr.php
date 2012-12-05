@@ -82,8 +82,10 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     'video' => "Vidéo :",
     'niveau' => "Niveau :",
 
-    'pause_lunch' => "Repas",
+    'pause_lunch' => "Repas en 2 temps : 11h50 - 12h50 <br/>et 12h50 - 13h50",
     'pause_pause' => "Pause",
+
+    'lightning_talks' => 'Lightning Talks',
 
     'niveau_code_deb' => "Débutant",
     'niveau_code_con' => "Confirmé",
@@ -98,6 +100,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     'nature_code_visio' => "Visioconférence",
     'nature_code_demo' => "Démonstration",
     'nature_code_proj' => "Projection/Débat",
+    'nature_code_ligtal' => "Lightning talk",
     'nature_code_aut' => "Autre",
 
     'filsrouges_label' => 'Thèmes transversaux :',
@@ -117,6 +120,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     'affichage_room' => "Affichage par salle/lieu :",
     'affichage_jour' => "Affichage par jour :",
     'affichage_motcle' => "Affichage par fil rouge :",
+    'selection' => "Choisir...",
     'selection_theme' => "Sélectionner un thème",
     'selection_room' => "Sélectionner une salle/lieu",
     'selection_jour' => "Sélectionner un jour",

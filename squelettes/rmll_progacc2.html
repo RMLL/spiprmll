@@ -1,0 +1,17 @@
+#CACHE{7200}
+
+#SET{rmll_titre,(#EVAL{_T('rmll:programme')})}
+
+<INCLURE{fond=inc/debut-page}{lang}{titrepage=#GET{rmll_titre}}>
+
+    <div id="rmll-schedule-grid">
+
+        <?php
+            require_once _DIR_PLUGIN_RMLL.'inc/rmll_conferences_all.php';
+            $s = new RmllSchedule();
+            $s->display_acc();
+        ?>
+
+    </div>
+
+<INCLURE{fond=inc/fin-page}{lang}>

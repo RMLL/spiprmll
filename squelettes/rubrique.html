@@ -1,43 +1,46 @@
 #CACHE{7200}
 
-<BOUCLE_rubrique_principal(RUBRIQUES) {id_rubrique}{tout}>
+[(#SET{rmll_theme_id, 37})]
 
-	<INCLURE{fond=inc/debut-page}{lang}{titrepage=#TITRE}>
+<BOUCLE_rubrique(RUBRIQUES){id_rubrique}>
 
-	<div id="page" class="deuxcolonnes">
+    <INCLURE{fond=inc/debut-page}{lang}{titrepage=#TITRE}{metadesc=#TEXTE}>
 
-		<INCLURE{fond=inc/entete}{id_rubrique}{lang}>
+        <INCLURE{fond=inc/entete}{id_rubrique}{lang}{env}>
 
-		<div id="location">
-			<a href="#URL_SITE_SPIP/" title=""><:accueil:></a>
-			<BOUCLE_ariane(HIERARCHIE){id_article}> &gt; <a href="#URL_RUBRIQUE">[(#TITRE|supprimer_numero|couper{80})]</a></BOUCLE_ariane>
-		</div>
+        <INCLURE{fond=inc/entete-menu}{id_rubrique}{lang}>
 
-		<div id="barredroite">
-[(#REM)		<INCLURE{fond=inc/extra-modifs-rubrique}{id_rubrique}{lang}>
-]			<INCLURE{fond=inc/extra-sousrubriques}{id_rubrique}{lang}>
-			<INCLURE{fond=inc/extra-radio}{lang}>
-			<INCLURE{fond=inc/extra-infos}{lang}>
-			<INCLURE{fond=inc/extra-jgp}{lang}>
-			<INCLURE{fond=inc/extra-festival}{lang}>
-		</div>
+        <div id="wrapper">
+            <div class="container">
+                <div class="span-22 push-1 blueprint">
+                    <div class="span-22 shadow">
+                        <div class="maincontent">
+                            <div class="span-6 shadow first leftcol">
+                                <div class="col-content">
+                                    <INCLURE{fond=inc/extra-sousrubriques}{id_rubrique=#GET{rmll_theme_id}}{id_current=#ID_RUBRIQUE}{lang}>
+                                </div>
+                            </div>
+                            <div class="span-16 shadow last rightcol">
+                                <div class="col-content">
+                                    <?php if (rmll_is_prog(#ID_RUBRIQUE)) { ?>
+                                        <INCLURE{fond=rmll/programme}{id_rubrique}{lang}>
+                                    <?php } elseif(rmll_is_theme(#ID_RUBRIQUE)) { ?>
+                                        <INCLURE{fond=rmll/theme}{id_rubrique}{lang}>
+                                    <?php } elseif(rmll_is_session(#ID_RUBRIQUE)) { ?>
+                                        <INCLURE{fond=rmll/session}{id_rubrique}{lang}>
+                                    <?php } else { ?>
+                                        <INCLURE{fond=inc/rubrique}{id_rubrique}{lang}>
+                                    <?php } ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-		<div id="content">
-			[(#REM) Pas sur la page Journées Grand Public ]
-			[(#REM) 15/07 RMLL2011 terminées, plus de résa 
-			[(#ID_RUBRIQUE|=={31}|?{'',' '})<INCLURE{fond=inc/annonceresa}{lang}>]
-			]<?php if (rmll_is_prog(#ID_RUBRIQUE)) { ?>
-				<INCLURE{fond=rmll/programme}{id_rubrique}{lang}>
-			<?php } elseif(rmll_is_session(#ID_RUBRIQUE)) { ?>
-				<INCLURE{fond=rmll/session}{id_rubrique}{lang}>
-			<?php } else { ?>
-				<INCLURE{fond=inc/rubrique}{id_rubrique}{lang}>
-			<?php } ?>
-		</div>
+        <INCLURE{fond=inc/pied}>
 
-		<INCLURE{fond=inc/pied}>
-	</div>
+    <INCLURE{fond=inc/fin-page}{lang}>
 
-	<INCLURE{fond=inc/fin-page}{lang}>
-
-</BOUCLE_rubrique_principal>
+</BOUCLE_rubrique>
