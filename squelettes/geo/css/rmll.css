@@ -1,0 +1,411 @@
+html, body {
+  font-family:Verdana,Helvetica,sans-serif;
+  color:#000032;
+  font-size:8pt;
+  background-color:#FFFFFF;
+  background-attachment:fixed;
+  background-repeat:no-repeat;
+  background-position:left top;
+}
+
+a {color:black; text-decoration:none; border:0px solid red;cursor: pointer}
+a:link, a:visited {color:#f60;}
+a:hover {text-decoration:underline;}
+
+
+
+a.menu {color:#00ABE2; text-decoration:none;cursor: pointer;
+font-weight:bold;
+font-size:16px;
+}
+a.menu:link, a.menu:visited {color:blue;}
+a.menu:hover {text-decoration:underline;}
+
+
+.olLayerGeoRSSTitle{
+font-weight:bold;
+}
+
+.footer_popup{
+font-style:italic;
+display:block;
+width:180px;
+}
+
+.olControlBaseLayerSwitcher{
+right:100px;
+position:absolute;
+
+}
+
+
+.info{
+color:#6E6E6E;
+font-size:10px;
+position:relative;
+left:240px;
+}
+
+img
+{
+    border: 0px;
+}
+
+td {
+  font-family:Verdana,Helvetica,sans-serif;
+  color:#000032;
+  font-size:8pt;	
+  margin:0;
+}
+
+h2 {
+  font-family:Verdana,Helvetica,sans-serif;
+  color: #89d862;
+  font-size:10pt;	
+  margin:0;
+}
+
+h3 {
+  font-family:Verdana,Helvetica,sans-serif;
+  color: #007a99;
+  font-size:10pt;	
+  margin:0;
+}
+
+h8 {
+  font-family:Verdana,Helvetica,sans-serif;
+  font-size:10pt;	
+  margin:0;
+}
+
+h9 {
+  font-family:Verdana,Helvetica,sans-serif;
+  font-size:7pt;	
+  margin:0;
+}
+
+div#map { 
+  position:absolute;
+  top:30px;
+  width:680px;
+  height:380px;
+  border: 1px solid #00ABE2;
+}
+
+div#intro { 
+  position:absolute;
+  left:9px;
+  top:21px;
+  width:680px;
+  height:380px;
+
+}
+
+
+
+div#title { 
+  position:absolute;
+  top:40px;
+  left:50px;
+  width:200px;
+ height:100px;
+}
+
+div#initBox { 
+  position:absolute;
+  top:150px;
+  left:250px;
+  width:200px;
+}
+
+.legend_chkbox{
+border:#00ABE2;
+}
+
+.olLayerGeoRSSClose{
+position:absolute;
+right:24px;
+color:#00ABE2;
+cursor:pointer;
+}
+.olLayerGeoRSSDescription{
+width:80%;
+}
+
+.olLayerGeoRSSTitle{
+width:80%;
+}
+
+.closebox{
+	color:#00ABE2;
+	float:right;
+	font-family:sans-serif;
+	font-size:1.2em;
+	margin-right:6px;
+	cursor: pointer;
+}
+
+
+.legendImg{
+margin-left:15px;
+}
+
+.legendTxt {
+
+height:0px;
+left:59px;
+position:relative;
+top:-22px;
+width:110px;
+}
+
+#divform
+{
+position:absolute;
+top:414px;
+}
+
+.olPopupContent {
+margin-left:14px;
+
+}
+.olPopup {
+
+background:transparent url(../img/bgpopup.png) no-repeat scroll left top;
+
+}
+
+.LocalPopup {
+
+background:transparent url(../img/bgpopup2.png) no-repeat scroll left top;
+
+}
+
+
+div#loading { 
+  position:absolute;
+  top:21px;
+  left:9px;
+#  width:200px;
+#  height:200px;
+#  background-image: url(../img/loading.gif); background-position: center center; background-repeat: no-repeat;
+}
+
+
+
+#drivetime{
+	text-align:center;
+	margin-left:1px;
+	border:1px solid #0093D9;
+	background-color:#FFF;
+	width: 275px;
+	top:30px;
+	left:50px;
+	height:20px;
+	overflow:auto;
+	position:absolute;
+	padding-top:4px;
+}
+
+.title_popup{
+font-weight:bold;
+}
+
+.legend_img{
+
+}
+
+.legend_close{
+position:absolute;
+top:-4px;
+right:7px;
+color:#FFF;
+font-weight:bold;
+font-size:16px;
+cursor: pointer;
+}
+
+.CustomLegend{
+  top:220px;
+  right:5px;
+  width:193px;
+  border: 1px solid #0093D9;
+  background-color:#FFF;
+  
+  
+}
+
+.legendTitle { cursor: move; font-size: .9em; font-weight: bold; text-align: center; }
+.legendBody{background-color:#FFF; padding:5px}
+
+
+
+.content_popup{
+display:block;
+width:180px;
+}
+
+#container {
+position: absolute;
+/* width: 850px; */
+width: 90%;
+/* left: 50%; */
+ left: 2%; 
+margin-left: 0px;
+}
+
+p {
+	text-align:justify;
+}
+
+.mini {
+	text-align:left;
+  font-size:7pt;	
+}
+
+div#infodiv { 
+   font-size:7pt;
+}
+
+hr {
+	color: #89d862;
+	background-color: #89d862;
+	height: 1px;
+	border: 0;
+}
+
+.list-title {
+  color: #FF0000;
+  font-size:8pt;
+  font-weight: bold;
+}
+
+.list-text {
+  color: #000000;
+  font-size:7pt;
+}
+
+.transp {
+   /*background-color:#4a8493;*/
+   position:absolute;
+   width:100px;
+   top:100;
+   left:200;
+   height:100px;
+   /* Pour IE, il faut absolument mettre une largeur, alors soit width=100%,
+      soit c'est un div positionné et dimensionné comme dans cet exemple.*/
+   filter:alpha(opacity=75);
+   -moz-opacity:0.75;
+   opacity: 0.75;
+}
+
+div#toolbar {
+    position: absolute;
+    top: 10px;
+    left: 100px;
+    width:300px;
+}
+
+div#draw_point {
+    float: left;
+    padding: 3px;
+}
+
+div#draw_line {
+    float: left;
+    padding: 3px;
+}
+
+div#draw_polygon {
+    float: left;
+    padding: 3px;
+}
+
+div#erase {
+    float: left;
+    padding: 3px;
+}
+
+div#measure_line {
+    float: left;
+    padding: 3px;
+}
+div#measure_polygon {
+    float: left;
+    padding: 3px;
+}
+
+div#validate {
+    float: left;
+    padding: 3px;
+}
+
+div#outputMeasure {
+    float: left;
+    width: 200px;
+    height: 30px;
+    background-color:#FFFFFF;
+}
+
+.base_button {
+    background: white;
+    border: 1px solid #99cc33;
+}
+
+
+div#infodiv { 
+   font-size:7pt;
+}
+
+/* -- Box positioning -- */
+#titletest { position: absolute; top: 10px; left: 60px; width:300px}
+#title { position: absolute; top: 10px; left: 60px; width:300px}
+#legend { position: absolute; top: 200px; right: 10px; }
+#overview { position: absolute; top: 10px; right: 10px; }
+#sign { position: absolute; bottom: 10px; left: 10px; }
+#i18n { position: absolute; top: 250px; left: 7px; }
+
+/* -- Toggable box system -- */
+.box { padding: 5px; border: 1px solid #aaa; background-color: #ddd; font-size: small; color: #444444; opacity:.8}
+.boxHead { padding: 0px;background-color: #00ABE2;color:#FFF; }
+.boxTitle { cursor: move; float: left; font-size: .9em; font-weight: bold; text-align: center; }
+.boxButtons { float: right; }
+.boxButtons div { cursor: pointer; width: 18px; height: 10px; border: 1px solid #808080; margin-left: 3px; float: left; }
+.boxButtons div:hover { border-color: #888888; background-color: #888888; }
+
+.boxBody { overflow: auto; padding: 5px; margin-top: 15px; display: block; background-color: #ffffff; font-size:.8em}
+
+.toggleButton { background-image: url(./icon_minimize.png); background-position: center center; background-repeat: no-repeat; }
+.closeButton { background-image: url(./icon_close.png); background-position: center center; background-repeat: no-repeat; }
+
+/* -- Box sizing -- */
+#title { width: 400px; }
+#legend { width: 210px; }
+#overview { width: 210px; }
+#overviewBody { height: 110px; }
+
+/* -- Title layout -- */
+
+/* -- Legend layout -- */
+#legendBody h2 { font-size: larger; font-weight: bold; margin: 0.3em; }
+#legendBody p { margin: 0.1em; }
+
+/* -- Overview layout -- */
+
+/* -- Sign layout -- */
+#poweredBy { font-size: smaller; position: relative; top: 18px; left: 91px; }
+#sign img { border: 0px; }
+
+/* -- Internationalization layout -- */
+#i18n a { display: block; text-decoration: none; margin: 5px; padding: 0px; }
+#i18n a img { border: 0px; margin: 0px; padding: 0px; }
+#selectedLanguage { opacity: 0.5; margin: 5px; padding: 0px; }
+
+
+ul li {
+    list-style-image: none;
+}
+
+ul li.wifi{
+    list-style-image: url("../img/wifi.png");
+}

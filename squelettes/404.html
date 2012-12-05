@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="#CHARSET" ?>
+#CACHE{7200}
+
+<INCLURE{fond=inc/debut-page}{lang}{titrepage=<:pass_erreur:> 404}>
+
+	<INCLURE{fond=inc/entete}{id_rubrique}{lang}>
+
+	<div id="content">
+		<div class="extra">
+			<div class="search">
+				#FORMULAIRE_RECHERCHE
+			</div>
+			<div class="contents">
+				<INCLURE{fond=inc/dernieres-infos}{lang}>
+			</div>
+		</div>
+		<div class="all recherche">
+
+			<div id="rootline">
+				<a href="#URL_SITE_SPIP/" title=""><:accueil:></a>
+				&rsaquo;&rsaquo; <a href="#URL_PAGE{recherche}" title=""><:pass_erreur:> 404</a>
+			</div>
+
+			<h1><:pass_erreur:> 404</h1>
+
+			<div class="description">
+				<:err404_msg:>
+			</div>
+
+		</div>
+		<div class="clear"></div>
+	</div>
+
+	<INCLURE{fond=inc/pied}>
+
+<INCLURE{fond=inc/fin-page}{lang}>

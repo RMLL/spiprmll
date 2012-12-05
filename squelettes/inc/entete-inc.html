@@ -1,0 +1,53 @@
+<div id="submenu">
+
+	<div class="flags">
+		<a href="spip.php?action=cookie&amp;url=/&amp;var_lang=fr"><img src="[(#CHEMIN{images/flags/fr.png})]" alt="fr" /></a>
+		<a href="spip.php?action=cookie&amp;url=/&amp;var_lang=en"><img src="[(#CHEMIN{images/flags/en.png})]" alt="en" /></a>
+		<a href="spip.php?action=cookie&amp;url=/&amp;var_lang=es"><img src="[(#CHEMIN{images/flags/es.png})]" alt="es" /></a>
+		<!--<a href="spip.php?action=cookie&amp;url=#SELF&amp;var_lang=de"><img src="[(#CHEMIN{images/flags/de.png})]" alt="de" /></a>!-->
+	</div>
+
+	<div class="items">
+		<ul>
+			<li><a href="#URL_SITE_SPIP/" title=""><:accueil:></a></li>
+			<li><span>&mdash;</span></li>
+			<li><a href="#URL_PAGE{geo}"><:venir_mdm:></a></li>
+			<li><span>&mdash;</span></li>
+			<BOUCLE_submenu(RUBRIQUES){id_rubrique IN 1,5,6}{!lang_select}>
+				<li>
+					<a href="[(#URL_RUBRIQUE)]"[ class="(#EXPOSE)"] title="">[(#TITRE|supprimer_numero)]</a>
+				</li>
+				<li><span>&mdash;</span></li>
+			</BOUCLE_submenu>
+			<li><a href="#URL_RUBRIQUE{9}"><:sponsors:></a></li>
+			<li><span>&mdash;</span></li>
+			<li><a href="#URL_PAGE{plan}"><:plan_site:></a></li>
+			<li><span>&mdash;</span></li>
+			<li><a href="#URL_ARTICLE{70}"><:contact:></a></li>
+			<li>
+				<a href="#URL_PAGE{backend}"><img src="[(#CHEMIN{images/rss.png})]" alt="rss" /></a>
+				<a href="#URL_PAGE{progcount}"></a>
+				<a href="#URL_PAGE{linuxfr}"></a>
+			</li>
+		</ul>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div id="menu">
+	<div class="extra">
+		<a href="#URL_SITE_SPIP/"><img src="[(#CHEMIN{images/armelle.png})]" alt="Armelle" /></a>
+		<a href="#URL_SITE_SPIP/"><img src="[(#CHEMIN{images/rmll_info.png})]" alt="RMLL.info" /></a>
+	</div>
+	<div class="items">
+		<ul>
+			<BOUCLE_menu(RUBRIQUES){id_rubrique IN 2,18,3,4}{!lang_select}>
+				[(#COMPTEUR_BOUCLE|=={1}|?{'','<li><span>|</span></li>'})]
+				<li>
+					<a href="#URL_RUBRIQUE"[ class="(#EXPOSE)"] title="">[(#TITRE|supprimer_numero)]</a>
+				</li>
+			</BOUCLE_menu>
+		</ul>
+	</div>
+	<div class="clear"></div>
+</div>

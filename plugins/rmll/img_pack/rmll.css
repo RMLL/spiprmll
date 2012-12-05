@@ -1,0 +1,81 @@
+table.rmll {
+  margin : 0px 0px 0px 30px;
+  border-collapse : collapse;
+}
+
+table.rmll td, table.rmll th {
+  border : 1px solid black;
+  padding : 2px 6px;
+}
+
+table.rmll th {
+  text-align : center;
+}
+
+form.rmll {
+  margin : 0px 0px 0px 30px;
+}
+
+form.rmll .element {
+  margin : 0px 0px 10px 0px;
+}
+
+form.rmll label {
+  float : left;
+  width : 110px;
+  font-weight : bold;
+}
+
+form.rmll_embed {
+  display : inline;
+}
+
+h1.rmll {
+  font-size : 1.7em;
+  color : #808080;
+  padding : 5px 5px 5px 15px;
+}
+
+h2.rmll {
+  font-size : 1.4em;
+  color : #808080;
+  padding : 5px 5px 5px 25px;
+}
+
+.rmll-erreur {
+  border : 2px dashed red;
+  margin : 0px 30px;
+  padding : 10px;  
+}
+
+.rmll-infos {
+  border : 2px dashed green;
+  margin : 0px 30px;
+  padding : 10px;
+}
+
+.rmll-attention {
+  border : 2px dashed orange;
+  margin : 0px 30px;
+  padding : 10px;
+}
+
+table.rmll-evenement-edit {
+	margin : 8px 0px;
+}
+
+table.rmll-evenement-edit th {
+	padding : 5px 8px;
+}
+
+table.rmll-evenement-edit td {
+	padding : 0px 10px;
+}
+
+table.rmll-evenement-show td {
+	padding : 4px 15px;
+}
+
+table.rmll-evenement-show td.suppr {
+	text-align : right;
+}

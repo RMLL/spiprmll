@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss xmlns="http://backend.userland.com/rss2">	
+	<rights>Copyright 2008 Makina Corpus, Inc. All rights reserved.</rights> 
+	<title>Hébergement RMLL</title>
+	<item><title>Hébergement prévu par les RMLL</title><description>Lycée Charles Despiau : 637 avenue du Houga</description>
+	<georss:point xmlns:georss="http://www.georss.org/georss">43.87844 -0.47804</georss:point></item>
+	<item><title>Hébergement prévu par les RMLL</title><description>Lycée Jean Duruy : avenue Nonères</description>
+	<georss:point xmlns:georss="http://www.georss.org/georss">43.89677 -0.5019</georss:point></item>
+</rss>

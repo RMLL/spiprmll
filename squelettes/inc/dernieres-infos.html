@@ -1,0 +1,38 @@
+#CACHE{7200}
+<h1><:last_changes:></h1>
+<ul class="menu">
+
+	<BOUCLE_articles_recents(ARTICLES) {id_article !IN 219}{par date_modif} {inverse} {0,10}>
+		#SET{cpt,#COMPTEUR_BOUCLE}
+
+		<B_traductions>
+			[(#REM) On affiche toutes les versions de l'article en question]
+			<BOUCLE_traductions(ARTICLES){lang}{traduction}>
+				[(#REM) On affiche toutes les versions de l'article en question]
+				<BOUCLE_artdansnotrelangue(ARTICLES){id_article}{lang}{unique}>
+
+					<li>
+						<!--<span class="date">[(#DATE_MODIF|affdate_jourcourt)]</span> :!-->
+						<a href="#URL_ARTICLE" title="">[(#TITRE|supprimer_numero)]</a>
+						<p class="[(#GET{cpt}|<{6}|?{'first',''})]">
+							[(#TEXTE|couper{150}|textebrut)]
+						</p>
+					</li>
+
+				</BOUCLE_artdansnotrelangue>
+			</BOUCLE_traductions>
+		</B_traductions>
+			[(#REM) Si l'article en question n'a aucune traduction on affiche la version originale]
+
+			<li>
+				<!--<span class="date">[(#DATE_MODIF|affdate_jourcourt)]</span> :!-->
+				<a href="#URL_ARTICLE" title="">[(#TITRE|supprimer_numero)]</a>
+				<p class="[(#GET{cpt}|=={1}|?{'first',''})]">
+					[(#TEXTE|couper{150}|textebrut)]
+				</p>
+			</li>
+
+		<//B_traductions>
+	</BOUCLE_articles_recents>
+
+</ul>

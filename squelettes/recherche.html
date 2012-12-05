@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="#CHARSET" ?>
+#CACHE{7200}
+
+<INCLURE{fond=inc/debut-page}{lang}{titrepage=<:resultats_recherche:>}>
+
+	<INCLURE{fond=inc/entete}{id_rubrique}{lang}>
+
+	<div id="content">
+		<div class="extra">
+			<div class="search">
+				#FORMULAIRE_RECHERCHE
+			</div>
+			<div class="contents">
+				<INCLURE{fond=inc/dernieres-infos}{lang}>
+			</div>
+		</div>
+		<div class="all recherche">
+
+			<div id="rootline">
+				<a href="#URL_SITE_SPIP/" title=""><:accueil:></a>
+				&rsaquo;&rsaquo; <a href="#URL_PAGE{recherche}" title=""><:recherche:></a>
+			</div>
+
+			<h1><:recherche:></h1>
+
+			[
+			<h2><:resultats_recherche:></h2>
+			<h3 class="search-pattern"><sup>&ldquo;</sup>(#RECHERCHE)<sub>&bdquo;</sub></h3>]
+
+			[(#REM) Rubriques trouvees ]
+			<B_rubriques>
+				#ANCRE_PAGINATION
+				<BOUCLE_rubriques(RUBRIQUES) {recherche} {par points} {inverse} {pagination 10}>
+					<h2 class="rubrique"><a href="#URL_RUBRIQUE">[(#TITRE|supprimer_numero)]</a></h2>
+					[<div class="description">(#INTRODUCTION|textebrut)</div>]
+					<h4 class="more"><a href="#URL_RUBRIQUE"><:more_infos:></a></h4>
+				</BOUCLE_rubriques>
+				[<p class="pagination">(#PAGINATION)</p>]
+			</B_rubriques>
+
+			[(#REM) Articles trouves ]
+			<B_articles>
+				#ANCRE_PAGINATION
+				<BOUCLE_articles(ARTICLES) {recherche} {par points} {inverse} {pagination 10}>
+					<h3 class="article"><a href="#URL_ARTICLE">[(#TITRE|supprimer_numero)]</a></h3>
+					[<div class="description">(#INTRODUCTION|textebrut)</div>]
+					<h4 class="more"><a href="#URL_ARTICLE"><:read_more:></a></h4>
+				</BOUCLE_articles>
+				[<p class="pagination">(#PAGINATION)</p>]
+			</B_articles>
+
+		</div>
+		<div class="clear"></div>
+	</div>
+
+	<INCLURE{fond=inc/pied}>
+
+<INCLURE{fond=inc/fin-page}{lang}>

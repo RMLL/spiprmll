@@ -1,0 +1,221 @@
+<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>OL RMLL</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+
+
+	<script type="text/javascript" src="./lib/OpenLayers.js" language=JavaScript></script>
+ <!--  
+    <script type="text/javascript" src="js/Base.js" language=JavaScript></script>-->
+    <script type="text/javascript" src="js/ManageOL.js" language=JavaScript></script>
+ 
+    <script type="text/javascript" src="js/CustomLegend.js" language=JavaScript></script>
+    
+    <script type="text/javascript" src="./lib/prototype.js"></script>
+    
+    <script type="text/javascript" src="./lib/Rico/rico.js"></script>
+    <script type="text/javascript" src="./lib/Rico/ricoCommon.js"></script>
+    <script type="text/javascript" src="./lib/Rico/ricoDragDrop-custom2.js"></script>
+    <script type="text/javascript" src="./lib/Rico/ricoEffects.js"></script>
+    <script type="text/javascript" src="./lib/Rico/ricoStyles.js"></script>
+    <script type="text/javascript" src="./include/initRico.js"></script>
+<!--  
+    <script type="text/javascript" src="./include/boxButtons.js"></script>
+-->
+     
+<!-- Key pour rmll.info -->
+      <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAATnOi2Xl8zeoiyBT2upb3exTvf5gVkhDB82M_IvLheRvAvQqrsRRu3dySmIlpRRAas00s3nxNZu09OA"
+      type="text/javascript"></script>
+     
+<!-- Key pour glpi.makina-nantes.com
+	<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAATnOi2Xl8zeoiyBT2upb3exTQo_0mdvhR5i7eQ1Eq4hGECFSmvhThr9thpbhSDRziAnKP2Gv8HcLy5Q"
+      type="text/javascript"></script>-->
+      
+<!-- Key pour localhost
+	<script 
+	src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAkTbwRrQXWseDNIR-tQUs9RT2yXp_ZAY8_ufC3CFXhHIE1NvwkxSHilDKcuxT2i5AVQZJ47VGafyKQw" type="text/javascript">
+    </script>-->
+    
+<link rel="stylesheet" type="text/css" href="css/rmll.css" title="stylesheet" />
+<link rel="stylesheet" type="text/css" href="css/sliders.css" title="stylesheet" />
+</head>
+
+<body onload="zoom7()"   >
+
+<!-- DIV for the OpenLayers Map --> 
+ <div id="title2" style="position:absolute;top:0px;display:none;text-align:center;width:700px;"><a class="menu" onclick="showZoom(1);">Comment accéder à Mont de Marsan ?</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="menu" onclick="showZoom(2);">Les lieux des RMLL</a></div>
+<div id="map"></div>
+<div id="loading"><img src="./img/nasa.jpeg"></div>
+
+     
+
+ <div id="initBox" class="box" style="display:none">
+         <div id="titleHead2" class="boxHead">
+            <div id="titleTitle2" style="text-align:center">
+               Introduction chargée
+            </div>
+            <div class="spacer"></div>
+         </div>
+         <div class="boxBody" style="margin-top:0px;text-align:center">
+         <!--
+             <a onclick="initMap();">Cliquez ICI pour Visualiser le plan</a><br/>-->
+	     	 <a onclick="passerIntro();">Cliquez ICI pour Passer l'intro</a><br/>
+	    	 <a onclick="Intro();">Cliquez ICI pour voir l'intro</a>
+         </div>
+      </div>
+
+
+<div id="intro" style="display:none"><img id="introimg" src="./img/nasa0.gif"></div>
+<div id="mapcache" style="position:absolute;width:700px;top:10000px;left:800px;height:400px"></div>
+<div id="drivetime" style="display:none"> <div onclick="hidedt()" class="closebox">[x]</div><div id="drivetimeContent"></div></div>
+<div id="directions" style="width: 275px;top:50px;left:800px;height:200px;overflow:auto;position:absolute;background-color:#FFF;"></div>
+<!--
+<div style="position:relative;float:left;left:800px;top:-400px">
+	<IFRAME src="http://localhost/rmll/Ecovnet.html" width=400 height=400 scrolling=no frameborder=0 id="widg"> </IFRAME>
+</div>
+-->
+<div id="divform" style="display:none">
+<div id="searchText">Taper ici l'adresse que vous recherchez : <input id="seachinput" type="text" name="address" value="">
+<input type="submit" value="ok" onclick="javascript:showLocation();" onSubmit="javascript:showLocation();"></div><span class="info">ex.: "rue Sarraute, Mont de Marsan"</span>
+</div>
+
+<!--
+<div style="float:right;width:50%">
+    	<textarea id="gml" style="width:100%" rows="30"></textarea>
+    </div>
+-->
+<script>  
+OpenLayers.Popup.COLOR = "tranparent";
+var manageOL;
+var g = new OpenLayers.Format.GeoRSS();
+var pop; 
+var geocoder = new GClientGeocoder();
+function zoom7(){
+	show($('initBox'));
+}
+
+ function addAddressToMap(response) {
+    
+      if (!response || response.Status.code != 200) {
+        alert("Impossible de trouver ce lieu");
+      } else {
+        place = response.Placemark[0];
+       
+		manageOL.map.setCenter(new OpenLayers.LonLat(place.Point.coordinates[0],place.Point.coordinates[1]), 16);
+		var msg = "<h3>" + $('seachinput').value + "</h3>";
+		msg = msg + "<br><hr>";
+		msg = msg + "<a target='_blank' href='http://fr.wikipedia.org/wiki/" + $('seachinput').value + "'>En savoir plus...</a>";
+		openInfoWindow(place.Point.coordinates[0],place.Point.coordinates[1],msg);
+      }
+    }
+
+function openInfoWindow(lon,lat,content)
+{
+		if(pop)
+		{
+           pop.destroy();
+           pop = null; 
+		}
+
+		var msg =  content;
+		
+		pop = new OpenLayers.Popup("infos",
+                                        new OpenLayers.LonLat(lon, lat),
+                                        new OpenLayers.Size(200,160),
+                                        msg,
+                                        true);
+        manageOL.map.addPopup(pop);
+}
+
+
+function serialize(feature) {
+            feature.attributes = {};
+            var name = prompt("Title for feature?");
+            feature.attributes['title'] = name;
+            var data = g.write(feature.layer.features);
+            OpenLayers.Util.getElement("gml").value = data;
+        }
+
+function test()  
+{
+	covFrame=$("widg");
+}
+
+function initMap()
+{
+	hide($('initBox'));
+	initRico();
+	manageOL = new ManageOL('');
+	startcinematique();
+}
+ function showLocation() {
+ 
+      var address = $('seachinput').value + ", france";
+      geocoder.getLocations(address, addAddressToMap);
+      return false;
+    }
+    
+function startcinematique()
+{
+	manageOL.markersTGV.setVisibility(false);
+	manageOL.markersAvion.setVisibility(false);
+	manageOL.map.setCenter(new OpenLayers.LonLat(manageOL.initLon, manageOL.initLat),manageOL.initZoom);
+	manageOL.map.setBaseLayer(manageOL.cineLayer);
+}
+
+	
+function Intro()
+{
+	show($('intro'));
+	hide($('loading'));
+	$('introimg').src="./img/nasa.gif";
+	setTimeout("passerIntro()",7000);
+}
+ 
+function passerIntro()
+{
+	hide($('intro'));
+	hide($('initBox'));
+	hide($('loading'));
+	initRico();
+	manageOL = new ManageOL('');
+	manageOL.cinematiqueStop();
+	manageOL.map.setCenter(new OpenLayers.LonLat(-0.497818, 43.892697), 7);
+}
+
+
+function hide(element){
+	element.style.display="none";
+}
+
+function hidedt(){
+	hide($('drivetime'));
+}
+
+function show(element){
+	element.style.display="block";
+}
+
+
+function showZoom(param)
+{
+	if(param==1){
+		hide($('divform'));
+		manageOL.map.setCenter(new OpenLayers.LonLat(-0.497818, 43.892697), 7);
+	}
+	else
+	{
+		show($('divform'));
+		manageOL.map.setCenter(new OpenLayers.LonLat(manageOL.initLon, manageOL.initLat),14);
+	}
+}
+
+
+</script>
+
+</body>
+</html>
+
+

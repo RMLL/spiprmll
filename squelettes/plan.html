@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="#CHARSET" ?>
+#CACHE{7200}
+
+<INCLURE{fond=inc/debut-page}{lang}{titrepage=<:plan_site:>}>
+
+	<INCLURE{fond=inc/entete}{id_rubrique}{lang}>
+
+	<div id="content">
+		<div class="extra">
+			<div class="search">
+				#FORMULAIRE_RECHERCHE
+			</div>
+			<div class="contents">
+				<INCLURE{fond=inc/dernieres-infos}{lang}>
+			</div>
+		</div>
+		<div class="all plan">
+
+			<div id="rootline">
+				<a href="#URL_SITE_SPIP/" title=""><:accueil:></a>
+				&rsaquo;&rsaquo; <a href="#URL{plan}" title=""><:plan_site:></a>
+			</div>
+
+			<h1><:plan_site:></h1>
+
+		 	<BOUCLE_secteurs(RUBRIQUES) {racine} {par titre}>
+
+				<h2><a href="#URL_RUBRIQUE">[(#TITRE|supprimer_numero)]</a></h2>
+
+				[(#REM) Articles et sous-rubriques ]
+
+				<B_articles_racine>
+				<ul>
+						<BOUCLE_articles_racine(ARTICLES) {id_rubrique} {par date} {inverse} {doublons} {lang}>
+						<li><a href="#URL_ARTICLE">[(#TITRE|supprimer_numero)]</a></li>
+						</BOUCLE_articles_racine>
+				</ul>
+				</B_articles_racine>
+
+				<B_rubriques>
+				<ul>
+					<BOUCLE_rubriques(RUBRIQUES) {id_parent} {par num titre}>
+						<li>
+							<h3><a href="#URL_RUBRIQUE">[(#TITRE|supprimer_numero)]</a></h3>
+							<B_articles>
+								<ul>
+									<BOUCLE_articles(ARTICLES) {id_rubrique} {par num titre}>
+										<li><a href="#URL_ARTICLE">[(#TITRE|supprimer_numero)]</a></li>
+									</BOUCLE_articles>
+								</ul>
+							</B_articles>
+
+							<BOUCLE_sous_rubriques(BOUCLE_rubriques)></BOUCLE_sous_rubriques>
+						</li>
+					</BOUCLE_rubriques>
+
+				</ul>
+
+				</B_rubriques>
+
+			</BOUCLE_secteurs>
+
+
+
+		</div>
+		<div class="clear"></div>
+	</div>
+
+	<INCLURE{fond=inc/pied}>
+
+<INCLURE{fond=inc/fin-page}{lang}>

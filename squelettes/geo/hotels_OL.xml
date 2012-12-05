@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<rss xmlns="http://backend.userland.com/rss2">
+	
+	<rights>Copyright 2008 Makina Corpus, Inc. All rights reserved.</rights> 
+	<title>Hôtels</title>
+
+
+	<item><title>Hôtel Résidence Hestia</title><link>http://residenceshestia.com/index.htm</link><description>64 avenue Marechal Juin&lt;br&gt;
+ 40000 MONT DE MARSAN&lt;br&gt;
+	 Tel:05 58 75 59 32&lt;br&gt; fax : 05 58 06 84 12&lt;br&gt; Chambre à partir de 39 € - petit déjeuner 5 € par personne servi en chambre. VRP, parking privé.
+&lt;br&gt;
+</description>
+	
+	<georss:point xmlns:georss="http://www.georss.org/georss">43.898378 -0.487383</georss:point></item>
+	<item><title>Hôtel Richelieu</title><link></link><description> Tel :05 58 06 10 20&lt;br&gt; Hôtel ** Citotel centre ville. Ouvert toute l'année 29 chambres dont 4 suites. Restaurant séminaires, Etape VRP. Garage privé et fermé</description>
+	<georss:point xmlns:georss="http://www.georss.org/georss">43.8927 -0.501206</georss:point></item>
+
+	<item><title>Le Renaissance</title><link>http://www.hotel-restaurant-renaissance.com/</link><description>  Tel: 05 58 51 51 51&lt;br&gt; Hôtel *** 29 Chambres et 4 Suites dans un Cadre verdoyant-Restaurant 100 Couverts Terrasse 50 Couverts-Séminaires-Banquets</description>
+	<georss:point xmlns:georss="http://www.georss.org/georss">43.890626 -0.479384</georss:point></item>
+	<item><title>Campanile Hôtel et Restaurant</title><description>Tel : 05 58 06 48 48</description>
+	<georss:point xmlns:georss="http://www.georss.org/georss">43.905185 -0.475029</georss:point></item>
+	<item><title>Hôtel du Sablar</title><link>http://hotelsablar.fr/</link><description>Tel: 05 58 75 21 11&lt;br&gt; Hôtel ** . Centre ville - Jardins intérieurs. Chambres avec téléphone direct - TV - Canal+  TPS - Wifi. Ouvert 24h/24 - Veilleur de nuit.</description>
+	<georss:point xmlns:georss="http://www.georss.org/georss">43.887033 -0.499534</georss:point></item>
+
+<item><title>Hôtel Hexagone</title><link>http://pagesperso-orange.fr/hotel.hexagone/</link><description>Tel : 05 58 06 20 21&lt;br&gt; Hotel *-22 chambres tt confort-ouvert 7j7-tte  l'année.Pkg privé-Chambre TV,SdB,WC,TPS,WI-FI à partir 44€-Tarif WE 15/09 à fin avril: 39€</description>
+	<georss:point xmlns:georss="http://www.georss.org/georss">43.902414 -0.480144</georss:point></item>
+<item><title>Hôtel Bar Les Carrières</title><description>Tel: 05 58 75 31 14</description>
+	<georss:point xmlns:georss="http://www.georss.org/georss">43.888211 -0.512889</georss:point></item>
+
+<item><title>Hôtel des Pyrénées</title><description>Tel: 05 58 46 49 49&lt;br&gt; fax : 05 58 06 43 57</description>
+	<georss:point xmlns:georss="http://www.georss.org/georss">43.886933 -0.499934</georss:point></item>
+<item><title>Hôtel Restaurant Le Zanchettin</title><description>Tel : 05 58 75 19 52&lt;br&gt; fax : 05 58 75 25 28 </description>
+	<georss:point xmlns:georss="http://www.georss.org/georss">43.889107 -0.464208</georss:point></item>
+<item><title>La siesta</title><description> Tel:05 58 06 44 44&lt;br&gt; fax : 05 58 06 09 30</description>
+	<georss:point xmlns:georss="http://www.georss.org/georss">43.887233 -0.499834</georss:point></item>
+ 
+</rss> 
+
+

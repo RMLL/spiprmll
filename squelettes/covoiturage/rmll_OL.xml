@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss xmlns="http://backend.userland.com/rss2">	
+	<rights>Copyright 2008 Makina Corpus, Inc. All rights reserved.</rights> 
+	<title>Sites des RMLL</title>
+	<item><title>IUT</title><link>http://2008.rmll.info/L-I-U-T-U-P-P-A.html</link><description>IUT : 371 rue du ruisseau</description>
+	<georss:point xmlns:georss="http://www.georss.org/georss">43.88605 -0.50894</georss:point></item>
+	<item><title>IUFM</title><link>http://2008.rmll.info/L-I-U-F-M.html</link><description> 335 rue de Saint Pierre</description>
+	<georss:point xmlns:georss="http://www.georss.org/georss">43.88570 -0.51201</georss:point></item>
+	<item><title>CDDP</title><link>http://2008.rmll.info/Le-Centre-Departemental-de.html</link><description> 614 rue du Ruisseau</description>
+	<georss:point xmlns:georss="http://www.georss.org/georss">43.88488 -0.51051</georss:point></item>
+	<item><title>CCI</title><link>http://2008.rmll.info/La-Chambre-de-Commerce-et-d.html</link><description>293 avenue Maréchal Foch</description>
+	<georss:point xmlns:georss="http://www.georss.org/georss">43.89518 -0.49346</georss:point></item>
+	<item><title>ALPI</title><link>http://2008.rmll.info/L-Agence-Landaise-Pour-l.html</link><description>175 place de la caserne Bosquet</description>
+	<georss:point xmlns:georss="http://www.georss.org/georss">43.89658584664404 -0.4928934574127197</georss:point></item>
+	<item><title>Les Nocturnes du Libre</title><link>http://2008.rmll.info/Tous-a-l-Auberge-Landaise.html</link><description>Auberge Landaise : 328 rue de l'Auberge Landaise</description>
+	<georss:point xmlns:georss="http://www.georss.org/georss">43.89711 -0.49932</georss:point></item>
+</rss>

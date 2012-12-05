@@ -1,0 +1,4 @@
+free-sans                       /var/www/sig.demo.makina-corpus.com/www/ol_and/include/fonts/FreeSans.ttf
+miscellaneous                   /var/www/sig.demo.makina-corpus.com/www/ol_and/include/fonts/misc.ttf
+useful                          /var/www/sig.demo.makina-corpus.com/www/ol_and/include/fonts/useful_signs.ttf
+

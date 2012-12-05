@@ -1,0 +1,32 @@
+SYMBOL
+   NAME        "point"
+   TYPE        ellipse
+   FILLED      true
+   POINTS
+      1 1
+   END
+END
+
+SYMBOL
+   NAME        "star"
+   TYPE        vector
+   FILLED      true
+   POINTS
+      1 0
+      6 4
+      0 4
+      5 0
+      3 6
+      1 0
+   END
+END
+
+SYMBOL
+   NAME        "train-stripe"
+   TYPE        truetype
+   FONT        "free-sans"
+   CHARACTER   "|"
+   ANTIALIAS   true
+   GAP         5
+END
+
