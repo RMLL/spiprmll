@@ -1088,6 +1088,7 @@ class Rmll_Conference extends Rmll_Db {
 		$lang_datas = array(
 			'English' => 'en', 'French' => 'fr',
 			'Anglais' => 'en', 'Français' => 'fr',
+			'Néerlandais' => 'nl', 'Dutch' => 'nl',
 		);
 
 		if ((int) $rubrique > 0) {
@@ -1102,7 +1103,7 @@ class Rmll_Conference extends Rmll_Db {
 					$abstract = str_replace("¬", "\n", $abstract);
 					$translated_abstract = str_replace("¬", "\n", $translated_abstract);
 					$constraints = str_replace("¬", "\n", $constraints);
-					$lang_conf = array_key_exists($language, $lang_datas) ? $lang_datas[$data[7]] : 'en';
+					$lang_conf = array_key_exists($language, $lang_datas) ? $lang_datas[$language] : 'en';
 					$speakersArr = explode("¬", $speakers);
 					$bio = str_replace("¬", "\n", $biography);
 					$translated_bio = str_replace("¬", "\n", $translated_biography);
@@ -1135,10 +1136,9 @@ class Rmll_Conference extends Rmll_Db {
 
 					// quelle langue ?
 					$lang_db = new Rmll_Db('langue');
-					$lang_rec = $lang;
-					//$lang_rec = $lang_db->get_one_where(sprintf('code like %s', $lang_db->esc($language)));
+					$lang_rec = $lang_db->get_one_where(sprintf('code like %s', $lang_db->esc($lang_conf)));
 					if ($lang_rec === false) {
-						$errors[] = sprintf('Langue inconnue \'%s\' pour l\'enregistrement \'%d\'', $lang, $id);
+						$errors[] = sprintf('Langue inconnue \'%s\' pour l\'enregistrement \'%d\'', $lang_conf, $id);
 						continue;
 					}
 
