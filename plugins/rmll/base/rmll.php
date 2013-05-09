@@ -222,6 +222,7 @@ function rmll_peupler_base() {
     sql_insertq_multi('spip_rmll_langues', array(
             array('code' => 'fr', 'nom' => 'Français'),
             array('code' => 'en', 'nom' => 'Anglais'),
+            array('code' => 'nl', 'nom' => 'Néerlandais'),
         ));
 
     sql_insertq_multi('spip_rmll_natures', array(

@@ -1098,22 +1098,33 @@ class Rmll_Conference extends Rmll_Db {
 				while (($data = fgetcsv($fh, 0, ';')) !== false) {
 					$i++;
 					if ($i == 1) continue;
-
-					$id = $data[0];
-					$status = $data[2];
-					$topic = $data[3];
-					$title =  $data[4];
-					$abstract = str_replace("¬", "\n", $data[6]);
-					$lang = array_key_exists($data[7], $lang_datas) ? $lang_datas[$data[7]] : 'fr';
-					$license = $data[9];
-					$speakersArr = explode("¬", $data[11]);
-					$bio = str_replace("¬", "\n", $data[12]);
-					$notes = str_replace("¬", "\n", $data[18]);
+					list($id, $created_date, $date, $status, $language, $topic, $title, $translated_title, $nature, $number_of_slots, $abstract, $translated_abstract, $slides_language, $license, $capture, $capture_license, $constraints, $for_general_public, $for_professionals, $for_decision_makers, $for_geeks, $fil_rouge_auquotidien, $fil_rouge_enjeuxsocietaux, $fil_rouge_opendata, $fil_rouge_cloud, $speakers, $biography, $translated_biography, $charges, $city, $country, $transportation, $cost, $notes) = $data;
+					$abstract = str_replace("¬", "\n", $abstract);
+					$translated_abstract = str_replace("¬", "\n", $translated_abstract);
+					$constraints = str_replace("¬", "\n", $constraints);
+					$lang_conf = array_key_exists($language, $lang_datas) ? $lang_datas[$data[7]] : 'en';
+					$speakersArr = explode("¬", $speakers);
+					$bio = str_replace("¬", "\n", $biography);
+					$translated_bio = str_replace("¬", "\n", $translated_biography);
+					$notes = str_replace("¬", "\n", $notes);
 
 					if ($status != 1) continue;
 
-					$texte_fr = sprintf("\n\n{{{Résumé}}}\n\n%s\n\n{{{Biographie}}}\n\n%s\n\n", $abstract, $bio);
-					$texte_en = sprintf("\n\n{{{Abstract}}}\n\n%s\n\n{{{Biography}}}\n\n%s\n\n", $abstract, $bio);
+					if ($lang_conf == 'fr') {
+					  $texte_fr = sprintf("\n\n{{{Résumé}}}\n\n%s\n\n{{{Biographie}}}\n\n%s\n\n", $abstract, $bio);
+					  $texte_en = sprintf("\n\n{{{Abstract}}}\n\n%s\n\n{{{Biography}}}\n\n%s\n\n", $translated_abstract, $translated_bio);
+					  $texte_nl = $texte_en;
+					}
+					else if ($lang_conf == 'nl') {
+					  $texte_nl = sprintf("\n\n{{{Abstract}}}\n\n%s\n\n{{{Biografie}}}\n\n%s\n\n", $abstract, $bio);
+					  $texte_en = sprintf("\n\n{{{Abstract}}}\n\n%s\n\n{{{Biography}}}\n\n%s\n\n", $translated_abstract, $translated_bio);
+					  $texte_fr = $texte_en;
+					}
+					else { //lang_conf='en'
+					  $texte_en = sprintf("\n\n{{{Abstract}}}\n\n%s\n\n{{{Biografie}}}\n\n%s\n\n", $abstract, $bio);
+					  $texte_fr = sprintf("\n\n{{{Abstract}}}\n\n%s\n\n{{{Biography}}}\n\n%s\n\n", $translated_abstract, $translated_bio);
+					  $texte_nl = $texte_en;
+					}
 					$notes = sprintf("CFP_ID=%d\nCFP_TOPIC=%s\nCFP_LICENSE=%s\n\n%s",
 						$id, $topic, $license, $notes);
 
@@ -1124,7 +1135,8 @@ class Rmll_Conference extends Rmll_Db {
 
 					// quelle langue ?
 					$lang_db = new Rmll_Db('langue');
-					$lang_rec = $lang_db->get_one_where(sprintf('code like %s', $lang_db->esc($lang)));
+					$lang_rec = $lang;
+					//$lang_rec = $lang_db->get_one_where(sprintf('code like %s', $lang_db->esc($language)));
 					if ($lang_rec === false) {
 						$errors[] = sprintf('Langue inconnue \'%s\' pour l\'enregistrement \'%d\'', $lang, $id);
 						continue;
@@ -1136,9 +1148,9 @@ class Rmll_Conference extends Rmll_Db {
 					if ($conf_rec === false) {
 
 						$fields = array (
-							'titre' => sprintf('<multi>%s [en] %s</multi>', $title, $title),
+							'titre' => sprintf('<multi>%s [en] %s [nl] %s</multi>', $title, $title),
 							'id_rubrique' => $rubrique,
-							'texte' => sprintf("<multi>%s[en]%s</multi>", $texte_fr, $texte_en),
+							'texte' => sprintf("<multi>%s[en]%s[nl]%s</multi>", $texte_fr, $texte_en, $texte_nl),
 							'date' => date('Y-m-d H:i:s'),
 							'statut' => 'publie',
 							'date_modif' => date('Y-m-d H:i:s'),
