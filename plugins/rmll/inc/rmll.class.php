@@ -1085,10 +1085,14 @@ class Rmll_Conference extends Rmll_Db {
 
 	function import_theme($fichier, $rubrique, &$messages = array(), &$errors = array()) {
 
-		$lang_datas = array(
+		$lang_data = array(
 			'English' => 'en', 'French' => 'fr',
 			'Anglais' => 'en', 'Français' => 'fr',
 			'Néerlandais' => 'nl', 'Dutch' => 'nl',
+		);
+		$nature_data = array(
+			'workshop' => 'atl',
+			'conference' => 'conf',
 		);
 
 		if ((int) $rubrique > 0) {
@@ -1103,7 +1107,8 @@ class Rmll_Conference extends Rmll_Db {
 					$abstract = str_replace("¬", "\n", $abstract);
 					$translated_abstract = str_replace("¬", "\n", $translated_abstract);
 					$constraints = str_replace("¬", "\n", $constraints);
-					$lang_conf = array_key_exists($language, $lang_datas) ? $lang_datas[$language] : 'en';
+					$lang_conf = array_key_exists($language, $lang_data) ? $lang_data[$language] : 'en';
+					$nature = array_key_exists($nature, $nature_data) ? $nature_data[$nature] : 'conf';
 					$speakersArr = explode("¬", $speakers);
 					$bio = str_replace("¬", "\n", $biography);
 					$translated_bio = str_replace("¬", "\n", $translated_biography);
@@ -1141,6 +1146,12 @@ class Rmll_Conference extends Rmll_Db {
 						$errors[] = sprintf('Langue inconnue \'%s\' pour l\'enregistrement \'%d\'', $lang_conf, $id);
 						continue;
 					}
+					// nature
+					$nature_db = new Rmll_Db('nature');
+					$nature_rec = $lang_db->get_one_where(sprintf('code like %s', $lang_db->esc($nature)));
+					if ($lang_rec === false) {
+						$errors[] = sprintf('Nature inconnue \'%s\' pour l\'enregistrement \'%d\' (mais insertion qd mm)', $nature, $id);
+					}
 
 					// déjà insérée ?
 					$conf_db = new Rmll_Db('conference');
@@ -1168,6 +1179,7 @@ class Rmll_Conference extends Rmll_Db {
 							'id_article' => $article_db->last_id(),
 							'notes' => $notes,
 							'intervenants' => implode(', ', $speakers),
+							'id_nature' => $nature_rec['id_nature'],
 						);
 						if ($conf_db->insert($fields)) {
 							$messages[] = sprintf('Insertion de la conf \'%d\'', $id);
