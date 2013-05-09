@@ -211,12 +211,10 @@ function rmll_vider_tables($nom_meta_base_version) {
 
 function rmll_peupler_base() {
     sql_insertq_multi('spip_rmll_jours', array(
-            array('date' => '2010-07-06'),
-            array('date' => '2010-07-07'),
-            array('date' => '2010-07-08'),
-            array('date' => '2010-07-09'),
-            array('date' => '2010-07-10'),
-            array('date' => '2010-07-11'),
+            array('date' => '2013-07-08'),
+            array('date' => '2013-07-09'),
+            array('date' => '2013-07-10'),
+            array('date' => '2013-07-11'),
         ));
 
     sql_insertq_multi('spip_rmll_langues', array(
@@ -248,6 +246,8 @@ function rmll_peupler_base() {
             array('heure' => 10, 'minute' => 20),
             array('heure' => 11, 'minute' => 00),
             array('heure' => 11, 'minute' => 20),
+            array('heure' => 11, 'minute' => 40),
+            array('heure' => 12, 'minute' => 00),
             array('heure' => 14, 'minute' => 0),
             array('heure' => 14, 'minute' => 20),
             array('heure' => 14, 'minute' => 40),
@@ -258,6 +258,7 @@ function rmll_peupler_base() {
             array('heure' => 16, 'minute' => 40),
             array('heure' => 17, 'minute' => 00),
             array('heure' => 17, 'minute' => 20),
+            array('heure' => 17, 'minute' => 40),
         ));
 }
 
