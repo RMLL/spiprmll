@@ -1188,6 +1188,7 @@ class Rmll_Conference extends Rmll_Db {
 					if ($conf_rec === false) {
 
 						$fields = array (
+							'id_article' => $id,
 							'titre' => sprintf('<multi>%s [en] %s [nl] %s</multi>', $titre_fr, $titre_en, $titre_nl),
 							'id_rubrique' => $rubrique,
 							'texte' => sprintf("<multi>%s[en]%s[nl]%s</multi>", $texte_fr, $texte_en, $texte_nl),
@@ -1204,8 +1205,9 @@ class Rmll_Conference extends Rmll_Db {
 							$errors[] = sprintf('Echec lors de l\'insertion de l\'article lié à la conf \'%d\' (%d, %s)', $id, sql_errno(), sql_error());
 						}
 						$fields = array(
+							'id_conference' => $id,
+							'id_article' => $id,
 							'id_langue' => $lang_rec['id_langue'],
-							'id_article' => $article_db->last_id(),
 							'notes' => $notes,
 							'intervenants' => implode(', ', $speakers),
 							'id_nature' => $nature_rec['id_nature'],
