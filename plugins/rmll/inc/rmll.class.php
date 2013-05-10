@@ -1103,7 +1103,7 @@ class Rmll_Conference extends Rmll_Db {
 				while (($data = fgetcsv($fh, 0, ';')) !== false) {
 					$i++;
 					if ($i == 1) continue;
-					list($id, $created_date, $date, $status, $language, $topic, $title, $translated_title, $nature, $number_of_slots, $abstract, $translated_abstract, $slides_language, $license, $capture, $capture_license, $constraints, $for_general_public, $for_professionals, $for_decision_makers, $for_geeks, $fil_rouge_auquotidien, $fil_rouge_enjeuxsocietaux, $fil_rouge_opendata, $fil_rouge_cloud, $speakers, $biography, $translated_biography, $charges, $city, $country, $transportation, $cost, $notes) = $data;
+					list($id, $created_date, $date, $status, $language, $topic, $title, $translated_title, $nature, $number_of_slots, $abstract, $translated_abstract, $slides_language, $license, $captation, $captation_license, $constraints, $for_general_public, $for_professionals, $for_decision_makers, $for_geeks, $fil_rouge_auquotidien, $fil_rouge_enjeuxsocietaux, $fil_rouge_opendata, $fil_rouge_cloud, $speakers, $biography, $translated_biography, $charges, $city, $country, $transportation, $cost, $notes) = $data;
 					$abstract = str_replace("¬", "\n", $abstract);
 					$translated_abstract = str_replace("¬", "\n", $translated_abstract);
 					$constraints = str_replace("¬", "\n", $constraints);
@@ -1113,7 +1113,11 @@ class Rmll_Conference extends Rmll_Db {
 					$bio = str_replace("¬", "\n", $biography);
 					$translated_bio = str_replace("¬", "\n", $translated_biography);
 					$notes = str_replace("¬", "\n", $notes);
-
+					$fl_auquotidien = ($fil_rouge_auquotidien=="True") ? " au_quotidien " : "";
+					$fl_enjeux = ($fil_rouge_enjeuxsocietaux=="True") ? " enjeux_societaux " : "";
+					$fl_opendata = ($fil_rouge_opendata=="True") ? " opendata " : "";
+					$fl_cloud = ($fil_rouge_cloud=="True") ? " cloud " : "";
+					$captation = ($captation) ? "yes" : "no" ;
 					if ($status != 1) continue;
 
 					if ($lang_conf == 'fr') {
@@ -1140,8 +1144,14 @@ class Rmll_Conference extends Rmll_Db {
 					  $titre_nl = $titre_en;
 					  $texte_nl = sprintf("\n\n{{{Abstract}}}\n\n%s\n\n{{{Biografie}}}\n\n%s\n\n", $abstract, $bio);
 					}
-					$notes = sprintf("CFP_ID=%d\nCFP_TOPIC=%s\nCFP_LICENSE=%s\n\n%s",
-						$id, $topic, $license, $notes);
+					$notes = sprintf("CFP_ID=%d\nCFP_TOPIC=%s\nCFP_LICENSE=%s\nCFP_SLIDES_LANG=%s\nCFP_CAPTATION=%s\nCFP_CAPTATION_LICENSE=%s\nCFP_FILSROUGES=%s%s%s%s\n\n%s",
+					       $id, $topic, $license,
+					       $slides_language, 
+					       $captation, $captation_license,
+					       $fl_auquotidien, 
+					       $fl_enjeuxsocietaux,
+					       $fl_opendata, $fl_cloud, 
+					       $notes);
 
 					$speakers = array();
 					foreach($speakersArr as $speaker) {
