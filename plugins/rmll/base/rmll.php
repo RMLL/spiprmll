@@ -120,6 +120,7 @@ function rmll_declarer_tables_principales($tables_principales) {
         'intervenants' => 'varchar(255) NOT NULL',
         'video' => 'varchar(255) NOT NULL',
         'notes' => 'TEXT NOT NULL',
+	'auditeurs' => int(2),
     );
     $spip_rmll_conferences_key = array (
         'PRIMARY KEY' => 'id_conference',

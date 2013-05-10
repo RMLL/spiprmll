@@ -49,6 +49,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     'label_intervenants' => 'Intervenants',
     'label_videourl' => 'Url de la vidéo',
     'label_notes' => 'Notes',
+    'label_auditeurs' => 'Audience Count (actual)',
     'label_planning_jours' => 'Planning par journées',
     'label_planning_salle' => 'Planning par salles',
 

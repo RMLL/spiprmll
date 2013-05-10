@@ -34,6 +34,7 @@ class Rmll_Event {
         $salle = null;
         $intervenants = null;
         $video = null;
+	$auditeurs = null;
 
         /*** encart affichant les données déjà enregistrées ***/
         $conference = new Rmll_Db('conference');
@@ -50,9 +51,10 @@ class Rmll_Event {
             $intervenants = $conf['intervenants'];
             $video = $conf['video'];
             $notes = $conf['notes'];
+	    $auditeurs = $conf['auditeurs'];
         }
 
-        /*** remplisssage des tableaux de données ***/
+        /*** remplissage des tableaux de données ***/
         /* jour */
         $table_jour = new Rmll_Db('jour');
         $jour_liste = array(0 => _T('rmll:label_indefini'));
@@ -133,6 +135,10 @@ class Rmll_Event {
                         <th>'._T('rmll:label_notes').' :</th>
                         <td colspan="3  ">'.nl2br($notes).'</td>
                     </tr>
+                    <tr>
+                        <th>'._T('rmll:label_auditeurs').' :</th>
+                        <td colspan="3  ">'."$auditeurs".'</td>
+                    </tr>
                 </table>
             ';
         }
@@ -173,6 +179,10 @@ class Rmll_Event {
             <tr>
                 <th>'.Rmll_Helper::formulaire_label(_T('rmll:label_notes').' :', array('for'=>'notes'), true).'</th>
                 <td colspan="3">'.Rmll_Helper::formulaire_zonetexte("notes", $notes, array('cols'=>40, 'rows'=>10), true).'</td>
+            </tr>
+            <tr>
+                <th>'.Rmll_Helper::formulaire_label(_T('rmll:label_auditeurs').' :', array('for'=>'auditeurs'), true).'</th>
+                <td colspan="3">'.Rmll_Helper::formulaire_texte("auditeurs", "$auditeurs", array('size' => 3), true).'</td>
             </tr>
             <tr>
                 <td colspan="4" style="text-align:right;">

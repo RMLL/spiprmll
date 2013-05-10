@@ -21,6 +21,7 @@ function action_ajouter_conference_dist() {
     $intervenants = Rmll_Helper::inPost('intervenants');
     $video = Rmll_Helper::inPost('video');
     $notes = Rmll_Helper::inPost('notes');
+    $auditeurs = Rmll_Helper::inPost('auditeurs');
 
     $action = '';
     $suppr_evenement = Rmll_Helper::inPost('suppr_evenement');
@@ -37,7 +38,8 @@ function action_ajouter_conference_dist() {
             'id_nature' => $nature, 'id_niveau' => $niveau,
             'id_salle' => $salle,
             'id_article' => $id_article, 'intervenants' => $intervenants,
-            'video' => $video, 'notes' => $notes), $evenement);
+            'video' => $video, 'notes' => $notes, 
+	    'auditeurs' => (int) $auditeurs), $evenement);
         $action = 'update';
     }
     else {
@@ -47,7 +49,8 @@ function action_ajouter_conference_dist() {
             'id_nature' => $nature, 'id_niveau' => $niveau,
             'id_salle' => $salle,
             'id_article' => $id_article, 'intervenants' => $intervenants,
-            'video' => $video, 'notes' => $notes));
+            'video' => $video, 'notes' => $notes, 
+	    'auditeurs' => (int) $auditeurs));
         $action = 'add';
     }
 
