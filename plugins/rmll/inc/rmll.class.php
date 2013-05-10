@@ -1117,18 +1117,27 @@ class Rmll_Conference extends Rmll_Db {
 					if ($status != 1) continue;
 
 					if ($lang_conf == 'fr') {
+					  $titre_fr = $title;
 					  $texte_fr = sprintf("\n\n{{{Résumé}}}\n\n%s\n\n{{{Biographie}}}\n\n%s\n\n", $abstract, $bio);
+					  $titre_en = $translated_title;
 					  $texte_en = sprintf("\n\n{{{Abstract}}}\n\n%s\n\n{{{Biography}}}\n\n%s\n\n", $translated_abstract, $translated_bio);
+					  $titre_nl = $titre_en;
 					  $texte_nl = $texte_en;
 					}
 					else if ($lang_conf == 'nl') {
+					  $titre_nl = $title;
 					  $texte_nl = sprintf("\n\n{{{Abstract}}}\n\n%s\n\n{{{Biografie}}}\n\n%s\n\n", $abstract, $bio);
+					  $titre_en = $translated_title;
 					  $texte_en = sprintf("\n\n{{{Abstract}}}\n\n%s\n\n{{{Biography}}}\n\n%s\n\n", $translated_abstract, $translated_bio);
+					  $titre_fr = $titre_en;
 					  $texte_fr = $texte_en;
 					}
 					else { //lang_conf='en'
+					  $titre_en = $title;
 					  $texte_en = sprintf("\n\n{{{Abstract}}}\n\n%s\n\n{{{Biografie}}}\n\n%s\n\n", $abstract, $bio);
+					  $titre_fr = $translated_title;
 					  $texte_fr = sprintf("\n\n{{{Abstract}}}\n\n%s\n\n{{{Biography}}}\n\n%s\n\n", $translated_abstract, $translated_bio);
+					  $titre_nl = $titre_en;
 					  $texte_nl = $texte_en;
 					}
 					$notes = sprintf("CFP_ID=%d\nCFP_TOPIC=%s\nCFP_LICENSE=%s\n\n%s",
@@ -1159,7 +1168,7 @@ class Rmll_Conference extends Rmll_Db {
 					if ($conf_rec === false) {
 
 						$fields = array (
-							'titre' => sprintf('<multi>%s [en] %s [nl] %s</multi>', $title, $title),
+							'titre' => sprintf('<multi>%s [en] %s [nl] %s</multi>', $titre_fr, $titre_en, $titre_nl),
 							'id_rubrique' => $rubrique,
 							'texte' => sprintf("<multi>%s[en]%s[nl]%s</multi>", $texte_fr, $texte_en, $texte_nl),
 							'date' => date('Y-m-d H:i:s'),
