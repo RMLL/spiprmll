@@ -1108,7 +1108,7 @@ class Rmll_Conference extends Rmll_Db {
 					$translated_abstract = str_replace("¬", "\n", $translated_abstract);
 					$constraints = str_replace("¬", "\n", $constraints);
 					$lang_conf = array_key_exists($language, $lang_data) ? $lang_data[$language] : 'en';
-					$code_nature = array_key_exists($nature, $nature_data) ? $nature_data[$nature] : 'conf';
+					$nature_code = array_key_exists($nature, $nature_data) ? $nature_data[$nature] : 'conf';
 					$speakersArr = explode("¬", $speakers);
 					$bio = str_replace("¬", "\n", $biography);
 					$translated_bio = str_replace("¬", "\n", $translated_biography);
@@ -1157,9 +1157,9 @@ class Rmll_Conference extends Rmll_Db {
 					}
 					// nature
 					$nature_db = new Rmll_Db('nature');
-					$nature_rec = $nature_db->get_one_where(sprintf('code like %s', $lang_db->esc($code_nature)));
+					$nature_rec = $nature_db->get_one_where(sprintf('code like %s', $lang_db->esc($nature_code)));
 					if ($lang_rec === false) {
-						$errors[] = sprintf('Nature inconnue \'%s\' pour l\'enregistrement \'%d\' (mais insertion qd mm)', $code_nature, $id);
+						$errors[] = sprintf('Nature inconnue \'%s\' pour l\'enregistrement \'%d\' (mais insertion qd mm)', $nature_code, $id);
 					}
 
 					// déjà insérée ?
