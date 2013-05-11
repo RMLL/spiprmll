@@ -1,7 +1,7 @@
 <?php
-    define('RMLL_PROG_ID', '37'); # rubrique racine
-    define('RMLL_THEME_ID', '43,44,45,47'); # pour les thèmes subdivisés
-    define('RMLL_SESSION_ID', '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,27'); # les thèmes finaux
+    define('RMLL_PROG_ID', '100'); # rubrique racine
+    define('RMLL_THEME_ID', '101,102,110,120,130,140,150,160,170'); # pour les thèmes subdivisés
+    define('RMLL_SESSION_ID', '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,27,28,29'); # les thèmes finaux
     define('RMLL_KEYWORDS_GROUP_ID', 1);
 
     function rmll_is_prog($id) {
@@ -63,7 +63,7 @@
     define('RMLL_XMLSCHEDULE_SUBTITLE', 'RMLL/LSM meeting');
     define('RMLL_XMLSCHEDULE_PLACE', '...');
     define('RMLL_XMLSCHEDULE_CITY', 'Geneva');
-    define('RMLL_XMLSCHEDULE_START', '2012-07-07'); // YYYY-MM-DD
+    define('RMLL_XMLSCHEDULE_START', '2013-07-08'); // YYYY-MM-DD
     define('RMLL_XMLSCHEDULE_NUMDAYS', 5);
     define('RMLL_XMLSCHEDULE_DURATION', '00:40'); // HH:MM
     define('RMLL_XMLSCHEDULE_SUPPORTED_LANGS', 'fr,en'); // lang1,lang2,lang3
