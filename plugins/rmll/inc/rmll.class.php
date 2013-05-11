@@ -1238,7 +1238,6 @@ class Rmll_Conference extends Rmll_Db {
 						if ($fl_auquotidien) {
 						   $fields = array('id_article' => $id, 'id_mot' => 1);
 						   $mot_article_db = new Rmll_Mot_Article();
-						   print_r($mot_article_db->insert($fields));
 						   if ($mot_article_db->insert($fields)) $message_fl = $message_fl . "1 ";
 						   else {
 						     $echec_fl = 1;
@@ -1272,7 +1271,8 @@ class Rmll_Conference extends Rmll_Db {
 						     $message_echec_fl = $message_echec_fl .  sprintf(" (%s, %s)", sql_errno(), sql_error());
 						   }
 						}
-						if ($echec_fl) $errors[] = sprintf($message_echec_fl);
+						//if ($echec_fl) $errors[] = sprintf($message_echec_fl);
+						// FIXME valeur de retour insertion
 						$messages[] = $message_fl;
 					}
 					else {
