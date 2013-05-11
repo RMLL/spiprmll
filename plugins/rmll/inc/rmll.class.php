@@ -1123,6 +1123,11 @@ class Rmll_Conference extends Rmll_Db {
 					$bio = str_replace("¬", "\n", $biography);
 					$translated_bio = str_replace("¬", "\n", $translated_biography);
 					$notes = str_replace("¬", "\n", $notes);
+					$audience_gp = ($for_general_public) ? " general_public " : "";
+					$audience_prof = ($for_professionals) ? " professionals " : "";
+					$audience_decis = ($for_decision_makers) ? " decision_makers " : "";
+					$audience_geek = ($for_geeks) ? " geeks " : "";
+
 					$fl_auquotidien = ($fil_rouge_auquotidien=="True") ? " au_quotidien " : "";
 					$fl_enjeux = ($fil_rouge_enjeuxsocietaux=="True") ? " enjeux_societaux " : "";
 					$fl_opendata = ($fil_rouge_opendata=="True") ? " opendata " : "";
@@ -1154,10 +1159,12 @@ class Rmll_Conference extends Rmll_Db {
 					  $titre_nl = $titre_en;
 					  $texte_nl = sprintf("\n\n{{{Abstract}}}\n\n%s\n\n{{{Biografie}}}\n\n%s\n\n", $abstract, $bio);
 					}
-					$notes = sprintf("CFP_ID=%d\nCFP_TOPIC=%s\nCFP_LICENSE=%s\nCFP_SLIDES_LANG=%s\nCFP_CAPTATION=%s\nCFP_CAPTATION_LICENSE=%s\nCFP_FILSROUGES=%s%s%s%s\n\n%s",
+					$notes = sprintf("CFP_ID=%d\nCFP_TOPIC=%s\nCFP_LICENSE=%s\nCFP_SLIDES_LANG=%s\nCFP_CAPTATION=%s\nCFP_CAPTATION_LICENSE=%s\nCFP_AUDIENCE=%s%s%s%s\nCFP_FILSROUGES=%s%s%s%s\n\n%s",
 					       $id, $topic, $license,
 					       $slides_language, 
 					       $captation, $captation_license,
+					       $audience_gp, $audience_prof,
+					       $audience_decis, $audience_geek,
 					       $fl_auquotidien, 
 					       $fl_enjeuxsocietaux,
 					       $fl_opendata, $fl_cloud, 
