@@ -1,0 +1,31 @@
+Pré-requis
+==========
+PHP, MySQL, SPIP
+NB : Ce plugin et squelette a été testé uniquement sur SPIP 2.
+
+Installation
+============
+Déposez le plugin dans le répertoire "plugins" de votre installation de SPIP.
+
+Déposez les squelettes dans un répertoire nommé "squelettes" à côté de "squelettes-dist".
+
+Videz le cache de SPIP.
+
+Fichiers du plugin
+==================
+* base/rmll.php contient à la fois la structure de la base et les données d'initialisation
+* inc/ contient la logique
+* inc/rmll.class.php est le fichier central
+* exec/*php décrivent les affichages
+* action/*php 
+* lang/*php fichiers de localisation
+* rmll_mes_fonctions.php fonctions de traitement 
+* rmll_mes_options.php divers paramètres pour la construction du programme
+
+Fichiers à retoucher
+====================
+Les fichiers qui doivent être retouchés chaque année sont :
+* base/rmll.php	 à cause des données d'initialisation
+* inc/rmll.class.php pour l'importation des thèmes
+* rmll_mes_options.php -> lire et modifier tous les paramètres
+* lang/*php pour modifier les traductions
