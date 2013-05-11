@@ -758,6 +758,13 @@ class Rmll_Article extends Rmll_Db {
     }
 }
 
+class Rmll_Mot_Article extends Rmll_Db {
+    function __construct () {
+        $this->_name = 'mot';
+        $this->_table = 'spip_mots_articles';
+    }
+}
+
 class Rmll_Conference extends Rmll_Db {
 
     function Rmll_Conference ($dayfilter = true) {
@@ -1225,6 +1232,48 @@ class Rmll_Conference extends Rmll_Db {
 						else {
 							$errors[] = sprintf('Echec lors de l\'insertion de la conf (%d, %s)', $id, sql_errno(), sql_error());
 						}
+						$message_fl = sprintf('Insertion des fils rouges pour la conf \'%d\' ', $id);
+						$message_echec_fl = sprintf('Echec lors de l\'insertion des fils rouges pour la conf \'%d\'', $id);
+						$echec_fl = 0;
+						if ($fl_auquotidien) {
+						   $fields = array('id_article' => $id, 'id_mot' => 1);
+						   $mot_article_db = new Rmll_Mot_Article();
+						   print_r($mot_article_db->insert($fields));
+						   if ($mot_article_db->insert($fields)) $message_fl = $message_fl . "1 ";
+						   else {
+						     $echec_fl = 1;
+						     $message_echec_fl = $message_echec_fl .  sprintf(" (%s, %s)", sql_errno(), sql_error());
+						   }
+						}
+						if ($fl_enjeux) {
+						   $fields = array('id_article' => $id, 'id_mot' => 2);
+						   $mot_article_db = new Rmll_Mot_Article();
+						   if ($mot_article_db->insert($fields)) $message_fl = $message_fl . "2 ";
+						   else {
+						     $echec_fl = 1;
+						     $message_echec_fl = $message_echec_fl .  sprintf(" (%s, %s)", sql_errno(), sql_error());
+						   }
+						}
+						if ($fl_opendata) {
+						   $fields = array('id_article' => $id, 'id_mot' => 3);
+						   $mot_article_db = new Rmll_Mot_Article();
+						   if ($mot_article_db->insert($fields)) $message_fl = $message_fl . "3 ";
+						   else {
+						     $echec_fl = 1;
+						     $message_echec_fl = $message_echec_fl .  sprintf(" (%s, %s)", sql_errno(), sql_error());
+						   }
+						}
+						if ($fl_cloud) {
+						   $fields = array('id_article' => $id, 'id_mot' => 4);
+						   $mot_article_db = new Rmll_Mot_Article();
+						   if ($mot_article_db->insert($fields)) $message_fl = $message_fl . "4 ";
+						   else {
+						     $echec_fl = 1;
+						     $message_echec_fl = $message_echec_fl .  sprintf(" (%s, %s)", sql_errno(), sql_error());
+						   }
+						}
+						if ($echec_fl) $errors[] = sprintf($message_echec_fl);
+						$messages[] = $message_fl;
 					}
 					else {
 						$messages[] = sprintf('Conf \'%d\' déjà importée', $id);
