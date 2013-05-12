@@ -1130,10 +1130,10 @@ class Rmll_Conference extends Rmll_Db {
 					$bio = str_replace("¬", "\n", $biography);
 					$translated_bio = str_replace("¬", "\n", $translated_biography);
 					$notes = str_replace("¬", "\n", $notes);
-					$audience_gp = ($for_general_public) ? " general_public " : "";
-					$audience_prof = ($for_professionals) ? " professionals " : "";
-					$audience_decis = ($for_decision_makers) ? " decision_makers " : "";
-					$audience_geek = ($for_geeks) ? " geeks " : "";
+					$ta_general = ($for_general_public) ? " general_public " : "";
+					$ta_prof = ($for_professionals) ? " professionals " : "";
+					$ta_decis = ($for_decision_makers) ? " decision_makers " : "";
+					$ta_geek = ($for_geeks) ? " geeks " : "";
 
 					$fl_auquotidien = ($fil_rouge_auquotidien=="True") ? " au_quotidien " : "";
 					$fl_enjeux = ($fil_rouge_enjeuxsocietaux=="True") ? " enjeux_societaux " : "";
@@ -1166,12 +1166,12 @@ class Rmll_Conference extends Rmll_Db {
 					  $titre_nl = $titre_en;
 					  $texte_nl = sprintf("\n\n{{{Abstract}}}\n\n%s\n\n{{{Biografie}}}\n\n%s\n\n", $abstract, $bio);
 					}
-					$notes = sprintf("CFP_ID=%d\nCFP_TOPIC=%s\nCFP_LICENSE=%s\nCFP_SLIDES_LANG=%s\nCFP_CAPTATION=%s\nCFP_CAPTATION_LICENSE=%s\nCFP_AUDIENCE=%s%s%s%s\nCFP_FILSROUGES=%s%s%s%s\n\n%s",
+					$notes = sprintf("CFP_ID=%d\nCFP_TOPIC=%s\nCFP_LICENSE=%s\nCFP_SLIDES_LANG=%s\nCFP_CAPTATION=%s\nCFP_CAPTATION_LICENSE=%s\nCFP_TARGET_AUDIENCE=%s%s%s%s\nCFP_FILSROUGES=%s%s%s%s\n\n%s",
 					       $id, $topic, $license,
 					       $slides_language, 
 					       $captation, $captation_license,
-					       $audience_gp, $audience_prof,
-					       $audience_decis, $audience_geek,
+					       $ta_general, $ta_prof,
+					       $ta_decis, $ta_geek,
 					       $fl_auquotidien, 
 					       $fl_enjeuxsocietaux,
 					       $fl_opendata, $fl_cloud, 
@@ -1232,6 +1232,7 @@ class Rmll_Conference extends Rmll_Db {
 						else {
 							$errors[] = sprintf('Echec lors de l\'insertion de la conf (%d, %s)', $id, sql_errno(), sql_error());
 						}
+						// Fils rouges
 						$message_fl = sprintf('Insertion des fils rouges pour la conf \'%d\' ', $id);
 						$message_echec_fl = sprintf('Echec lors de l\'insertion des fils rouges pour la conf \'%d\'', $id);
 						$echec_fl = 0;
@@ -1274,6 +1275,49 @@ class Rmll_Conference extends Rmll_Db {
 						//if ($echec_fl) $errors[] = sprintf($message_echec_fl);
 						// FIXME valeur de retour insertion
 						$messages[] = $message_fl;
+						// Target audience
+						$message_ta = sprintf('Insertion des publics cibles pour la conf \'%d\' ', $id);
+						$message_echec_ta = sprintf('Echec lors de l\'insertion des publics cibles pour la conf \'%d\'', $id);
+						$echec_ta = 0;
+						if ($ta_general) {
+						   $fields = array('id_article' => $id, 'id_mot' => 5);
+						   $mot_article_db = new Rmll_Mot_Article();
+						   if ($mot_article_db->insert($fields)) $message_ta = $message_ta . "5 ";
+						   else {
+						     $echec_ta = 1;
+						     $message_echec_ta = $message_echec_ta .  sprintf(" (%s, %s)", sql_errno(), sql_error());
+						   }
+						}
+						if ($ta_prof) {
+						   $fields = array('id_article' => $id, 'id_mot' => 6);
+						   $mot_article_db = new Rmll_Mot_Article();
+						   if ($mot_article_db->insert($fields)) $message_ta = $message_ta . "6 ";
+						   else {
+						     $echec_ta = 1;
+						     $message_echec_ta = $message_echec_ta .  sprintf(" (%s, %s)", sql_errno(), sql_error());
+						   }
+						}
+						if ($ta_decis) {
+						   $fields = array('id_article' => $id, 'id_mot' => 7);
+						   $mot_article_db = new Rmll_Mot_Article();
+						   if ($mot_article_db->insert($fields)) $message_ta = $message_ta . "7 ";
+						   else {
+						     $echec_ta = 1;
+						     $message_echec_ta = $message_echec_ta .  sprintf(" (%s, %s)", sql_errno(), sql_error());
+						   }
+						}
+						if ($ta_geek) {
+						   $fields = array('id_article' => $id, 'id_mot' => 8);
+						   $mot_article_db = new Rmll_Mot_Article();
+						   if ($mot_article_db->insert($fields)) $message_ta = $message_ta . "8 ";
+						   else {
+						     $echec_ta = 1;
+						     $message_echec_ta = $message_echec_ta .  sprintf(" (%s, %s)", sql_errno(), sql_error());
+						   }
+						}
+						//if ($echec_ta) $errors[] = sprintf($message_echec_ta);
+						// FIXME valeur de retour insertion
+						$messages[] = $message_ta;
 					}
 					else {
 						$messages[] = sprintf('Conf \'%d\' déjà importée', $id);
