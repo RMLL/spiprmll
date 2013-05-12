@@ -1130,10 +1130,10 @@ class Rmll_Conference extends Rmll_Db {
 					$bio = str_replace("¬", "\n", $biography);
 					$translated_bio = str_replace("¬", "\n", $translated_biography);
 					$notes = str_replace("¬", "\n", $notes);
-					$ta_general = ($for_general_public) ? " general_public " : "";
-					$ta_prof = ($for_professionals) ? " professionals " : "";
-					$ta_decis = ($for_decision_makers) ? " decision_makers " : "";
-					$ta_geek = ($for_geeks) ? " geeks " : "";
+					$ta_general = ($for_general_public == "True") ? " general_public " : "";
+					$ta_prof = ($for_professionals == "True") ? " professionals " : "";
+					$ta_decis = ($for_decision_makers == "True") ? " decision_makers " : "";
+					$ta_geek = ($for_geeks == "True") ? " geeks " : "";
 
 					$fl_auquotidien = ($fil_rouge_auquotidien=="True") ? " au_quotidien " : "";
 					$fl_enjeux = ($fil_rouge_enjeuxsocietaux=="True") ? " enjeux_societaux " : "";
