@@ -1,5 +1,7 @@
 #CACHE{3600}
 
+#SET{url_media,http://2013.rmll.info/media}
+
 <div id="skip-link">
     <a href="#content" class="element-invisible element-focusable"><:go_to_maint_content:></a>
 </div>
@@ -9,12 +11,12 @@
         <div class="span-22 push-1">
             <div class="span-6 first logo">
                 <a href="<:site_link:>">
-                    <img src="[(#CHEMIN{images/})]logo-rmll-2012-[(#LANG).png]" width="206" height="83" />
+                    <img src="#GET{url_media}/img/rmll[(#LANG).png]" width="205" height="84" />
                 </a>
             </div>
             <div class="span-16 last event">
                 <a href="<:city_link:>">
-                    <img src="[(#CHEMIN{images/})]geneve-2012-[(#LANG).png]" width="186" height="47" />
+                    <img src="#GET{url_media}/img/brussels-2013-[(#LANG).png]" />
                 </a>
             </div>
         </div>
