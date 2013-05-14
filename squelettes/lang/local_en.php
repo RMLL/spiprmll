@@ -1,7 +1,7 @@
 <?php
 
 $GLOBALS[$GLOBALS['idx_lang']] = array(
-    'titre_rmll' => "13<sup>th</sup> Libre Software Meeting",
+    'titre_rmll' => "14<sup>th</sup> Libre Software Meeting",
 
     /*
     'accueil' => "Home",
@@ -64,7 +64,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     'go_to_maint_content' => 'Go to main content',
     'schedule' => 'Schedule',
     'read_more' => 'Read more',
-    'site_link' => 'http://2012.rmll.info/en',
-    'city_link' => 'http://2012.rmll.info/en/geneva-2012',
+    'site_link' => 'http://2013.rmll.info/',
+    'city_link' => 'http://2013.rmll.info/',
 );
 ?>

@@ -64,7 +64,7 @@ p {
 #header div.container {
     padding-top: 15px;
     position: relative;
-    background-image: url('../images/geneve.jpg');
+    background-image: url('http://2013.rmll.info/media/img/brussels.jpg');
     background-repeat: no-repeat;
     background-position: 50% -127px;
 }

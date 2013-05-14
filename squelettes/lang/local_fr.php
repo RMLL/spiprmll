@@ -1,7 +1,7 @@
 <?php
 
 $GLOBALS[$GLOBALS['idx_lang']] = array(
-    'titre_rmll' => "13<sup>es</sup> Rencontres Mondiales du Logiciel Libre",
+    'titre_rmll' => "14<sup>es</sup> Rencontres Mondiales du Logiciel Libre",
 
     /*
     'accueil' => "Accueil",
@@ -66,7 +66,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     'go_to_maint_content' => 'Aller au contenu',
     'schedule' => 'Programme',
     'read_more' => 'Lire la suite',
-    'site_link' => 'http://2012.rmll.info/',
-    'city_link' => 'http://2012.rmll.info/geneve-2012',
+    'site_link' => 'http://2013.rmll.info/',
+    'city_link' => 'http://2013.rmll.info/',
 );
 ?>
