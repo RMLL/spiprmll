@@ -1,16 +1,32 @@
 #CACHE{7200}
 
-<?php
-    $url = "http://2012.rmll.info/template/footer";
-    if ($GLOBALS['lang'] == 'en') {
-        $url = "http://2012.rmll.info/en/template/footer";
-    }
-    $content = @file_get_contents($url);
-    $content = trim($content);
-    // Remove BOM
-    $bom = pack("CCC", 0xef, 0xbb, 0xbf);
-    if (0 == strncmp($content, $bom, 3)) {
-        $content = substr($content, 3);
-    }
-    echo str_ireplace(array('</body>', '</html>'), array(), $content);
-?>
+#SET{url_rmll_website,http://2013.rmll.info}
+#SET{display_lang,#LANG}
+
+<BOUCLE_footer_config(DATA){source yaml,https://raw.github.com/RMLL/rmll2013-website/master/site.yaml}{cle=context}>
+<div id="footer">
+	<div class="container">
+		<div class="span-20 push-3">
+			<div id="news" class="span-9 first block">
+				<h4 class="#GET{display_lang}">#VALEUR{data/translations/#GET{display_lang}/lastnews}</h4>
+
+				<BOUCLE_footer_news(DATA){source table, #VALEUR{data/news/#GET{display_lang}}}{cle=information}>
+				<div class="data green">
+					<span class="date">[(#VALEUR{date})]</span> <a href="[(#GET{url_rmll_website})][(#VALEUR{url})]" target="_blank">[(#VALEUR{text})]</a>
+				</div>
+				</BOUCLE_footer_news> 
+			</div>
+			<div id="community" class="span-9 last block">
+				<h4 class="#GET{display_lang}">#VALEUR{data/translations/#GET{display_lang}/community}</h4>
+
+				<BOUCLE_footer_community(DATA){source table, #VALEUR{data/news/#GET{display_lang}}}{cle=organisation}>
+				<div class="data green">
+					<span class="date">[(#VALEUR{date})]</span> <a href="[(#GET{url_rmll_website})][(#VALEUR{url})]" target="_blank">[(#VALEUR{text})]</a>
+				</div>
+				</BOUCLE_footer_community>
+			</div>
+		</div>
+	</div>
+</div>
+</BOUCLE_footer_config>
+<!-- #RMLL-end-footer -->
