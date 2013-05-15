@@ -19,6 +19,16 @@
                             </div>
                         </div>
                         <div class="span-16 shadow last rightcol">
+                        
+                        	<div class="col-content">
+                        		<BOUCLE_breves(BREVES){par date}{inverse}{0,1}>
+                        			<h2>#TITRE</h2>
+                        			<div class="description">
+                        				#TEXTE
+                        			</div>                        			
+                        		</BOUCLE_breves>
+                        	</div>
+                        
                             <div class="col-content">
                                 <INCLURE{fond=rmll/programme}{id_rubrique=#GET{rmll_theme_id}}{lang}>
                             </div>
