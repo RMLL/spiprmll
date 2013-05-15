@@ -6,27 +6,29 @@
 	<B_menu_lang>
 	<div id="menu">
 		<div class="container">
-		<div id="block-superfish-2" class="block block-superfish">
-			<ul id="superfish-1" class="sf-menu block block-superfish">
-			<BOUCLE_menu_lang(DATA){source table, #VALEUR{data/menu/#GET{display_lang}}}{inverse}>
-				<li class="sf-depth-1 [(#VALEUR{dropdown}|?{menuparent,sf-no-children}) ]
-					[(#COMPTEUR_BOUCLE|=={1}|oui) first ]
-					[(#COMPTEUR_BOUCLE|>{1}|et{#COMPTEUR_BOUCLE|!={#TOTAL_BOUCLE}}|oui) middle ]
-					[(#COMPTEUR_BOUCLE|=={#TOTAL_BOUCLE}|oui) last ]
-					">
-					[<a href="#GET{url_rmll_website}#VALEUR{url}" title="#VALEUR{name}">(#VALEUR{name}|print)</a>]
-					<B_ssmenu>
-					<ul>
-					<BOUCLE_ssmenu(DATA){source table, #VALEUR{dropdown}}>
-						<li>
+			<div class="span-22 push-1">
+				<div id="block-superfish-2" class="block block-superfish">
+					<ul id="superfish-1" class="sf-menu block block-superfish">
+					<BOUCLE_menu_lang(DATA){source table, #VALEUR{data/menu/#GET{display_lang}}}{inverse}>
+						<li class="sf-depth-1 [(#VALEUR{dropdown}|?{menuparent,sf-no-children}) ]
+							[(#COMPTEUR_BOUCLE|=={1}|oui) first ]
+							[(#COMPTEUR_BOUCLE|>{1}|et{#COMPTEUR_BOUCLE|!={#TOTAL_BOUCLE}}|oui) middle ]
+							[(#COMPTEUR_BOUCLE|=={#TOTAL_BOUCLE}|oui) last ]
+							">
 							[<a href="#GET{url_rmll_website}#VALEUR{url}" title="#VALEUR{name}">(#VALEUR{name}|print)</a>]
+							<B_ssmenu>
+							<ul>
+							<BOUCLE_ssmenu(DATA){source table, #VALEUR{dropdown}}>
+								<li>
+									[<a href="#GET{url_rmll_website}#VALEUR{url}" title="#VALEUR{name}">(#VALEUR{name}|print)</a>]
+								</li>
+							</BOUCLE_ssmenu>
+							</ul>
+							</B_ssmenu>
 						</li>
-					</BOUCLE_ssmenu>
+					</BOUCLE_menu_lang>
 					</ul>
-					</B_ssmenu>
-				</li>
-			</BOUCLE_menu_lang>
-			</ul>
+				</div>
 			</div>
 		</div>
 	</div>
