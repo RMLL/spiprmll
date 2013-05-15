@@ -71,6 +71,13 @@ function exec_conference() {
 		Rmll_Helper::formulaire_label(_T('rmll:label_id_theme').' :');
 		Rmll_Helper::formulaire_texte('rubrique');
 	?>
+	</div>
+	<div class="element">
+	<?php
+		Rmll_Helper::formulaire_label(_T('rmll:label_id_auteur').' :');
+		Rmll_Helper::formulaire_texte('auteur');
+	?>
+	</div>
 	<div class="element">
 	<?php
 		Rmll_Helper::formulaire_label(_T('rmll:label_fichier').' :');

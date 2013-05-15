@@ -54,6 +54,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     'label_planning_jours' => 'Planning par journées',
     'label_planning_salle' => 'Planning par salles',
     'label_id_theme' => 'Thème (id)',
+    'label_id_auteur' => 'Auteur (id)',
     'label_fichier' => 'Fichier',
 	'label_importer' => 'Importer',
 
