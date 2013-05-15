@@ -26,13 +26,13 @@
                     <ul class="language-switcher-locale-url">
                         <li class="en first[(#LANG|=={en}|?{" active",""})]">
                             
-                            <a href="[(#URL_ACTION{'converser'}|parametre_url{var_lang,[(#ENV{lang}|=={fr}|?{'en','fr'})]}|parametre_url{redirect,#SELF})]" title="English">
+                            <a href="[(#SELF|parametre_url{lang,[(#ENV{lang}|=={fr}|?{'en','fr'})]})]" title="English">
                                 English
                             </a>
                         </li>
                         <li class="fr last[(#LANG|=={fr}|?{" active",""})]">
                             
-                            <a href="[(#URL_ACTION{'converser'}|parametre_url{var_lang,[(#ENV{lang}|=={fr}|?{'en','fr'})]}|parametre_url{redirect,#SELF})]" title="Français">
+                            <a href="[(#SELF|parametre_url{lang,[(#ENV{lang}|=={fr}|?{'en','fr'})]})]" title="Français">
                                 Français
                             </a>
                         </li>
