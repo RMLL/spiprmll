@@ -1126,6 +1126,7 @@ class Rmll_Conference extends Rmll_Db {
 					$constraints = str_replace("¬", "\n", $constraints);
 					$lang_conf = array_key_exists($language, $lang_data) ? $lang_data[$language] : 'en';
 					$nature_code = array_key_exists($nature, $nature_data) ? $nature_data[$nature] : 'conf';
+					$duree = ((int) $number_of_slots) * 20;
 					$speakersArr = explode("¬", $speakers);
 					$bio = str_replace("¬", "\n", $biography);
 					$translated_bio = str_replace("¬", "\n", $translated_biography);
@@ -1225,6 +1226,7 @@ class Rmll_Conference extends Rmll_Db {
 							'notes' => $notes,
 							'intervenants' => implode(', ', $speakers),
 							'id_nature' => $nature_rec['id_nature'],
+							'duree' => $duree,
 						);
 						if ($conf_db->insert($fields)) {
 							$messages[] = sprintf('Insertion de la conf \'%d\'', $id);
