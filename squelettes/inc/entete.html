@@ -30,10 +30,16 @@
                                 English
                             </a>
                         </li>
-                        <li class="fr last[(#LANG|=={fr}|?{" active",""})]">
+                        <li class="fr [(#LANG|=={fr}|?{" active",""})]">
                             
                             <a href="[(#SELF|parametre_url{lang,[(#ENV{lang}|=={fr}|?{'en','fr'})]})]" title="Français">
                                 Français
+                            </a>
+                        </li>
+                    	<li class="nl last[(#LANG|=={nl}|?{" active",""})]">
+                            
+                            <a href="[(#SELF|parametre_url{lang,[(#ENV{lang}|=={nl}|?{'en','nl'})]})]" title="Nederlands">
+                                Nederlands
                             </a>
                         </li>
                     </ul>
