@@ -1167,7 +1167,7 @@ class Rmll_Conference extends Rmll_Db {
 					  $titre_nl = $titre_en;
 					  $texte_nl = sprintf("\n\n{{{Abstract}}}\n\n%s\n\n{{{Biografie}}}\n\n%s\n\n", $abstract, $bio);
 					}
-					$notes = sprintf("CFP_ID=%d\nCFP_TOPIC=%s\nCFP_LICENSE=%s\nCFP_SLIDES_LANG=%s\nCFP_CAPTATION=%s\nCFP_CAPTATION_LICENSE=%s\nCFP_TARGET_AUDIENCE=%s%s%s%s\nCFP_FILSROUGES=%s%s%s%s\n\n%s",
+					$notes = sprintf("CFP_ID=%d \nCFP_TOPIC=%s\nCFP_LICENSE=%s\nCFP_SLIDES_LANG=%s\nCFP_CAPTATION=%s\nCFP_CAPTATION_LICENSE=%s\nCFP_TARGET_AUDIENCE=%s%s%s%s\nCFP_FILSROUGES=%s%s%s%s\n\n%s",
 					       $id, $topic, $license,
 					       $slides_language, 
 					       $captation, $captation_license,
@@ -1199,7 +1199,7 @@ class Rmll_Conference extends Rmll_Db {
 
 					// déjà insérée ?
 					$conf_db = new Rmll_Db('conference');
-					$conf_rec = $conf_db->get_one_where(sprintf('notes like %s', $lang_db->esc(sprintf('%%CFP_ID=%d%%', $id))));
+					$conf_rec = $conf_db->get_one_where(sprintf('notes like %s', $lang_db->esc(sprintf('%%CFP_ID=%d %%', $id))));
 					if ($conf_rec === false) {
 
 						$fields = array (
