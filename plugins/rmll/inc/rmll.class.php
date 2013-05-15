@@ -242,11 +242,22 @@ class Rmll_Event {
 
     function save($values) {
         $conference = new Rmll_Db('conference');
+	// l'horaire est-il disponible ?
+	// l'horaire est-il disponible ?
+	if ($values['id_salle'] && $values['id_jour'] && $values['id_horaire']) {
+	  $double_horaire = $conference -> get_one_where(sprintf("id_salle=%d and id_jour=%d and id_horaire=%d", $values['id_salle'], $values['id_jour'], $values['id_horaire']));
+	  if ($double_horaire) die("Duplicate timing! Cannot update event!");
+        }
         return $conference->insert($values);
     }
 
     function update($values, $id) {
         $conference = new Rmll_Db('conference');
+	// l'horaire est-il disponible ?
+	if ($values['id_salle'] && $values['id_jour'] && $values['id_horaire']) {
+	  $double_horaire = $conference -> get_one_where(sprintf("id_conference!=%d and id_salle=%d and id_jour=%d and id_horaire=%d", $id, $values['id_salle'], $values['id_jour'], $values['id_horaire']));
+	  if ($double_horaire) die("Duplicate timing! Cannot update event!");
+        }
         return $conference->update($values, $id);
     }
 
