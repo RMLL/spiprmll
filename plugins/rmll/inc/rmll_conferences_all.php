@@ -48,6 +48,21 @@ class RmllSchedule {
         return $ret;
     }
 
+    function display_conf_theme(&$c) {
+        $ret = array();
+        if (!($c['nature_code'] == '' || $c['nature_code'] == 'ligtal')) {
+            $ret[] = _T('rmll:nature_code_'.$c['nature_code']);
+        }
+        if ($c['id_theme'] != '') {
+            $ret[] = $c['id_theme'];
+        }
+        $ret = implode(', ', $ret);
+        if ($ret != '') {
+            $ret = '('.$ret.')';
+        }
+        return $ret;
+    }
+
     function render_keywords($keywords, $addlinks = false) {
         $ret = array();
         foreach($keywords as $keyid => $keyword) {
@@ -253,6 +268,7 @@ class RmllSchedule {
         $keyword = isset($_GET['k']) ? trim($_GET['k']) : (isset($_POST['k']) ? trim($_POST['k']) : '');
         $room = isset($_GET['r']) ? trim($_GET['r']) : (isset($_POST['r']) ? trim($_POST['r']) : '');
         $lang = isset($_GET['l']) ? trim($_GET['l']) : (isset($_POST['l']) ? trim($_POST['l']) : '');
+        $byroom = isset($_GET['byroom']) ? trim($_GET['byroom']) : (isset($_POST['byroom']) ? trim($_POST['byroom']) : ''); 
         if ($day != '') {
             $this->display_day($day);
         }
@@ -260,7 +276,7 @@ class RmllSchedule {
             $this->display_theme($theme);
         }
         else {
-            $this->display_all($keyword, $room, $lang);
+            $this->display_all($keyword, $room, $lang, $byroom);
         }
     }
 
@@ -408,7 +424,189 @@ class RmllSchedule {
         return $articles;
     }
 
-    function display_all($keyword = null, $room = null, $lang = null) {
+    function display_all_by_room($conf, $alldays, $days, $allthemes, $themes, $allrooms, $allkeywords, $alllangs) {
+      $rooms_ids = array_keys($allrooms);
+      $all_rooms_ids = array(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16);
+      $nb_rooms = count($all_rooms_ids);
+      $nb_themes = count($allthemes);
+      $rmll_periods = $this->periods['default'];
+            ?>
+            <div class="rmll-schedule-wrap rmll-schedule-date-wrap">
+                <table class="rmll-schedule">
+		<?php
+                        foreach($days as $j) {
+                            if (array_key_exists($j, $this->periods)) {
+                                $rmll_periods = $this->periods[$j];
+                            }
+                            else {
+                                $rmll_periods = $this->periods['default'];
+                            }
+                            $daystr = ucfirst(nom_jour($j)).' '.jour($j);
+                    ?>
+		    <tr class="header">
+                            <th class="timeslot">
+                                <a
+                                    href="spip.php?page=<?php echo $this->page; ?>&amp;lang=<?php echo $GLOBALS['lang']; ?>&amp;d=<?php echo $j; ?>"
+                                    title="<?php echo _T('rmll:accessible_link_jour').' '.$daystr; ?>"
+                                >
+                                    <?php echo $daystr; ?>
+                                </a>
+                            </th>
+                            <?php
+                                for($i=0; $i<$nb_rooms; $i++) {
+				    $room_id = $all_rooms_ids[$i];
+				    if (!in_array($room_id, $rooms_ids)) continue;
+                                    $roomstr = nettoyer_raccourcis_typo($allrooms[$room_id]);
+                            ?>
+                                <th class="conf">
+                                    <a
+                                        href="spip.php?page=<?php echo $this->page; ?>&amp;lang=<?php echo $GLOBALS['lang']; ?>&amp;r=<?php echo $room_id; ?>"
+                                        title="<?php echo _T('rmll:accessible_goto_room').' « '.$roomstr.' »'; ?>"
+                                    >
+                                        <?php echo $roomstr; ?>
+                                    </a>
+                                </th>
+                            <?php
+                                }
+                            ?>
+                        </tr>
+                        <?php
+                            $k = -1;
+                            foreach($rmll_periods as $p) {
+                                $k++;
+                                if ($p['type'] == RMLL_PERIOD_PAUSE) {
+                                    ?><tr>
+                                        <th class="timeslot pause"><?php printf("%s-%s", $p['start'], $p['end']); ?></th>
+                                        <td class="pause" colspan="<?php echo $nb_rooms; ?>"><?php echo _T('rmll:pause_pause'); ?></td>
+                                        </tr>
+                                    <?php
+                                }
+                                elseif ($p['type'] == RMLL_PERIOD_LUNCH) {
+                                    ?><tr>
+                                        <th class="timeslot lunch pause">
+                                            <?php /*printf("%s-%s", $p['start'], $p['end']);*/ ?></th>
+                                        <td class="lunch pause" colspan="<?php echo $nb_rooms; ?>"><?php echo _T('rmll:pause_lunch'); ?></td>
+                                        </tr>
+                                    <?php
+                                }
+                                elseif ($p['type'] == RMLL_PERIOD_CONF) {
+                                ?>
+                                    <tr>
+                                        <th class="timeslot"><?php printf("%s-%s", $p['start'], $p['end']); ?></th>
+                                        <?php
+                                            for($i=0; $i<$nb_rooms; $i++) {
+					      $room_id = $all_rooms_ids[$i];
+					      if (!in_array($room_id, $rooms_ids)) continue;
+
+                                            ?>
+                                                <td class="conf">
+                                                <?php
+						    $articles_by_room = array();
+						    foreach ($conf as $th => $cfs) {
+						      $articles_by_theme = $cfs['articles'];
+						      foreach ($articles_by_theme as $id => $cf) {
+						        if ($cf['data']['id_salle'] != $room_id) continue;
+							$cf['data']['id_theme'] = $th;
+						        $articles_by_room[] = $cf;
+						      }
+						    }
+						    $articles = $this->refacto_ltaks($articles_by_room);
+                                                    foreach($articles_by_room as $cf) {
+                                                        $hasltalk = array_key_exists('ltalk', $cf['data']);
+                                                        $articlestr = supprimer_numero(extraire_multi($cf['data']['titre']));
+                                                        if ($cf['data']['jour'] != $j) {
+                                                            continue;
+                                                        }
+						
+                                                        // si un conf dépasse dans la pause suivante on l'affiche
+                                                        if (isset($rmll_periods[$k+1]) && $rmll_periods[$k+1]['type'] != RMLL_PERIOD_CONF &&
+                                                            $cf['data']['start'] >= $p['start'] && $cf['data']['start'] < $rmll_periods[$k+1]['end']);
+                                                        elseif (!($cf['data']['start'] >= $p['start'] && $cf['data']['start'] < $p['end']))
+                                                            continue;
+                                                        $time = get_slot_interval($cf['data']['heure'], $cf['data']['minute'], $cf['data']['duree']);
+                                                        $bloc_id = 'rmll-schedule-'.$cf['data']['id_article'];
+                                                    ?>
+                                                        <div class="infos conf-color-<?php  echo get_color_theme($cf['data']['id_theme']); ?>">
+                                                            <div class="hider" id="<?php echo $bloc_id; ?>">
+                                                                <div class="title">
+                                                                    <?php if (!empty($cf['data']['drap'])) {
+                                                                        $codelang = $cf['data']['drap'];
+                                                                    ?>
+                                                                        <img class="drap" src="plugins/rmll/img_pack/flags/<?php echo $codelang ?>.png" alt="<?php echo _T($codelang) ?>" />
+                                                                    <?php } ?>
+                                                                    <a
+                                                                        href="spip.php?article<?php echo $cf['data']['id_article']; ?>&amp;lang=<?php echo $GLOBALS['lang']; ?>"
+                                                                        title="<?php echo _T('rmll:accessible_link_article').' « '.$articlestr.' »'; ?>"
+                                                                    >
+                                                                        <?php  echo $articlestr; ?>
+                                                                    </a>
+                                                                </div>
+                                                                <div class="time">
+                                                                    <span><?php echo $time; ?></span>
+                                                                    <?php echo $this->display_conf_theme($cf['data']); ?>
+                                                                </div>
+                                                                <?php if (!empty($cf['data']['intervenants'])) { ?>
+                                                                    <div class="speaker">
+                                                                        <?php echo $cf['data']['intervenants']; ?>
+                                                                    </div>
+                                                                <?php } ?>
+                                                                <?php if ($hasltalk) { ?>
+                                                                    <div class="lightningtalks">
+                                                                        <ul>
+                                                                        <?php
+                                                                            foreach($cf['data']['ltalk'] as $ltalk) {
+                                                                                $ltalkstr = supprimer_numero(extraire_multi($ltalk['titre']));
+                                                                        ?>
+                                                                            <li>
+                                                                                <a
+                                                                                    href="spip.php?article<?php echo $ltalk['id_article']; ?>&amp;lang=<?php echo $GLOBALS['lang']; ?>"
+                                                                                    title="<?php echo _T('rmll:accessible_link_article').' « '.$ltalkstr.' »'; ?>"
+                                                                                >
+                                                                                    <?php  echo $ltalkstr; ?>
+                                                                                </a>
+                                                                                <?php if (!empty($ltalk['drap'])) {
+                                                                                    $tlang = $ltalk['drap'];
+                                                                                ?>
+                                                                                    <img class="drap" src="plugins/rmll/img_pack/flags/<?php echo $tlang ?>.png" alt="<?php echo _T($tlang) ?>" />
+                                                                                <?php } ?>
+                                                                                        </li>
+                                                                        <?php
+                                                                            }
+                                                                        ?>
+                                                                        </ul>
+                                                                    </div>
+                                                                <?php }
+                                                                    elseif (!empty($cf['keywords'])) { ?>
+                                                                    <div class="keywords">
+                                                                        <?php
+                                                                            foreach($this->render_keywords($cf['keywords']) as $k => $v) {
+                                                                                printf("<div><span>%s:</span> %s</div>", $k, implode(' &mdash; ', $v));
+                                                                            }
+                                                                        ?>
+                                                                    </div>
+                                                                <?php } ?>
+                                                            </div>
+                                                        </div>
+                                                    <?php
+                                                    }
+                                                ?>
+                                                </td>
+                                            <?php
+                                            }
+                                        ?>
+                                    </tr>
+                                <?php
+                            }
+                        }
+                    }
+                    ?>
+                </table>
+            </div>
+            <?php
+	    }
+
+
+    function display_all($keyword = null, $room = null, $lang = null, $byroom = null) {
         $datas = $this->confObj->get_confs(explode(',', RMLL_SESSION_ID), $GLOBALS['lang']);
         list($conf, $alldays, $days, $allthemes, $themes, $allrooms, $allkeywords, $alllangs) = $this->extract($datas, null, null, $keyword, $room, $lang);
         if (!empty($alldays)) {
@@ -427,6 +625,8 @@ class RmllSchedule {
             $this->display_lang_selector($alllangs, $lang);
         }
         if (!empty($conf)) {
+	  if ($byroom) $this -> display_all_by_room($conf, $alldays, $days, $allthemes, $themes, $allrooms, $allkeywords, $alllangs);
+	  else {
             $nb_themes = count($themes);
             $rmll_periods = $this->periods['default'];
             ?>
@@ -588,6 +788,7 @@ class RmllSchedule {
                 </table>
             </div>
             <?php
+	    }
         }
     }
 
