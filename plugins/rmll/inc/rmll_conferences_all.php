@@ -24,6 +24,7 @@ class RmllSchedule {
 
     function get_theme_info($theme_id) {
         $datas = $this->confObj->get_confs(explode(',', RMLL_SESSION_ID), $GLOBALS['lang']);
+//var_dump($datas);
         list($conf, $alldays, $days, $allthemes, $themes, $allrooms, $allkeywords, $alllangs) = $this->extract($datas, $theme_id);
         $conf = $conf[0];
         $articles = $conf['articles'];
@@ -788,6 +789,11 @@ class RmllSchedule {
                         <?php
                             foreach($days as $j) {
                                 $daystr = ucfirst(nom_jour($j)).' '.jour($j);
+				if (array_key_exists($j, $this->periods)) {
+                                $rmll_periods = $this->periods[$j];
+                            	} else {
+                                $rmll_periods = $this->periods['default'];
+				}
                         ?>
                             <th class="conf">
                                 <a

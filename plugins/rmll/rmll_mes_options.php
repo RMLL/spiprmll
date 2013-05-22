@@ -1,7 +1,7 @@
 <?php
     define('RMLL_PROG_ID', '100'); # rubrique racine
-    define('RMLL_THEME_ID', '101,102,110,120,130,140,150,160,170'); # pour les thèmes subdivisés
-    define('RMLL_SESSION_ID', '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,27,28,29'); # les thèmes finaux
+    define('RMLL_THEME_ID', '110,120,130,140,150,160,170'); # pour les thèmes subdivisés
+    define('RMLL_SESSION_ID', '101,102,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,27,28,29'); # les thèmes finaux
     define('RMLL_KEYWORDS_GROUP_ID', 1);
 
     function rmll_is_prog($id) {
@@ -39,7 +39,7 @@
         array('start' => '10:40', 'end' => '11:00', 'type' => RMLL_PERIOD_PAUSE),
         array('start' => '11:00', 'end' => '12:20', 'type' => RMLL_PERIOD_CONF),
         array('start' => '12:20', 'end' => '15:00', 'type' => RMLL_PERIOD_LUNCH),
-        array('start' => '15:00', 'end' => '18:00', 'type' => RMLL_PERIOD_CONF_PE),
+        array('start' => '15:00', 'end' => '18:00', 'type' => RMLL_PERIOD_CONF),
         array('start' => '18:00', 'end' => '19:00', 'type' => RMLL_PERIOD_PAUSE),
         array('start' => '19:00', 'end' => '23:59', 'type' => RMLL_PERIOD_CONF),
     );

@@ -1111,7 +1111,7 @@ class Rmll_Conference extends Rmll_Db {
         return $ret;
     }
 
-	function import_theme($fichier, $rubrique, &$messages = array(), &$errors = array()) {
+	function import_theme($fichier, $rubrique, $auteur, &$messages = array(), &$errors = array()) {
 
 		$lang_data = array(
 			'English' => 'en', 'French' => 'fr',
