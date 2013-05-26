@@ -2,14 +2,14 @@
 #SET{url_rmll_website,http://2013.rmll.info}
 #SET{display_lang,#LANG}
 
-<BOUCLE_menu_2013(DATA){source yaml,https://raw.github.com/RMLL/rmll2013-website/master/site.yaml}{cle=context}>       	
+<BOUCLE_menu_2013(DATA){source yaml,https://raw.github.com/RMLL/rmll2013-website/master/data/menu.yaml}{cle=#GET{display_lang}}>       	
 	<B_menu_lang>
 	<div id="menu">
 		<div class="container">
 			<div class="span-22 push-1">
 				<div id="block-superfish-2" class="block block-superfish">
 					<ul id="superfish-1" class="sf-menu block block-superfish">
-					<BOUCLE_menu_lang(DATA){source table, #VALEUR{data/menu/#GET{display_lang}}}{inverse}>
+					<BOUCLE_menu_lang(DATA){source table, #VALEUR}{inverse}>
 						<li class="sf-depth-1 [(#VALEUR{dropdown}|?{menuparent,sf-no-children}) ]
 							[(#COMPTEUR_BOUCLE|=={1}|oui) first ]
 							[(#COMPTEUR_BOUCLE|>{1}|et{#COMPTEUR_BOUCLE|!={#TOTAL_BOUCLE}}|oui) middle ]
