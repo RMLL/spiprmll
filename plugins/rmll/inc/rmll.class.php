@@ -242,11 +242,22 @@ class Rmll_Event {
 
     function save($values) {
         $conference = new Rmll_Db('conference');
+	// l'horaire est-il disponible ?
+	// l'horaire est-il disponible ?
+	if ($values['id_salle'] && $values['id_jour'] && $values['id_horaire']) {
+	  $double_horaire = $conference -> get_one_where(sprintf("id_salle=%d and id_jour=%d and id_horaire=%d", $values['id_salle'], $values['id_jour'], $values['id_horaire']));
+	  if ($double_horaire) die("Duplicate timing! Cannot update event!");
+        }
         return $conference->insert($values);
     }
 
     function update($values, $id) {
         $conference = new Rmll_Db('conference');
+	// l'horaire est-il disponible ?
+	if ($values['id_salle'] && $values['id_jour'] && $values['id_horaire']) {
+	  $double_horaire = $conference -> get_one_where(sprintf("id_conference!=%d and id_salle=%d and id_jour=%d and id_horaire=%d", $id, $values['id_salle'], $values['id_jour'], $values['id_horaire']));
+	  if ($double_horaire) die("Duplicate timing! Cannot update event!");
+        }
         return $conference->update($values, $id);
     }
 
@@ -1126,6 +1137,7 @@ class Rmll_Conference extends Rmll_Db {
 					$constraints = str_replace("¬", "\n", $constraints);
 					$lang_conf = array_key_exists($language, $lang_data) ? $lang_data[$language] : 'en';
 					$nature_code = array_key_exists($nature, $nature_data) ? $nature_data[$nature] : 'conf';
+					$duree = ((int) $number_of_slots) * 20;
 					$speakersArr = explode("¬", $speakers);
 					$bio = str_replace("¬", "\n", $biography);
 					$translated_bio = str_replace("¬", "\n", $translated_biography);
@@ -1166,7 +1178,7 @@ class Rmll_Conference extends Rmll_Db {
 					  $titre_nl = $titre_en;
 					  $texte_nl = sprintf("\n\n{{{Abstract}}}\n\n%s\n\n{{{Biografie}}}\n\n%s\n\n", $abstract, $bio);
 					}
-					$notes = sprintf("CFP_ID=%d\nCFP_TOPIC=%s\nCFP_LICENSE=%s\nCFP_SLIDES_LANG=%s\nCFP_CAPTATION=%s\nCFP_CAPTATION_LICENSE=%s\nCFP_TARGET_AUDIENCE=%s%s%s%s\nCFP_FILSROUGES=%s%s%s%s\n\n%s",
+					$notes = sprintf("CFP_ID=%d \nCFP_TOPIC=%s\nCFP_LICENSE=%s\nCFP_SLIDES_LANG=%s\nCFP_CAPTATION=%s\nCFP_CAPTATION_LICENSE=%s\nCFP_TARGET_AUDIENCE=%s%s%s%s\nCFP_FILSROUGES=%s%s%s%s\n\n%s",
 					       $id, $topic, $license,
 					       $slides_language, 
 					       $captation, $captation_license,
@@ -1198,7 +1210,7 @@ class Rmll_Conference extends Rmll_Db {
 
 					// déjà insérée ?
 					$conf_db = new Rmll_Db('conference');
-					$conf_rec = $conf_db->get_one_where(sprintf('notes like %s', $lang_db->esc(sprintf('%%CFP_ID=%d%%', $id))));
+					$conf_rec = $conf_db->get_one_where(sprintf('notes like %s', $lang_db->esc(sprintf('%%CFP_ID=%d %%', $id))));
 					if ($conf_rec === false) {
 
 						$fields = array (
@@ -1225,6 +1237,7 @@ class Rmll_Conference extends Rmll_Db {
 							'notes' => $notes,
 							'intervenants' => implode(', ', $speakers),
 							'id_nature' => $nature_rec['id_nature'],
+							'duree' => $duree,
 						);
 						if ($conf_db->insert($fields)) {
 							$messages[] = sprintf('Insertion de la conf \'%d\'', $id);
