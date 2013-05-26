@@ -4,12 +4,12 @@
     <ul class="menu-schedule">
         <BOUCLE_rubriques(RUBRIQUES) {tout} {id_parent=#ID_RUBRIQUE}{statut=publie}{par num titre, titre}>
             <li[(#ID_CURRENT|=={#ID_RUBRIQUE}|?{' class="active"'})]>
-                <a href="#URL_RUBRIQUE">[(#TITRE|supprimer_numero)]</a>
+                <a href="[(#URL_RUBRIQUE|parametre_url{lang,#ENV{lang}})]">[(#TITRE|supprimer_numero)]</a>
                 <B_sousrubriques>
                     <ul>
                         <BOUCLE_sousrubriques(RUBRIQUES){id_parent}{statut=publie}{par num titre, titre}>
                             <li[(#ID_CURRENT|=={#ID_RUBRIQUE}|?{' class="active"'})]>
-                                <a href="#URL_RUBRIQUE">[(#TITRE|supprimer_numero)]</a>
+                                <a href="[(#URL_RUBRIQUE|parametre_url{lang,#ENV{lang}})]">[(#TITRE|supprimer_numero)]</a>
                             </li>
                         </BOUCLE_sousrubriques>
                     </ul>
