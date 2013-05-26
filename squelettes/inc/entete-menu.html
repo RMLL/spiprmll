@@ -15,12 +15,26 @@
 							[(#COMPTEUR_BOUCLE|>{1}|et{#COMPTEUR_BOUCLE|!={#TOTAL_BOUCLE}}|oui) middle ]
 							[(#COMPTEUR_BOUCLE|=={#TOTAL_BOUCLE}|oui) last ]
 							">
-							[<a href="#GET{url_rmll_website}#VALEUR{url}" title="#VALEUR{name}">(#VALEUR{name}|print)</a>]
+							[(#SET{link,
+								[(#VALEUR{url}|match{^http.*}|?{
+									#VALEUR{url}
+								,
+									[(#GET{url_rmll_website}|concat{#VALEUR{url}})]	
+								})]
+							})]
+							[<a href="#GET{link}" title="#VALEUR{name}">(#VALEUR{name}|print)</a>]
 							<B_ssmenu>
 							<ul>
 							<BOUCLE_ssmenu(DATA){source table, #VALEUR{dropdown}}>
 								<li>
-									[<a href="#GET{url_rmll_website}#VALEUR{url}" title="#VALEUR{name}">(#VALEUR{name}|print)</a>]
+									[(#SET{link,
+										[(#VALEUR{url}|match{^http.*}|?{
+											#VALEUR{url}
+										,
+											[(#GET{url_rmll_website}|concat{#VALEUR{url}})]	
+										})]
+									})]
+									[<a href="#GET{link}" title="#VALEUR{name}">(#VALEUR{name}|print)</a>]
 								</li>
 							</BOUCLE_ssmenu>
 							</ul>
