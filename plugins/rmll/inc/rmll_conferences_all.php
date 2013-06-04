@@ -53,7 +53,10 @@ class RmllSchedule {
         if (!($c['nature_code'] == '' || $c['nature_code'] == 'ligtal')) {
             $ret[] = _T('rmll:nature_code_'.$c['nature_code']);
         }
-        if ($c['id_theme'] != '') {
+        if ($c['theme'] != '') {
+            $ret[] = $c['theme'];
+        }
+        else if ($c['id_theme'] != '') {
             $ret[] = $c['id_theme'];
         }
         $ret = implode(', ', $ret);
@@ -424,7 +427,7 @@ class RmllSchedule {
         return $articles;
     }
 
-    function display_all_by_room($conf, $alldays, $days, $allthemes, $themes, $allrooms, $allkeywords, $alllangs) {
+    function display_all_by_room($conf, $alldays, $days, $allthemes, $themes, $allrooms, $allkeywords, $alllangs) { 
       $rooms_ids = array_keys($allrooms);
       $all_rooms_ids = array(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16);
       $nb_rooms = count($all_rooms_ids);
@@ -502,15 +505,18 @@ class RmllSchedule {
                                                 <td class="conf">
                                                 <?php
 						    $articles_by_room = array();
-						    foreach ($conf as $th => $cfs) {
+						    foreach ($conf as $cfs) {
+						      $th = $cfs['id'];
 						      $articles_by_theme = $cfs['articles'];
 						      foreach ($articles_by_theme as $id => $cf) {
 						        if ($cf['data']['id_salle'] != $room_id) continue;
 							$cf['data']['id_theme'] = $th;
+							$cf['data']['theme'] = $allthemes[$th];
+							$index = $cf['data']['id_jour'] . " " . $cf['data']['id_horaire'];
 						        $articles_by_room[] = $cf;
 						      }
 						    }
-						    $articles = $this->refacto_ltaks($articles_by_room);
+						    usort($articles_by_room, 'time_sorter');
                                                     foreach($articles_by_room as $cf) {
                                                         $hasltalk = array_key_exists('ltalk', $cf['data']);
                                                         $articlestr = supprimer_numero(extraire_multi($cf['data']['titre']));
