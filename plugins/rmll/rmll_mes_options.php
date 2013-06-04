@@ -1,7 +1,7 @@
 <?php
     define('RMLL_PROG_ID', '100'); # rubrique racine
     define('RMLL_THEME_ID', '110,120,130,140,150,160,170'); # pour les thèmes subdivisés
-    define('RMLL_SESSION_ID', '101,102,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,27,28,29'); # les thèmes finaux
+    define('RMLL_SESSION_ID', '101,102,103,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,26,25,27,28,29'); # les thèmes finaux
     define('RMLL_KEYWORDS_GROUP_ID', 1);
 
     function rmll_is_prog($id) {
