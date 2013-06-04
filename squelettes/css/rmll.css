@@ -5,9 +5,10 @@ body {
     background-color: #000;
 }
 
-a, a:link, a:visited, a:hover, a:active {
+a, a:link, a:visited {
     text-decoration: none;
-    color: #000;
+    color: #6F8021;
+    font-weight: bold;
 }
 a:hover, a:active {
     color: #999;
@@ -15,30 +16,30 @@ a:hover, a:active {
 
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Oswald','Arial','Helvetica','Sans';
-    font-size: 22px;
+    font-size: 2em;
     margin-bottom: 20px;
     line-height: 135%;
 }
 h2 {
-    font-size: 18px;
+    font-size: 1.6em;
     margin-bottom: 14px;
 }
 h3 {
-    font-size: 16px;
+    font-size: 1.4em;
     margin-bottom: 14px;
     line-height: 135%;
 }
 h4 {
-    font-size: 14px;
+    font-size: 1.2em;
     margin-bottom: 12px;
 }
 h5 {
-    font-size: 13px;
+    font-size: 1.1em;
     font-weight: normal;
     margin-bottom: 12px;
 }
 h6 {
-    font-size: 12px;
+    font-size: 1em;
     font-weight: normal;
     margin-bottom: 12px;
     text-transform: uppercase;
@@ -49,7 +50,7 @@ p {
 }
 
 .green {
-    color: #809618;
+    color: #6F8021;
 }
 
 #header {
@@ -158,7 +159,7 @@ body.not-front #languages li.de {
 #superfish-1 li a.active, #superfish-1 li a.active:link, #superfish-1 li a.active:visited,
 #superfish-1 li.active-trail a.active, #superfish-1 li.active-trail a.active:link, #superfish-1 li.active-trail a.active:visited,
 #superfish-1 li.active-trail a.sf-depth-1, #superfish-1 li.active-trail a.sf-depth-1:link, #superfish-1 li.active-trail a.sf-depth-1:visited {
-    color: #809618;
+    color: #6F8021;
 }
 #superfish-1 {
     position: relative;
@@ -255,7 +256,7 @@ body.not-front #languages li.de {
     text-align: justify;
 }
 #content a, #content a:link, #content a:visited {
-    color: #809618;
+    color: #6F8021;
 }
 #content a:hover, #content a:active {
     color: #000;
@@ -322,7 +323,7 @@ body.not-front #languages li.de {
 }
 
 #footer a, #footer a:link, #footer a:visited, #footer a:hover, #footer a:active {
-    color: #809618;
+    color: #6F8021;
 }
 #footer a:hover, #footer a:active {
     color: #999;
@@ -625,18 +626,12 @@ dl.spip_documents,dt.spip_doc_titre,dd.spip_doc_descriptif{width:auto !important
  **************************/
 
 .rmll-evenements-brief {
-    position: relative;
-    margin: 10px 10px;
+    margin: 10px;
     padding: 5px 0px 5px 10px;
-    background: #B5E3F6;
-    background: -webkit-gradient(linear, left top, right top, from(#B5E3F6), to(#FFF), color-stop(0.2, #B5E3F6));
-    background: -moz-linear-gradient(left, #B5E3F6 20%, #FFF);
-    background: -ms-linear-gradient(left, #B5E3F6 20%, #FFF);
-    background: -o-linear-gradient(left, #B5E3F6 20%, #FFF);
-    background: gradient(left, #B5E3F6 20%, #FFF);
-    border-left: 2px solid #107EA3;
+		background: none;
+    border: 2px solid #ccc;
     text-align: left;
-    font-size: 0.8em;
+		font-size:1em;
 }
 
 .rmll-evenements-brief .rmll_noms {
@@ -657,6 +652,9 @@ dl.spip_documents,dt.spip_doc_titre,dd.spip_doc_descriptif{width:auto !important
 
 .rmll-evenements-brief ul {
     border-left: 1px solid grey;
+}
+.rmll-evenements-brief ul:first-child {
+    border-left: none;
 }
 
 .rmll-evenements-brief ul:empty {
@@ -720,6 +718,12 @@ table.rmll-schedule, .rmll-schedule th, .rmll-schedule td {
     border-collapse : collapse;
 }
 
+
+table.rmll-schedule tbody tr:nth-child(2n) td, 
+table.rmll-schedule tbody tr.even td{
+background-color:#dce7a9;
+}
+
 .rmll-schedule th.conf {
     text-align : center;
     padding : 6px;
@@ -742,7 +746,8 @@ font-size: 1.2em;
 .rmll-schedule td.pause {
     text-align : center;
     padding : 3px;
-    background : #93b0c7;
+    background-color: #6F8021;
+		color: #FFFFFF;
     font-weight : bold;
 }
 
@@ -751,7 +756,7 @@ font-size: 1.2em;
 .rmll-schedule td.lunch {
     text-align : center;
     padding : 5px;
-    background : #888;
+    background : #6F8021;
     font-weight : bold;
     /*background-color: #c16;*/
     background-image: -webkit-gradient(linear, 0 0, 100% 100%,
@@ -999,18 +1004,18 @@ lightning_talks
 }
 
 #schedulermll a {
-    color: #809618;
+    color: #6F8021;
 }
 
 #schedulermll .rmll-selector {
     margin: 5px 0;
-		font-family: 'Arial','Helvetica','Sans';
+		font-family: 'Arial','Helvetica','Sans' !important;
 }
 
 #schedulermll .rmll-selector select {
     margin: 0px;
     font-size: 0.9em;
-    background: #ACC631;
+    background-color: #dce7a9;
 }
 #schedulermll .rmll-selector label{
 font-weight:normal;
@@ -1038,11 +1043,11 @@ font-weight:normal;
 }
 
 #schedulermll .menu-schedule a:hover {
-    color: #809618;
+    color: #6F8021;
 }
 
 #schedulermll .menu-schedule li.active a {
-    color: #809618;
+    color: #6F8021;
 }
 
 #schedulermll .menu-schedule li.active ul a {
