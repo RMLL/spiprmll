@@ -1012,9 +1012,6 @@ lightning_talks
     font-size: 0.9em;
     background: #ACC631;
 }
-#schedulermll .rmll-selector label{
-font-weight:normal;
-}
 
 #schedulermll .rmll-evenements-brief a {
     color: #6F8021;
