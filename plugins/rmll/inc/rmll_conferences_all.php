@@ -429,7 +429,7 @@ class RmllSchedule {
 
     function display_all_by_room($conf, $alldays, $days, $allthemes, $themes, $allrooms, $allkeywords, $alllangs) { 
       $rooms_ids = array_keys($allrooms);
-      $all_rooms_ids = array(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16);
+      $all_rooms_ids = array(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15);
       $nb_rooms = count($all_rooms_ids);
       $nb_themes = count($allthemes);
       $rmll_periods = $this->periods['default'];
@@ -508,12 +508,11 @@ class RmllSchedule {
 						    foreach ($conf as $cfs) {
 						      $th = $cfs['id'];
 						      $articles_by_theme = $cfs['articles'];
-						      foreach ($articles_by_theme as $id => $cf) {
-						        if ($cf['data']['id_salle'] != $room_id) continue;
+						      foreach ($articles_by_theme as $id => $cf) {	
+						        // Hack pour la séance au Parlement
+						        if ($cf['data']['id_salle'] != $room_id && (!($room_id == 1 && $cf['data']['id_salle']==16))) { continue; }
 							$cf['data']['id_theme'] = $th;
-							$cf['data']['theme'] = $allthemes[$th];
-							$index = $cf['data']['id_jour'] . " " . $cf['data']['id_horaire'];
-						        $articles_by_room[] = $cf;
+							$cf['data']['theme'] = $allthemes[$th];						             $articles_by_room[] = $cf;
 						      }
 						    }
 						    usort($articles_by_room, 'time_sorter');
