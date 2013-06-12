@@ -714,7 +714,7 @@ dl.spip_documents,dt.spip_doc_titre,dd.spip_doc_descriptif{width:auto !important
 }
 
 table.rmll-schedule, .rmll-schedule th, .rmll-schedule td {
-    border : 1px solid #808080;
+    border : 1px solid #000;
     border-collapse : collapse;
 }
 
@@ -788,6 +788,7 @@ font-size: 1.2em;
     min-width : 130px;
     padding : 7px;
     margin-bottom : 8px;
+color: #000000;
     -moz-border-radius: 8px;
     -webkit-border-radius: 8px;
     -khtml-border-radius: 8px;
@@ -832,7 +833,7 @@ font-size: 1.2em;
 }
 
 .rmll-schedule .conf .infos .title a {
-    color: #444 !important;
+    color: #000 !important;
     font-weight: bold !important;
 }
 
@@ -870,84 +871,123 @@ lightning_talks
 }
 
 .rmll-schedule .conf-color-0 {
-    background : #9dff00;
+    background-color:#861A1B;
+    border: 2px solid #8C001A;
 }
-
 .rmll-schedule .conf-color-1 {
-    background : #fa8072;
+    background-color:#FA8072;
+    border: 2px solid #8C001A;
 }
-
 .rmll-schedule .conf-color-2 {
-    background : #a4adbe;
+    background-color:#028482;
+    border: 2px solid #028482;
 }
-
 .rmll-schedule .conf-color-3 {
-    background : #f3eea0;
+    background-color:#18836f;
+    border: 2px solid #028482;
 }
-
 .rmll-schedule .conf-color-4 {
-    background : #6eb926;
+    background-color:#2e825b;
+    border: 2px solid #028482;
 }
-
 .rmll-schedule .conf-color-5 {
-    background : #d18604;
+    background-color:#438248;
+    border: 2px solid #028482;
 }
-
 .rmll-schedule .conf-color-6 {
-    background : #d2cd77;
+    background-color:#c5335a;
+    border: 2px solid #ff0080;
 }
-
 .rmll-schedule .conf-color-7 {
-    background : #7abfa6;
+    background-color:#a94d47;
+    border: 2px solid #ff0080;
 }
-
 .rmll-schedule .conf-color-8 {
-    background : #add8e6;
+    background-color:#ff2a00;
+    border: 2px solid #ff2a00;
 }
-
 .rmll-schedule .conf-color-9 {
-    background : #f5d07f;
+    background-color:#e23b07;
+    border: 2px solid #ff2a00;
 }
-
 .rmll-schedule .conf-color-10 {
-    background : #ffb6c1;
+    background-color:#c54c0d;
+    border: 2px solid #ff2a00;
 }
-
 .rmll-schedule .conf-color-11 {
-    background : #cc9d94;
+    background-color:#3f1a2f;
+    border: 2px solid #330033;
 }
-
 .rmll-schedule .conf-color-12 {
-    background : #d295fa;
+    background-color:#4b332c;
+    border: 2px solid #330033;
 }
 
 .rmll-schedule .conf-color-13 {
-    background : #ddddff;
+    background-color:#574d28;
+    border: 2px solid #330033;
 }
-
 .rmll-schedule .conf-color-14 {
-    background : #00fa9a;
+    background-color:#606025;
+    border: 2px solid #330033;
 }
-
 .rmll-schedule .conf-color-15 {
-    background : #c77670;
+    background-color:#ff6600;
+    border: 2px solid #ff6600;
 }
-
 .rmll-schedule .conf-color-16 {
-    background : #ffe100;
+    background-color:#e26b07;
+    border: 2px solid #ff6600;
 }
-
 .rmll-schedule .conf-color-17 {
-    background : #cfb5b5;
+    background-color:#c5700d;
+    border: 2px solid #ff6600;
 }
-
 .rmll-schedule .conf-color-18 {
-    background : #8EA0AF;
+    background-color:#a97614;
+    border: 2px solid #ff6600;
+}
+.rmll-schedule .conf-color-19 {
+    background-color:#097054;
+    border: 2px solid #097054;
+}
+.rmll-schedule .conf-color-20 {
+    background-color:#1d734a;
+    border: 2px solid #097054;
+}
+.rmll-schedule .conf-color-21 {
+    background-color:#327640;
+    border: 2px solid #097054;
+}
+.rmll-schedule .conf-color-22 {
+    background-color:#cc0000;
+    border: 2px solid #cc0000;
+}
+.rmll-schedule .conf-color-23 {
+    background-color:#b91a07;
+    border: 2px solid #cc0000;
+}
+.rmll-schedule .conf-color-24 {
+    background-color:#ffcc00;
+    border: 2px solid #ffcc00;
+}
+.rmll-schedule .conf-color-25 {
+    background-color:#e2bd07;
+    border: 2px solid #ffcc00;
+}
+.rmll-schedule .conf-color-26 {
+    background-color:#c5ae0d;
+    border: 2px solid #ffcc00;
+}
+.rmll-schedule .conf-color-27 {
+    background-color:#a99e14;
+    border: 2px solid #ffcc00;
+}
+.rmll-schedule .conf-color-28 {
+    background-color:#939319;
+    border: 2px solid #ffcc00;
 }
 
-.rmll-schedule .conf-color-19 {
-    background : #ff1f28;
-}
 
 .rmll-ical-wrap {
     margin : 10px;
