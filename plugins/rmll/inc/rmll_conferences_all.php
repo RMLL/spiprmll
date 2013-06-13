@@ -995,11 +995,6 @@ class RmllSchedule {
                         <?php
                             foreach($days as $j) {
                                 $daystr = ucfirst(nom_jour($j)).' '.jour($j);
-				if (array_key_exists($j, $this->periods)) {
-                                $rmll_periods = $this->periods[$j];
-                            	} else {
-                                $rmll_periods = $this->periods['default'];
-				}
                         ?>
                             <th class="conf">
                                 <a
@@ -1040,8 +1035,8 @@ class RmllSchedule {
                                         ?>
                                             <td class="conf">
                                             <?php
-                                                //$articles = $conf['articles'];
-                                                $articles = $this->refacto_ltaks($conf['articles']);
+                                                $articles = $conf['articles'];
+                                                //$articles = $this->refacto_ltaks($conf['articles']);
                                                 foreach($articles as $cf) {
                                                     $hasltalk = array_key_exists('ltalk', $cf['data']);
                                                     $articlestr = supprimer_numero(extraire_multi($cf['data']['titre']));
@@ -1050,6 +1045,7 @@ class RmllSchedule {
                                                     // si un conf dépasse dans la pause suivante on l'affiche
                                                     if (isset($rmll_periods[$k+1]) && $rmll_periods[$k+1]['type'] != RMLL_PERIOD_CONF &&
                                                         $cf['data']['start'] >= $p['start'] && $cf['data']['start'] < $rthis->periods[$k+1]['end']);
+
                                                     elseif (!($cf['data']['start'] >= $p['start'] && $cf['data']['start'] < $p['end']))
                                                         continue;
                                                     $time = get_slot_interval($cf['data']['heure'], $cf['data']['minute'], $cf['data']['duree']);
