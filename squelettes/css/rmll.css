@@ -788,7 +788,7 @@ font-size: 1.2em;
     min-width : 130px;
     padding : 7px;
     margin-bottom : 8px;
-color: #000000;
+color: #ffffff;
     -moz-border-radius: 8px;
     -webkit-border-radius: 8px;
     -khtml-border-radius: 8px;
@@ -833,7 +833,7 @@ color: #000000;
 }
 
 .rmll-schedule .conf .infos .title a {
-    color: #000 !important;
+    color: #fff !important;
     font-weight: bold !important;
 }
 
