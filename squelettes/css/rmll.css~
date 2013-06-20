@@ -872,7 +872,7 @@ lightning_talks
 
 .rmll-schedule .conf-color-0 {
     background-color:#861A1B;
-    border: 2px solid #8C001A;
+    border: 2px solid #CC0000;
 }
 .rmll-schedule .conf-color-1 {
     background-color:#FA8072;
