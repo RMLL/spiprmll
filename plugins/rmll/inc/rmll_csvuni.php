@@ -50,7 +50,28 @@
         return $license;
     }
 
+    function get_captation_license($data) {
+        $license = '';
+        foreach(explode("\n", str_replace("\r", "\n", $data)) as $line) {
+	    if (preg_match('/^CFP_CAPTATION=no/U', $line)) return "PAS DE CAPTATION";
+            if (preg_match('/^CFP_CAPTATION_LICENSE=(?P<license>.*)$/U', $line, $matches)) {
+                $license = $matches['license'];
+            }
+        }
+        return $license;
+    }
+
+    function get_captation_agreement($data) {
+        $agr = "";
+        foreach(explode("\n", str_replace("\r", "\n", $data)) as $line) {
+	    if (strpos('CFP_CAPTATION=yes', $line)>-1) { $agr = "oui"; break; }
+	    elseif (strpos('CFP_CAPTATION=no', $line)>-1) { $agr = "non"; break; }
+	}
+	return $agr; //strpos('CFP_CAPTATION=yes'); 
+    }
+
     $t = isset($_GET['t']) ? explode(',', $_GET['t']) : array();
+    $r = isset($_GET['r']) ? explode(',', $_GET['r']) : array();
     $d = isset($_GET['d']) ? explode(',', $_GET['d']) : array();
     $n = isset($_GET['n']) ? explode(',', $_GET['n']) : array();
     $addid = isset($_GET['addid']) ? true : false;
@@ -71,7 +92,7 @@
     $rc = new Rmll_Conference(false);
     $conf = $rc->get_confs(explode(',', RMLL_SESSION_ID), $GLOBALS['lang']);
 
-    $header = sprintf('"Salle";"Thème";"Intervenant(s)";"Titre";"Date";"Début";"Fin";"Licence";"Pour accord";"Signature"'."\n");
+    $header = sprintf('"Salle";"Thème";"Intervenant(s)";"Titre";"Date";"Début";"Fin";"Licence supports";"Licence captation";"Pour accord";"Signature"'."\n");
     if ($addid) {
         $header = sprintf('"Id";%s', $header);
     }
@@ -103,10 +124,16 @@
             if (count($d) > 0 && !in_array($article['data']['jour'], $d)) {
                 continue;
             }
+
+            if (count($r) > 0 && !in_array($article['data']['id_salle'], $r)) {
+                continue;
+            }
 //var_dump($article); break;
             $start_time = sprintf("%02d:%02d", $article['data']['heure'], $article['data']['minute']);
             $end_time = date_end($article['data']['jour'], $start_time, $article['data']['duree']);
             $license = get_license($article['data']['notes']);
+            $captation_agreement = get_captation_agreement($article['data']['notes']);
+            $captation_license = get_captation_license($article['data']['notes']);
             $data = array();
             if ($addid) {
                 $data[] = $article['data']['id_conference'];
@@ -119,6 +146,8 @@
             $data[] = $start_time;
             $data[] = $end_time;
             $data[] = $license;
+            $data[] = $captation_license;
+            $data[] = $captation_agreement;
             $data[] = '';
             $data[] = '';
             //$data[] = $article['data']['nature_code'];
