@@ -83,6 +83,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 
     'nature_code_ag' => "Asamblea General",
     'nature_code_atl' => "Taller",
+    'nature_code_cert' => "Certificación",
     'nature_code_conf' => "Conferencia",
     'nature_code_plen' => "Plenario",
     'nature_code_tabler' => "Mesa redonda",

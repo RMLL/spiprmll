@@ -77,7 +77,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     'video' => "Video :",
     'niveau' => "Level :",
 
-    'pause_lunch' => "Lunch break in two times: from 11:50 to 12:50 <br/>and from 12:50 to 13:50",
+    'pause_lunch' => "Lunch",
     'pause_pause' => "Break",
 
     'lightning_talks' => 'Lightning Talks',
@@ -89,6 +89,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 
     'nature_code_ag' => "Assemblée générale",
     'nature_code_atl' => "Workshop",
+    'nature_code_cert' => "Certification",
     'nature_code_conf' => "Conference",
     'nature_code_plen' => "Plenary session",
     'nature_code_tabler' => "Round-table conference",
