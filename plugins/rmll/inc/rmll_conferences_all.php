@@ -117,7 +117,7 @@ class RmllSchedule {
                 </form>
             </div>
             <?php
-            }
+           }
         }
     }
 
@@ -263,6 +263,11 @@ class RmllSchedule {
             </div>
         <?php
         }
+    }
+
+    function display_theme_info($conf) {
+      if(array_key_exists('titre', $conf)) echo "<h2>" . supprimer_numero(extraire_multi($conf['titre']. "</h2>"));
+      if(array_key_exists('descriptif', $conf)) echo "<p><em>" . supprimer_numero(extraire_multi($conf['descriptif'])). "</em></p>";
     }
 
     function display() {
@@ -487,7 +492,7 @@ class RmllSchedule {
                                 elseif ($p['type'] == RMLL_PERIOD_LUNCH) {
                                     ?><tr>
                                         <th class="timeslot lunch pause">
-                                            <?php /*printf("%s-%s", $p['start'], $p['end']);*/ ?></th>
+                                            <?php printf("%s-%s", $p['start'], $p['end']); ?></th>
                                         <td class="lunch pause" colspan="<?php echo $nb_rooms; ?>"><?php echo _T('rmll:pause_lunch'); ?></td>
                                         </tr>
                                     <?php
@@ -512,7 +517,8 @@ class RmllSchedule {
 						        // Hack pour la séance au Parlement
 						        if ($cf['data']['id_salle'] != $room_id && (!($room_id == 1 && $cf['data']['id_salle']==16))) { continue; }
 							$cf['data']['id_theme'] = $th;
-							$cf['data']['theme'] = $allthemes[$th];						             $articles_by_room[] = $cf;
+							$cf['data']['theme'] = $allthemes[$th];						             
+							$articles_by_room[] = $cf;
 						      }
 						    }
 						    usort($articles_by_room, 'time_sorter');
@@ -630,7 +636,7 @@ class RmllSchedule {
             $this->display_lang_selector($alllangs, $lang);
         }
         if (!empty($conf)) {
-	  if ($byroom) $this -> display_all_by_room($conf, $alldays, $days, $allthemes, $themes, $allrooms, $allkeywords, $alllangs);
+	  if (!$room) $this -> display_all_by_room($conf, $alldays, $days, $allthemes, $themes, $allrooms, $allkeywords, $alllangs);
 	  else {
             $nb_themes = count($themes);
             $rmll_periods = $this->periods['default'];
@@ -981,6 +987,7 @@ class RmllSchedule {
         }
         if (!empty($conf)) {
             $conf = $conf[0];
+	    $this->display_theme_info($conf);
             if (array_key_exists('theme_'.$theme_id, $this->periods)) {
                 $rmll_periods = $this->periods['theme_'.$theme_id];
             }
