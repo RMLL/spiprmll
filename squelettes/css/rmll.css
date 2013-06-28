@@ -11,7 +11,7 @@ a, a:link, a:visited {
     font-weight: bold;
 }
 a:hover, a:active {
-    color: #999;
+    color: #000;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -46,7 +46,7 @@ h6 {
 }
 
 p {
-    margin-bottom: 15px;
+    margin-bottom: .8em;
 }
 
 .green {
@@ -1041,10 +1041,6 @@ lightning_talks
 
 #schedulermll {
     background: #FFF;
-}
-
-#schedulermll a {
-    color: #6F8021;
 }
 
 #schedulermll .rmll-selector {
