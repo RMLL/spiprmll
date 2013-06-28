@@ -740,6 +740,11 @@ background-color:#dce7a9;
 .rmll-schedule th.conf{
 font-size: 1.2em;
 }
+.rmll-schedule tr.header th.timeslot,
+.rmll-schedule tr.header th.timeslot a{
+color:#CC0000;
+font-size: 1.4em;
+}
 
 /* PHV */
 .rmll-schedule th.pause,
