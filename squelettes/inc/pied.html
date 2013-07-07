@@ -21,7 +21,14 @@
 
 				<BOUCLE_footer_community(DATA){source table, #VALEUR}{cle=organisation}>
 				<div class="data green">
-					<span class="date">[(#VALEUR{date})]</span> <a href="[(#GET{url_rmll_website})][(#VALEUR{url})]" target="_blank">[(#VALEUR{text})]</a>
+					[(#SET{link,
+						[(#VALEUR{url}|match{^http.*}|?{
+							#VALEUR{url}
+						,
+							[(#GET{url_rmll_website}|concat{#VALEUR{url}})]	
+						})]
+					})]
+					<span class="date">[(#VALEUR{date})]</span> <a href="[(#GET{link})]" target="_blank">[(#VALEUR{text})]</a>
 				</div>
 				</BOUCLE_footer_community>
 			</div>
