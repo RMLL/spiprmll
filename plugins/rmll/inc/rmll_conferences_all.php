@@ -160,7 +160,7 @@ class RmllSchedule {
     }
 
     function display_theme_selector(&$themes, $selected = null) {
-        foreach($themes as $id => $data) {
+        foreach($themes as $id => $data) { 
             $title = supprimer_numero(extraire_multi(nettoyer_raccourcis_typo($data['titre'])));
             if (!rmll_is_prog($data['id_parent'])) {
                 $title = supprimer_numero(extraire_multi(nettoyer_raccourcis_typo($data['titre_parent']))) . ' &mdash; ' .$title;
@@ -268,6 +268,12 @@ class RmllSchedule {
     function display_theme_info($conf) {
       if(array_key_exists('titre', $conf)) echo "<h2>" . supprimer_numero(extraire_multi($conf['titre']. "</h2>"));
       if(array_key_exists('descriptif', $conf)) echo "<p><em>" . supprimer_numero(extraire_multi($conf['descriptif'])). "</em></p>";
+    }
+
+    function display_day_info($j) {
+      global $rmll_dominantes; 
+      echo "<h2>" . ucfirst(nom_jour($j)).' '.jour($j) . " : " . _T('rmll:dominante')  . " " ._T( $rmll_dominantes[$j] ). "</h2>\n";
+      //if(array_key_exists('day', $conf)) echo "<h2>" . $rmll_dominantes[$conf['day']]. "</h2>\n";
     }
 
     function display() {
@@ -822,6 +828,7 @@ class RmllSchedule {
             $this->display_lang_selector($alllangs);
         }
         if (!empty($conf)) {
+	    $this->display_day_info($day);
             $nb_themes = count($themes);
             if (array_key_exists($day, $this->periods)) {
                 $rmll_periods = $this->periods[$day];

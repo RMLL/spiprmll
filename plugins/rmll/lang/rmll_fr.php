@@ -146,6 +146,13 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 
     'goto_maincontent' => 'Aller au contenu',
 
+    // Dominantes
+    'dominante' => 'dominante',
+    'dominante_grand_public' => '« Tous publics »',
+    'dominante_presse_politique' => '« Presse et politique »',
+    'dominante_culture_droit' => '« Culture et droit »',
+    'dominante_professionnels' => '« Professionnels »',
+
     // export XML (mobiles)
     'undefined_room' => 'Salle non définie',
 );

@@ -1,7 +1,7 @@
 <?php
     define('RMLL_PROG_ID', '100'); # rubrique racine
     define('RMLL_THEME_ID', '110,120,130,140,150,160,170'); # pour les thèmes subdivisés
-    define('RMLL_SESSION_ID', '101,102,103,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,26,25,27,28,29,30,31'); # les thèmes finaux
+    define('RMLL_SESSION_ID', '101,102,1,2,3,4,6,7,27,8,25,9,31,30,10,12,26,28,29,13,14,15,17,18,19,20,11,23,24,103'); # les thèmes finaux # 103,5,16
     define('RMLL_KEYWORDS_GROUP_ID', 1);
 
     function rmll_is_prog($id) {
@@ -59,6 +59,12 @@
 
     //$rmll_schedule_periods['theme_33'] = $rmll_schedule_periods['2012-07-07'];
 
+    $rmll_dominantes = array('2013-07-08' => 'rmll:dominante_grand_public',
+    		     '2013-07-09' => 'rmll:dominante_presse_politique',
+    		     //'2013-07-09' => 'Presse et politique',
+    		     '2013-07-10' => 'rmll:dominante_culture_droit',
+    		     '2013-07-11' => 'rmll:dominante_professionnels');
+ 
     define('RMLL_XMLSCHEDULE_TITLE', 'RMLL/LSM '.date('Y'));
     define('RMLL_XMLSCHEDULE_SUBTITLE', 'RMLL/LSM meeting');
     define('RMLL_XMLSCHEDULE_PLACE', '...');
